@@ -37,8 +37,14 @@ Curso abierto, en español, para aprender a construir y publicar tu primera web.
 ├── prompting.html          # capítulo 09
 ├── glosario.html           # capítulo 10
 ├── arsenal.html            # extra: genjutsu e impeccable
+├── src/pages/              # contenido fuente de cada capítulo
+├── tools/                  # build, comprobación y generación del PDF
+├── descargas/
+│   └── tutorial-dev.pdf    # curso completo, generado
+├── todo.sh                 # construir + comprobar + publicar
 ├── assets/
 │   ├── styles.css
+│   ├── print.css
 │   ├── app.js
 │   └── favicon.svg
 ├── ejemplos/
@@ -53,6 +59,23 @@ Curso abierto, en español, para aprender a construir y publicar tu primera web.
 ├── AGENTS.md
 └── vercel.json
 ```
+
+## Un solo comando
+
+```bash
+./todo.sh            # construye, comprueba, commit y push
+./todo.sh --pdf      # además regenera el PDF completo
+./todo.sh --no-push  # solo construye y comprueba
+```
+
+El push dispara el despliegue automático en Vercel: no hay que esperar ni
+volver a tocar la máquina.
+
+## El PDF
+
+`descargas/tutorial-dev.pdf` — 88 páginas, portada, índice con números de
+página, marcadores de PDF y enlaces internos entre capítulos. Se genera desde
+el mismo contenido que la web (`src/pages`), así que ambos no pueden divergir.
 
 ## Cómo verlo en local
 
