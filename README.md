@@ -68,9 +68,10 @@ Abre http://localhost:8000. También puedes abrir `index.html` con doble clic.
 
 ## Cómo está hecho
 
-- HTML semántico y CSS a mano, con variables y mobile first.
-- JavaScript sin librerías: tema, progreso en `localStorage`, copiar código, TOC y menú móvil.
-- Tipografías de Google Fonts.
+- HTML semántico y CSS a mano: un solo acento, reglas de 1px, sin sombras ni dependencias.
+- Mobile first real: los estilos base son para 360 px y los `@media` solo añaden.
+- JavaScript sin librerías: tema, progreso en `localStorage`, copiar código, índice lateral, atajos de teclado y menú móvil.
+- Tipografía Archivo variable (con eje de ancho) y JetBrains Mono para código y metadatos.
 - Sin frameworks, sin build, sin dependencias.
 
 ## Deploy
