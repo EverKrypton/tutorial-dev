@@ -6,7 +6,7 @@
 <title>Tu propio agente — tutorial.dev</title>
 <meta name="description" content="Crea un agente personalizado en opencode: instrucciones, modelo, permisos, herramientas y subagentes. Ejemplos completos en Markdown y JSON.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f1f2f5">
+<meta name="theme-color" content="#f3f0e9">
 <meta property="og:title" content="Tu propio agente — tutorial.dev">
 <meta property="og:description" content="Crea un agente personalizado en opencode: instrucciones, modelo, permisos, herramientas y subagentes. Ejemplos completos en Markdown y JSON.">
 <meta property="og:type" content="article">
@@ -14,7 +14,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -23,28 +23,28 @@
 <a class="skip" href="#main">Saltar al contenido</a>
 <div class="reading-bar" data-reading-bar></div>
 
-<header class="topbar">
-  <div class="wrap topbar-in">
-    <a class="brand" href="index.html">tutorial<span>.</span>dev</a>
+<header class="head">
+  <div class="wrap head-in">
+    <a class="brand" href="index.html">tutorial<em>.</em>dev<b>Catálogo de cursos</b></a>
     <nav class="nav" aria-label="Principal">
-      <a href="index.html#indice">Índice</a>
-      <a href="fundamentos.html" data-nav="fundamentos">Empezar</a>
-      <a href="prompting.html" data-nav="prompting">Prompting</a>
-      <a href="arsenal.html" data-nav="arsenal">Arsenal</a>
+      <a href="index.html#temario">Temario</a>
+      <a href="fundamentos.html">Empezar</a>
+      <a href="prompting.html">Prompting</a>
+      <a href="arsenal.html">Arsenal</a>
       <a href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener">GitHub</a>
     </nav>
     <div class="tools">
-      <a class="progress" href="index.html#indice" data-progress-pill aria-label="Progreso del curso">
+      <a class="progress" href="index.html#temario" data-progress-pill aria-label="Progreso del curso">
         <span class="progress-num" data-progress-text>0/10</span>
         <span class="progress-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </a>
       <button class="icon-btn" type="button" data-theme-toggle aria-label="Cambiar tema" aria-pressed="false">
-        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
-        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z"/></svg>
+        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.4v2M12 19.6v2M4.5 4.5 6 6M18 18l1.5 1.5M2.4 12h2M19.6 12h2M4.5 19.5 6 18M18 6l1.5-1.5"/></svg>
+        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20.4 14.4A8.5 8.5 0 0 1 9.6 3.6a8.5 8.5 0 1 0 10.8 10.8Z"/></svg>
       </button>
       <button class="menu-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        Índice
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Temario
       </button>
     </div>
   </div>
@@ -52,7 +52,7 @@
 
 <div class="menu" id="menu" data-menu hidden>
   <div class="wrap">
-    <p class="menu-group">Curso</p>
+    <p class="menu-group">Curso · 10 capítulos</p>
     <a class="mi" href="fundamentos.html"><span>01</span><b>Cómo piensa un programa</b><i>25 min</i></a>
     <a class="mi" href="primera-web.html"><span>02</span><b>Tu primera página web</b><i>45 min</i></a>
     <a class="mi" href="git-github.html"><span>03</span><b>Git y GitHub sin miedo</b><i>30 min</i></a>
@@ -64,25 +64,29 @@
     <a class="mi" href="prompting.html"><span>09</span><b>Curso de prompting, a fondo</b><i>90 min</i></a>
     <a class="mi" href="glosario.html"><span>10</span><b>Glosario y chuleta</b><i>10 min</i></a>
     <p class="menu-group">Extra</p>
-    <a class="mi" href="arsenal.html"><span>★</span><b>El arsenal: genjutsu e impeccable</b><i></i></a>
+    <a class="mi" href="arsenal.html"><span>★</span><b>El arsenal: genjutsu e impeccable</b><i>extra</i></a>
     <p class="menu-group">Repositorio</p>
-    <a class="mi" href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener"><span>↗</span><b>GitHub</b><i></i></a>
+    <a class="mi" href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener"><span>↗</span><b>GitHub</b><i>MIT</i></a>
   </div>
 </div>
 
 <main id="main">
-  <div class="page-head">
+  <div class="entry-head">
     <div class="wrap">
-      <nav class="crumbs" aria-label="Migas de pan">
-        <a href="index.html">Inicio</a> <span>/</span> <span>Capítulo 08</span>
+      <nav class="entry-crumbs" aria-label="Migas de pan">
+        <a href="index.html">Catálogo</a> <span>/</span> <span>Capítulo 08</span>
       </nav>
-      <h1>Tu propio agente.</h1>
-      <p class="page-lede">Un agente es un asistente con nombre, instrucciones y límites. No necesitas programar una IA: necesitas escribir un archivo de texto que le diga cómo comportarse, qué puede tocar y cuándo pedirte permiso.</p>
-      <div class="page-meta">
-        <span class="tag">30 min</span>
-          <span class="tag">manos a la obra</span>
-          <span class="tag">opencode</span>
+      <div class="entry-title">
+        <span class="entry-n" aria-hidden="true">08</span>
+        <h1>Tu propio agente.</h1>
       </div>
+      <p class="entry-deck">Un agente es un asistente con nombre, instrucciones y límites. No necesitas programar una IA: necesitas escribir un archivo de texto que le diga cómo comportarse, qué puede tocar y cuándo pedirte permiso.</p>
+      <dl class="entry-meta">
+        <div><dt>Duración</dt><dd>30 min</dd></div>
+        <div><dt>Nivel</dt><dd>Medio</dd></div>
+        <div><dt>Requisitos</dt><dd>opencode instalado</dd></div>
+        <div><dt>Al terminar</dt><dd>Un agente propio</dd></div>
+      </dl>
     </div>
   </div>
 
@@ -90,7 +94,7 @@
     <div class="article-grid">
       <aside class="rail" aria-label="Navegación del curso">
         <div class="rail-in">
-          <p class="rail-label">Curso</p>
+          <p class="rail-k">Curso</p>
           <ol class="rail-list">
             <li><a href="fundamentos.html"><span>01</span>Cómo piensa un programa</a></li>
             <li><a href="primera-web.html"><span>02</span>Tu primera página web</a></li>
@@ -103,11 +107,11 @@
             <li><a href="prompting.html"><span>09</span>Curso de prompting, a fondo</a></li>
             <li><a href="glosario.html"><span>10</span>Glosario y chuleta</a></li>
           </ol>
-          <p class="rail-label">Extra</p>
+          <p class="rail-k">Extra</p>
           <ol class="rail-list">
             <li><a href="arsenal.html"><span>★</span>El arsenal: genjutsu e impeccable</a></li>
           </ol>
-          <p class="rail-label">En esta página</p>
+          <p class="rail-k">En esta entrada</p>
           <ol class="rail-toc">
             <li><a href="#que-es">Qué es un agente</a></li>
             <li><a href="#tipos">Primarios y subagentes</a></li>
@@ -122,8 +126,8 @@
         </div>
       </aside>
       <div>
-        <details class="toc-mobile">
-          <summary>En esta página</summary>
+        <details class="toc-m">
+          <summary>En esta entrada</summary>
           <ol>
             <li><a href="#que-es">Qué es un agente</a></li>
             <li><a href="#tipos">Primarios y subagentes</a></li>
@@ -137,7 +141,7 @@
           </ol>
         </details>
         <article class="prose">
-        <h2 id="que-es">Qué es un agente</h2>
+        <h2 id="que-es" data-n="§ 01">Qué es un agente</h2>
         <p>Ya usaste agentes sin darte cuenta: el modo Plan y el modo Build son dos agentes distintos con instrucciones y permisos distintos. Crear el tuyo es escribir un archivo que define cuatro cosas:</p>
         <ol>
           <li><strong>Quién es:</strong> un nombre y una descripción.</li>
@@ -154,7 +158,7 @@
           <p>Un agente es un empleado con un puesto de trabajo escrito. Su archivo dice: «te llamas Revisor, tu trabajo es leer código y señalar problemas, no puedes editar archivos, y si algo no está claro preguntas». Eso es todo.</p>
         </div>
 
-        <h2 id="tipos">Primarios y subagentes</h2>
+        <h2 id="tipos" data-n="§ 02">Primarios y subagentes</h2>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Tipo</th><th>Cómo se usa</th><th>Ejemplo</th></tr></thead>
@@ -167,7 +171,7 @@
 
         <p>Los subagentes son la pieza más subestimada. Trabajan en su propio contexto, hacen una tarea acotada y devuelven un resumen. Eso evita que la conversación principal se llene de detalles irrelevantes.</p>
 
-        <h2 id="crear">Crear el tuyo</h2>
+        <h2 id="crear" data-n="§ 03">Crear el tuyo</h2>
         <p>Tienes dos caminos. El asistente interactivo:</p>
         <div class="code">
           <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
@@ -183,7 +187,7 @@ touch .opencode/agents/profesor.md</code></pre>
         </div>
         <p>Para uno global, en <code>~/.config/opencode/agents/</code>. El nombre del archivo es el nombre del agente.</p>
 
-        <h2 id="archivo">El archivo completo</h2>
+        <h2 id="archivo" data-n="§ 04">El archivo completo</h2>
         <p>Este es un agente que explica código como si tuvieras doce años, sin editar nada:</p>
 
         <div class="code">
@@ -232,7 +236,7 @@ Eres un profesor de programación para principiantes absolutos.
           <pre><code>@profesor ¿por qué mi función devuelve undefined?</code></pre>
         </div>
 
-        <h2 id="opciones">Las opciones que importan</h2>
+        <h2 id="opciones" data-n="§ 05">Las opciones que importan</h2>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Opción</th><th>Qué hace</th></tr></thead>
@@ -257,7 +261,7 @@ Eres un profesor de programación para principiantes absolutos.
           <li><strong>0.6–1.0:</strong> nombres, copies, ideas de diseño, brainstorming.</li>
         </ul>
 
-        <h2 id="permisos">Permisos por herramienta</h2>
+        <h2 id="permisos" data-n="§ 06">Permisos por herramienta</h2>
         <p>Cada permiso puede ser <code>allow</code>, <code>ask</code> o <code>deny</code>. Y para shell puedes usar patrones:</p>
 
         <div class="code">
@@ -290,7 +294,7 @@ permission:
           <p>Un agente que puede hacer todo no es más útil: es más peligroso y más impredecible. Si su tarea es revisar, no necesita escribir. Si su tarea es documentar, no necesita desplegar.</p>
         </div>
 
-        <h2 id="subagentes">Subagentes y orquestación</h2>
+        <h2 id="subagentes" data-n="§ 07">Subagentes y orquestación</h2>
         <p>Un agente principal puede invocar subagentes. Incluso puedes limitar cuáles:</p>
 
         <div class="code">
@@ -323,7 +327,7 @@ permission:
           <p>Un subagente empieza con contexto nuevo. Si le pides «investiga cómo funciona X», no arrastra tus 50 mensajes anteriores. Vuelve con un resumen limpio. Eso es lo que lo hace útil.</p>
         </div>
 
-        <h2 id="ejemplos">Tres agentes útiles</h2>
+        <h2 id="ejemplos" data-n="§ 08">Tres agentes útiles</h2>
 
         <h3>1. Revisor de código</h3>
         <div class="code">
@@ -399,7 +403,7 @@ Reglas:
 Entrega siempre tres opciones y explica en una línea cuál recomiendas.</code></pre>
         </div>
 
-        <h2 id="probar">Probar y mejorar</h2>
+        <h2 id="probar" data-n="§ 09">Probar y mejorar</h2>
         <p>Un agente no sale perfecto a la primera. Trátalo como código: pruébalo, observa, ajusta.</p>
         <ul>
           <li><strong>Dale una tarea real</strong> y mira si la resuelve sin que le expliques de más.</li>
@@ -425,16 +429,17 @@ Entrega siempre tres opciones y explica en una línea cuál recomiendas.</code><
 
         </article>
 
-        <div class="article-foot">
-          <button class="complete-btn" type="button" data-complete="agentes" aria-pressed="false">
-            <span class="box" aria-hidden="true">✓</span>
-            Marcar como completado
-          </button>
-          <span class="complete-note">Se guarda en este navegador</span>
+        <div class="entry-foot">
+          <div class="stamp-row">
+            <button class="stamp" type="button" data-complete="agentes" aria-pressed="false">
+              <span class="bx" aria-hidden="true">✓</span>
+              Marcar entrada como completada
+            </button>
+            <span class="stamp-note">Se guarda en este navegador</span>
+          </div>
+          <nav class="pager" aria-label="Entradas"><a href="skills.html"><small>← Anterior</small><b>Skills: enséñale trucos a tu IA</b></a><a class="next" href="prompting.html"><small>Siguiente →</small><b>Curso de prompting, a fondo</b></a></nav>
+          <p class="keys">Atajos: <span class="kbd">←</span> <span class="kbd">→</span> para moverte entre entradas</p>
         </div>
-
-        <nav class="pager" aria-label="Capítulos"><a href="skills.html"><small>← Anterior</small><b>Skills: enséñale trucos a tu IA</b></a><a class="next" href="prompting.html"><small>Siguiente →</small><b>Curso de prompting, a fondo</b></a></nav>
-        <p class="keys">Atajos: <span class="kbd">←</span> <span class="kbd">→</span> para moverte entre capítulos</p>
       </div>
     </div>
   </div>
@@ -445,8 +450,8 @@ Entrega siempre tres opciones y explica en una línea cuál recomiendas.</code><
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <a class="foot-brand" href="index.html">tutorial<span>.</span>dev</a>
-        <p class="foot-note">Un curso abierto para aprender a construir y publicar para la web. Escrito para quien empieza de cero, sin saltarse los porqués.</p>
+        <a class="foot-brand" href="index.html">tutorial<em>.</em>dev</a>
+        <p class="foot-note">Curso abierto para aprender a construir y publicar para la web. Escrito para quien empieza de cero, sin saltarse los porqués.</p>
       </div>
       <div class="foot-cols">
         <div>
@@ -474,7 +479,7 @@ Entrega siempre tres opciones y explica en una línea cuál recomiendas.</code><
     </div>
     <div class="colophon">
       <span>© <span data-year>2026</span> tutorial.dev · Licencia MIT</span>
-      <span>HTML y CSS a mano. Deploy automático en Vercel.</span>
+      <span>HTML y CSS a mano · Deploy automático en Vercel</span>
     </div>
   </div>
 </footer>

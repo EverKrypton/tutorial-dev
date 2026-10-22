@@ -6,7 +6,7 @@
 <title>Git y GitHub sin miedo — tutorial.dev</title>
 <meta name="description" content="Aprende Git desde cero: repositorios, commits, ramas, remotos y pull requests. La máquina del tiempo para guardar tu código y trabajar sin perder nada.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f1f2f5">
+<meta name="theme-color" content="#f3f0e9">
 <meta property="og:title" content="Git y GitHub sin miedo — tutorial.dev">
 <meta property="og:description" content="Aprende Git desde cero: repositorios, commits, ramas, remotos y pull requests. La máquina del tiempo para guardar tu código y trabajar sin perder nada.">
 <meta property="og:type" content="article">
@@ -14,7 +14,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -23,28 +23,28 @@
 <a class="skip" href="#main">Saltar al contenido</a>
 <div class="reading-bar" data-reading-bar></div>
 
-<header class="topbar">
-  <div class="wrap topbar-in">
-    <a class="brand" href="index.html">tutorial<span>.</span>dev</a>
+<header class="head">
+  <div class="wrap head-in">
+    <a class="brand" href="index.html">tutorial<em>.</em>dev<b>Catálogo de cursos</b></a>
     <nav class="nav" aria-label="Principal">
-      <a href="index.html#indice">Índice</a>
-      <a href="fundamentos.html" data-nav="fundamentos">Empezar</a>
-      <a href="prompting.html" data-nav="prompting">Prompting</a>
-      <a href="arsenal.html" data-nav="arsenal">Arsenal</a>
+      <a href="index.html#temario">Temario</a>
+      <a href="fundamentos.html">Empezar</a>
+      <a href="prompting.html">Prompting</a>
+      <a href="arsenal.html">Arsenal</a>
       <a href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener">GitHub</a>
     </nav>
     <div class="tools">
-      <a class="progress" href="index.html#indice" data-progress-pill aria-label="Progreso del curso">
+      <a class="progress" href="index.html#temario" data-progress-pill aria-label="Progreso del curso">
         <span class="progress-num" data-progress-text>0/10</span>
         <span class="progress-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </a>
       <button class="icon-btn" type="button" data-theme-toggle aria-label="Cambiar tema" aria-pressed="false">
-        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
-        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z"/></svg>
+        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.4v2M12 19.6v2M4.5 4.5 6 6M18 18l1.5 1.5M2.4 12h2M19.6 12h2M4.5 19.5 6 18M18 6l1.5-1.5"/></svg>
+        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20.4 14.4A8.5 8.5 0 0 1 9.6 3.6a8.5 8.5 0 1 0 10.8 10.8Z"/></svg>
       </button>
       <button class="menu-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        Índice
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Temario
       </button>
     </div>
   </div>
@@ -52,7 +52,7 @@
 
 <div class="menu" id="menu" data-menu hidden>
   <div class="wrap">
-    <p class="menu-group">Curso</p>
+    <p class="menu-group">Curso · 10 capítulos</p>
     <a class="mi" href="fundamentos.html"><span>01</span><b>Cómo piensa un programa</b><i>25 min</i></a>
     <a class="mi" href="primera-web.html"><span>02</span><b>Tu primera página web</b><i>45 min</i></a>
     <a class="mi" href="git-github.html" aria-current="page"><span>03</span><b>Git y GitHub sin miedo</b><i>30 min</i></a>
@@ -64,25 +64,29 @@
     <a class="mi" href="prompting.html"><span>09</span><b>Curso de prompting, a fondo</b><i>90 min</i></a>
     <a class="mi" href="glosario.html"><span>10</span><b>Glosario y chuleta</b><i>10 min</i></a>
     <p class="menu-group">Extra</p>
-    <a class="mi" href="arsenal.html"><span>★</span><b>El arsenal: genjutsu e impeccable</b><i></i></a>
+    <a class="mi" href="arsenal.html"><span>★</span><b>El arsenal: genjutsu e impeccable</b><i>extra</i></a>
     <p class="menu-group">Repositorio</p>
-    <a class="mi" href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener"><span>↗</span><b>GitHub</b><i></i></a>
+    <a class="mi" href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener"><span>↗</span><b>GitHub</b><i>MIT</i></a>
   </div>
 </div>
 
 <main id="main">
-  <div class="page-head">
+  <div class="entry-head">
     <div class="wrap">
-      <nav class="crumbs" aria-label="Migas de pan">
-        <a href="index.html">Inicio</a> <span>/</span> <span>Capítulo 03</span>
+      <nav class="entry-crumbs" aria-label="Migas de pan">
+        <a href="index.html">Catálogo</a> <span>/</span> <span>Capítulo 03</span>
       </nav>
-      <h1>Git y GitHub sin miedo.</h1>
-      <p class="page-lede">Git guarda fotos de tu proyecto para que puedas volver atrás. GitHub guarda esas fotos en internet para compartirlas. Juntos son el seguro más barato contra «se me rompió todo».</p>
-      <div class="page-meta">
-        <span class="tag">30 min</span>
-          <span class="tag">terminal</span>
-          <span class="tag">esencial</span>
+      <div class="entry-title">
+        <span class="entry-n" aria-hidden="true">03</span>
+        <h1>Git y GitHub sin miedo.</h1>
       </div>
+      <p class="entry-deck">Git guarda fotos de tu proyecto para que puedas volver atrás. GitHub guarda esas fotos en internet para compartirlas. Juntos son el seguro más barato contra «se me rompió todo».</p>
+      <dl class="entry-meta">
+        <div><dt>Duración</dt><dd>30 min</dd></div>
+        <div><dt>Nivel</dt><dd>Cero</dd></div>
+        <div><dt>Requisitos</dt><dd>Un editor</dd></div>
+        <div><dt>Al terminar</dt><dd>Código versionado</dd></div>
+      </dl>
     </div>
   </div>
 
@@ -90,7 +94,7 @@
     <div class="article-grid">
       <aside class="rail" aria-label="Navegación del curso">
         <div class="rail-in">
-          <p class="rail-label">Curso</p>
+          <p class="rail-k">Curso</p>
           <ol class="rail-list">
             <li><a href="fundamentos.html"><span>01</span>Cómo piensa un programa</a></li>
             <li><a href="primera-web.html"><span>02</span>Tu primera página web</a></li>
@@ -103,11 +107,11 @@
             <li><a href="prompting.html"><span>09</span>Curso de prompting, a fondo</a></li>
             <li><a href="glosario.html"><span>10</span>Glosario y chuleta</a></li>
           </ol>
-          <p class="rail-label">Extra</p>
+          <p class="rail-k">Extra</p>
           <ol class="rail-list">
             <li><a href="arsenal.html"><span>★</span>El arsenal: genjutsu e impeccable</a></li>
           </ol>
-          <p class="rail-label">En esta página</p>
+          <p class="rail-k">En esta entrada</p>
           <ol class="rail-toc">
             <li><a href="#que-es">Git no es GitHub</a></li>
             <li><a href="#instalar">Instalar y configurar</a></li>
@@ -123,8 +127,8 @@
         </div>
       </aside>
       <div>
-        <details class="toc-mobile">
-          <summary>En esta página</summary>
+        <details class="toc-m">
+          <summary>En esta entrada</summary>
           <ol>
             <li><a href="#que-es">Git no es GitHub</a></li>
             <li><a href="#instalar">Instalar y configurar</a></li>
@@ -139,7 +143,7 @@
           </ol>
         </details>
         <article class="prose">
-        <h2 id="que-es">Git no es GitHub</h2>
+        <h2 id="que-es" data-n="§ 01">Git no es GitHub</h2>
         <p>Se confunden todo el tiempo, pero son cosas distintas:</p>
         <ul>
           <li><strong>Git</strong> es un programa que corre en tu computadora. Guarda el historial de tu proyecto en una carpeta oculta llamada <code>.git</code>. Funciona sin internet.</li>
@@ -154,7 +158,7 @@
           <p>Git es el «guardar partida» de un videojuego: puedes volver a cualquier momento. GitHub es subir ese save a la nube para jugar desde otra consola y enseñárselo a tus amigos.</p>
         </div>
 
-        <h2 id="instalar">Instalar y configurar</h2>
+        <h2 id="instalar" data-n="§ 02">Instalar y configurar</h2>
         <p>Comprueba si ya lo tienes:</p>
         <div class="code">
           <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
@@ -176,7 +180,7 @@ git config --global user.email "tu@correo.com"</code></pre>
         </div>
         <p>Elige GitHub.com, HTTPS y autenticación por navegador. Eso configura tus credenciales para <code>git push</code>.</p>
 
-        <h2 id="primer-repo">Tu primer repositorio</h2>
+        <h2 id="primer-repo" data-n="§ 03">Tu primer repositorio</h2>
         <p>Un repositorio es una carpeta que Git está vigilando. Vamos a crear uno con tu tarjeta del capítulo anterior:</p>
 
         <ol class="steps">
@@ -240,7 +244,7 @@ dist/</code></pre>
           <p>Claves de API, contraseñas y archivos <code>.env</code> no van al repositorio, ni siquiera si es privado. Si ya subiste una clave, bórrala del código y <strong>cámbiala</strong>: el historial la conserva.</p>
         </div>
 
-        <h2 id="commits">Commits que sirven</h2>
+        <h2 id="commits" data-n="§ 04">Commits que sirven</h2>
         <p>Un commit es una foto con una nota. La nota debería explicar <em>qué cambió y por qué</em>, no «cosas».</p>
         <div class="badgood">
           <div class="bad"><b>Mal</b><p><code>git commit -m "cambios"</code></p></div>
@@ -263,7 +267,7 @@ dist/</code></pre>
         </div>
         <p>Ejemplo: <code>feat: agrega formulario de contacto</code>. Commits pequeños y frecuentes son más fáciles de entender y de deshacer que uno gigante al final del día.</p>
 
-        <h2 id="ramas">Ramas</h2>
+        <h2 id="ramas" data-n="§ 05">Ramas</h2>
         <p>Una rama es una línea de trabajo paralela. La principal suele llamarse <code>main</code>. Si quieres probar algo sin romper lo que funciona, creas una rama:</p>
 
         <div class="code">
@@ -285,7 +289,7 @@ color: verde;
         </div>
         <p>Elige qué queda (o combina), borra las marcas, guarda y haz commit. Git no decide por ti porque no sabe qué querías.</p>
 
-        <h2 id="remoto">Subir a GitHub</h2>
+        <h2 id="remoto" data-n="§ 06">Subir a GitHub</h2>
         <p>Crea un repositorio vacío en GitHub. No marques «Add a README» si ya tienes archivos locales. Luego conecta tu carpeta:</p>
 
         <div class="code">
@@ -309,7 +313,7 @@ git push</code></pre>
           <pre><code>git clone https://github.com/TU-USUARIO/mi-tarjeta.git</code></pre>
         </div>
 
-        <h2 id="pr">Pull requests</h2>
+        <h2 id="pr" data-n="§ 07">Pull requests</h2>
         <p>Un <strong>pull request</strong> (PR) es una propuesta: «tengo estos cambios en mi rama, ¿los integramos?». En proyectos de equipo permite revisar antes de mezclar. En tus proyectos personales también sirve para verte el código con calma.</p>
         <p>El flujo típico:</p>
         <ol>
@@ -329,7 +333,7 @@ git push</code></pre>
           <p>Cuando conectas un repositorio a Vercel, cada push a <code>main</code> produce un deploy de producción, y cada PR produce una URL de preview. Vas a verlo en el siguiente capítulo.</p>
         </div>
 
-        <h2 id="deshacer">Deshacer sin pánico</h2>
+        <h2 id="deshacer" data-n="§ 08">Deshacer sin pánico</h2>
         <p>Antes de cualquier comando de deshacer, ejecuta <code>git status</code> y <code>git log --oneline</code>. Saber dónde estás evita el 90% de los desastres.</p>
 
         <div class="table-wrap">
@@ -353,7 +357,7 @@ git push</code></pre>
           <p><code>git reset --hard</code> borra cambios sin preguntar. No lo uses hasta entenderlo. Para deshacer algo que ya subiste, <code>git revert</code> es casi siempre la opción segura.</p>
         </div>
 
-        <h2 id="buenas">Buenas costumbres</h2>
+        <h2 id="buenas" data-n="§ 09">Buenas costumbres</h2>
         <ul class="checklist">
           <li>Un commit = una idea. No mezcles «arreglo el botón» con «cambio todo el diseño».</li>
           <li>Haz <code>git pull</code> antes de empezar si trabajas con más gente.</li>
@@ -363,7 +367,7 @@ git push</code></pre>
           <li>Si un repo es público, agrega una licencia (MIT es la más simple).</li>
         </ul>
 
-        <h2 id="chuleta">Chuleta</h2>
+        <h2 id="chuleta" data-n="§ 10">Chuleta</h2>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Quiero…</th><th>Comando</th></tr></thead>
@@ -382,16 +386,17 @@ git push</code></pre>
 
         </article>
 
-        <div class="article-foot">
-          <button class="complete-btn" type="button" data-complete="git-github" aria-pressed="false">
-            <span class="box" aria-hidden="true">✓</span>
-            Marcar como completado
-          </button>
-          <span class="complete-note">Se guarda en este navegador</span>
+        <div class="entry-foot">
+          <div class="stamp-row">
+            <button class="stamp" type="button" data-complete="git-github" aria-pressed="false">
+              <span class="bx" aria-hidden="true">✓</span>
+              Marcar entrada como completada
+            </button>
+            <span class="stamp-note">Se guarda en este navegador</span>
+          </div>
+          <nav class="pager" aria-label="Entradas"><a href="primera-web.html"><small>← Anterior</small><b>Tu primera página web</b></a><a class="next" href="vercel.html"><small>Siguiente →</small><b>Publicar en Vercel</b></a></nav>
+          <p class="keys">Atajos: <span class="kbd">←</span> <span class="kbd">→</span> para moverte entre entradas</p>
         </div>
-
-        <nav class="pager" aria-label="Capítulos"><a href="primera-web.html"><small>← Anterior</small><b>Tu primera página web</b></a><a class="next" href="vercel.html"><small>Siguiente →</small><b>Publicar en Vercel</b></a></nav>
-        <p class="keys">Atajos: <span class="kbd">←</span> <span class="kbd">→</span> para moverte entre capítulos</p>
       </div>
     </div>
   </div>
@@ -402,8 +407,8 @@ git push</code></pre>
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <a class="foot-brand" href="index.html">tutorial<span>.</span>dev</a>
-        <p class="foot-note">Un curso abierto para aprender a construir y publicar para la web. Escrito para quien empieza de cero, sin saltarse los porqués.</p>
+        <a class="foot-brand" href="index.html">tutorial<em>.</em>dev</a>
+        <p class="foot-note">Curso abierto para aprender a construir y publicar para la web. Escrito para quien empieza de cero, sin saltarse los porqués.</p>
       </div>
       <div class="foot-cols">
         <div>
@@ -431,7 +436,7 @@ git push</code></pre>
     </div>
     <div class="colophon">
       <span>© <span data-year>2026</span> tutorial.dev · Licencia MIT</span>
-      <span>HTML y CSS a mano. Deploy automático en Vercel.</span>
+      <span>HTML y CSS a mano · Deploy automático en Vercel</span>
     </div>
   </div>
 </footer>

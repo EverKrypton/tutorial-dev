@@ -61,7 +61,7 @@
       if (e.key === "Escape" && !menu.hidden) setOpen(false);
     });
     window.addEventListener("resize", () => {
-      if (window.innerWidth >= 760 && !menu.hidden) {
+      if (window.innerWidth >= 780 && !menu.hidden) {
         menu.hidden = true;
         document.body.style.overflow = "";
         menuBtn.setAttribute("aria-expanded", "false");
@@ -86,7 +86,7 @@
     document.querySelectorAll(".progress-track i").forEach((seg, i) => {
       seg.classList.toggle("is-on", i < done.length);
     });
-    document.querySelectorAll(".row[data-slug]").forEach((el) => {
+    document.querySelectorAll(".lesson[data-slug]").forEach((el) => {
       el.classList.toggle("is-done", done.includes(el.dataset.slug));
     });
     document.querySelectorAll("[data-complete]").forEach((btn) => {

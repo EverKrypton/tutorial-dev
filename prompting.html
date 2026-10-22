@@ -6,7 +6,7 @@
 <title>Curso de prompting a fondo — tutorial.dev</title>
 <meta name="description" content="Curso completo de prompting en español: contexto, estructura, ejemplos, razonamiento, JSON, tool use, agentes, evaluación, seguridad y anti-patrones. 16 módulos.">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f1f2f5">
+<meta name="theme-color" content="#f3f0e9">
 <meta property="og:title" content="Curso de prompting a fondo — tutorial.dev">
 <meta property="og:description" content="Curso completo de prompting en español: contexto, estructura, ejemplos, razonamiento, JSON, tool use, agentes, evaluación, seguridad y anti-patrones. 16 módulos.">
 <meta property="og:type" content="article">
@@ -14,7 +14,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -23,28 +23,28 @@
 <a class="skip" href="#main">Saltar al contenido</a>
 <div class="reading-bar" data-reading-bar></div>
 
-<header class="topbar">
-  <div class="wrap topbar-in">
-    <a class="brand" href="index.html">tutorial<span>.</span>dev</a>
+<header class="head">
+  <div class="wrap head-in">
+    <a class="brand" href="index.html">tutorial<em>.</em>dev<b>Catálogo de cursos</b></a>
     <nav class="nav" aria-label="Principal">
-      <a href="index.html#indice">Índice</a>
-      <a href="fundamentos.html" data-nav="fundamentos">Empezar</a>
-      <a href="prompting.html" data-nav="prompting">Prompting</a>
-      <a href="arsenal.html" data-nav="arsenal">Arsenal</a>
+      <a href="index.html#temario">Temario</a>
+      <a href="fundamentos.html">Empezar</a>
+      <a href="prompting.html" aria-current="page">Prompting</a>
+      <a href="arsenal.html">Arsenal</a>
       <a href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener">GitHub</a>
     </nav>
     <div class="tools">
-      <a class="progress" href="index.html#indice" data-progress-pill aria-label="Progreso del curso">
+      <a class="progress" href="index.html#temario" data-progress-pill aria-label="Progreso del curso">
         <span class="progress-num" data-progress-text>0/10</span>
         <span class="progress-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </a>
       <button class="icon-btn" type="button" data-theme-toggle aria-label="Cambiar tema" aria-pressed="false">
-        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
-        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z"/></svg>
+        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.4v2M12 19.6v2M4.5 4.5 6 6M18 18l1.5 1.5M2.4 12h2M19.6 12h2M4.5 19.5 6 18M18 6l1.5-1.5"/></svg>
+        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20.4 14.4A8.5 8.5 0 0 1 9.6 3.6a8.5 8.5 0 1 0 10.8 10.8Z"/></svg>
       </button>
       <button class="menu-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        Índice
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Temario
       </button>
     </div>
   </div>
@@ -52,7 +52,7 @@
 
 <div class="menu" id="menu" data-menu hidden>
   <div class="wrap">
-    <p class="menu-group">Curso</p>
+    <p class="menu-group">Curso · 10 capítulos</p>
     <a class="mi" href="fundamentos.html"><span>01</span><b>Cómo piensa un programa</b><i>25 min</i></a>
     <a class="mi" href="primera-web.html"><span>02</span><b>Tu primera página web</b><i>45 min</i></a>
     <a class="mi" href="git-github.html"><span>03</span><b>Git y GitHub sin miedo</b><i>30 min</i></a>
@@ -64,25 +64,29 @@
     <a class="mi" href="prompting.html" aria-current="page"><span>09</span><b>Curso de prompting, a fondo</b><i>90 min</i></a>
     <a class="mi" href="glosario.html"><span>10</span><b>Glosario y chuleta</b><i>10 min</i></a>
     <p class="menu-group">Extra</p>
-    <a class="mi" href="arsenal.html"><span>★</span><b>El arsenal: genjutsu e impeccable</b><i></i></a>
+    <a class="mi" href="arsenal.html"><span>★</span><b>El arsenal: genjutsu e impeccable</b><i>extra</i></a>
     <p class="menu-group">Repositorio</p>
-    <a class="mi" href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener"><span>↗</span><b>GitHub</b><i></i></a>
+    <a class="mi" href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener"><span>↗</span><b>GitHub</b><i>MIT</i></a>
   </div>
 </div>
 
 <main id="main">
-  <div class="page-head">
+  <div class="entry-head">
     <div class="wrap">
-      <nav class="crumbs" aria-label="Migas de pan">
-        <a href="index.html">Inicio</a> <span>/</span> <span>Capítulo 09</span>
+      <nav class="entry-crumbs" aria-label="Migas de pan">
+        <a href="index.html">Catálogo</a> <span>/</span> <span>Capítulo 09</span>
       </nav>
-      <h1>Curso de prompting, a fondo.</h1>
-      <p class="page-lede">Pedir bien no es escribir bonito: es reducir la incertidumbre. Dieciséis módulos para entender cómo razonan los modelos, cómo estructurar una petición y cómo comprobar que el resultado sirve.</p>
-      <div class="page-meta">
-        <span class="tag">90 min</span>
-          <span class="tag">nivel profundo</span>
-          <span class="tag">16 módulos</span>
+      <div class="entry-title">
+        <span class="entry-n" aria-hidden="true">09</span>
+        <h1>Curso de prompting, a fondo.</h1>
       </div>
+      <p class="entry-deck">Pedir bien no es escribir bonito: es reducir la incertidumbre. Dieciséis módulos para entender cómo razonan los modelos, cómo estructurar una petición y cómo comprobar que el resultado sirve.</p>
+      <dl class="entry-meta">
+        <div><dt>Duración</dt><dd>90 min</dd></div>
+        <div><dt>Nivel</dt><dd>Medio</dd></div>
+        <div><dt>Requisitos</dt><dd>Ninguno</dd></div>
+        <div><dt>Al terminar</dt><dd>Un método</dd></div>
+      </dl>
     </div>
   </div>
 
@@ -90,7 +94,7 @@
     <div class="article-grid">
       <aside class="rail" aria-label="Navegación del curso">
         <div class="rail-in">
-          <p class="rail-label">Curso</p>
+          <p class="rail-k">Curso</p>
           <ol class="rail-list">
             <li><a href="fundamentos.html"><span>01</span>Cómo piensa un programa</a></li>
             <li><a href="primera-web.html"><span>02</span>Tu primera página web</a></li>
@@ -103,11 +107,11 @@
             <li><a href="prompting.html" aria-current="page"><span>09</span>Curso de prompting, a fondo</a></li>
             <li><a href="glosario.html"><span>10</span>Glosario y chuleta</a></li>
           </ol>
-          <p class="rail-label">Extra</p>
+          <p class="rail-k">Extra</p>
           <ol class="rail-list">
             <li><a href="arsenal.html"><span>★</span>El arsenal: genjutsu e impeccable</a></li>
           </ol>
-          <p class="rail-label">En esta página</p>
+          <p class="rail-k">En esta entrada</p>
           <ol class="rail-toc">
             <li><a href="#m0">0. Cómo leer el curso</a></li>
             <li><a href="#m1">1. Qué hace un modelo</a></li>
@@ -130,8 +134,8 @@
         </div>
       </aside>
       <div>
-        <details class="toc-mobile">
-          <summary>En esta página</summary>
+        <details class="toc-m">
+          <summary>En esta entrada</summary>
           <ol>
             <li><a href="#m0">0. Cómo leer el curso</a></li>
             <li><a href="#m1">1. Qué hace un modelo</a></li>
@@ -680,16 +684,17 @@ Si algo es ambiguo, pregunta antes de actuar.</code></pre>
 
         </article>
 
-        <div class="article-foot">
-          <button class="complete-btn" type="button" data-complete="prompting" aria-pressed="false">
-            <span class="box" aria-hidden="true">✓</span>
-            Marcar como completado
-          </button>
-          <span class="complete-note">Se guarda en este navegador</span>
+        <div class="entry-foot">
+          <div class="stamp-row">
+            <button class="stamp" type="button" data-complete="prompting" aria-pressed="false">
+              <span class="bx" aria-hidden="true">✓</span>
+              Marcar entrada como completada
+            </button>
+            <span class="stamp-note">Se guarda en este navegador</span>
+          </div>
+          <nav class="pager" aria-label="Entradas"><a href="agentes.html"><small>← Anterior</small><b>Tu propio agente</b></a><a class="next" href="glosario.html"><small>Siguiente →</small><b>Glosario y chuleta</b></a></nav>
+          <p class="keys">Atajos: <span class="kbd">←</span> <span class="kbd">→</span> para moverte entre entradas</p>
         </div>
-
-        <nav class="pager" aria-label="Capítulos"><a href="agentes.html"><small>← Anterior</small><b>Tu propio agente</b></a><a class="next" href="glosario.html"><small>Siguiente →</small><b>Glosario y chuleta</b></a></nav>
-        <p class="keys">Atajos: <span class="kbd">←</span> <span class="kbd">→</span> para moverte entre capítulos</p>
       </div>
     </div>
   </div>
@@ -700,8 +705,8 @@ Si algo es ambiguo, pregunta antes de actuar.</code></pre>
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <a class="foot-brand" href="index.html">tutorial<span>.</span>dev</a>
-        <p class="foot-note">Un curso abierto para aprender a construir y publicar para la web. Escrito para quien empieza de cero, sin saltarse los porqués.</p>
+        <a class="foot-brand" href="index.html">tutorial<em>.</em>dev</a>
+        <p class="foot-note">Curso abierto para aprender a construir y publicar para la web. Escrito para quien empieza de cero, sin saltarse los porqués.</p>
       </div>
       <div class="foot-cols">
         <div>
@@ -729,7 +734,7 @@ Si algo es ambiguo, pregunta antes de actuar.</code></pre>
     </div>
     <div class="colophon">
       <span>© <span data-year>2026</span> tutorial.dev · Licencia MIT</span>
-      <span>HTML y CSS a mano. Deploy automático en Vercel.</span>
+      <span>HTML y CSS a mano · Deploy automático en Vercel</span>
     </div>
   </div>
 </footer>

@@ -21,13 +21,14 @@ Guía para agentes de IA que trabajen en este repositorio.
 
 - Todo el contenido y la interfaz están en español.
 - Mobile first: los estilos base son para teléfono; los `@media` añaden complejidad.
-- Usa las variables CSS de `:root` (`--paper`, `--surface`, `--ink`, `--ink-2`, `--muted`, `--line`, `--line-2`, `--accent`). No introduzcas colores nuevos.
-- El sistema es editorial y sobrio: reglas de 1px, sin sombras, sin gradientes, sin tarjetas con borde redondeado grande. Un solo acento (`--accent`).
-- Los capítulos comparten cabecera, rail lateral, pie, botón de completar y paginador. Mantén esa estructura.
-- Tipografías: Archivo variable (cuerpo y títulos, con `wdth` 110-112 en títulos) y JetBrains Mono (código y metadatos).
+- Usa las variables CSS de `:root` (`--paper`, `--band`, `--card`, `--ink`, `--ink-2`, `--muted`, `--line`, `--line-2`, `--red`, `--red-ink`, `--red-soft`, `--green`). No introduzcas colores nuevos.
+- El mundo visual es un catálogo impreso de escuela técnica: papel prensa, tinta, un solo rojo de señal, reglas de 1px, cero sombras, cero gradientes, cero esquinas redondeadas. Ver `DESIGN.md`.
+- Los capítulos comparten cabecera, rail lateral, ficha de entrada (`entry-meta`), pie, sello de completado y paginador. Mantén esa estructura.
+- Tipografías: Archivo variable (títulos con `wdth` 78-92, cuerpo a `wdth` 100) y JetBrains Mono para metadatos y código.
 - No agregues dependencias ni frameworks sin preguntar.
 - Cada bloque de código usa `.code` con `.code-head` y `data-copy`.
-- Los callouts usan `.callout` con la variante `--kid`, `--warn` o `--info`; se distinguen por el borde superior y la etiqueta mono, no por cajas de color.
+- Los callouts usan `.callout` con la variante `--kid`, `--warn` o `--info`; se distinguen por una regla superior y una etiqueta mono, nunca por cajas de color.
+- Los títulos `h2` del cuerpo llevan `data-n` con su número de sección, generado al construir.
 
 ## Cómo comprobar
 
