@@ -1,0 +1,409 @@
+        <h2 id="que-es">Qué es una terminal</h2>
+        <p>Una terminal es una ventana donde escribes órdenes y el sistema operativo las ejecuta. No hay botones: hay un <strong>prompt</strong> que espera, un comando que escribes y una salida que lees.</p>
+
+        <p>La misma terminal la vas a encontrar en tres sitios distintos:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Dónde</th><th>Cómo se ve</th><th>Qué puedes hacer</th></tr></thead>
+            <tbody>
+              <tr><td>Tu computadora</td><td>Terminal, iTerm, Windows Terminal</td><td>Todo, en tu máquina</td></tr>
+              <tr><td>Un VPS</td><td>Una sesión SSH a un servidor remoto</td><td>Todo, en un servidor de internet</td></tr>
+              <tr><td>Termux (Android)</td><td>Una app de terminal</td><td>Casi todo, desde el teléfono</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Los comandos son los mismos. Lo que cambia es <em>dónde</em> se ejecutan. Si aprendes aquí, sirve en los tres.</p>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">En simple</span>
+          <p>La terminal es como hablarle a la computadora en su idioma. La interfaz gráfica es un menú con dibujos; la terminal es decir exactamente qué quieres, con el nombre exacto de la cosa.</p>
+        </div>
+
+        <h2 id="anatomia">La anatomía de un comando</h2>
+        <p>Todo comando tiene la misma forma:</p>
+
+        <div class="code">
+          <div class="code-head"><span>estructura</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>comando  -opciones  argumentos
+
+ls        -la        /var/log
+│         │          │
+│         │          └── sobre qué actúa
+│         └───────────── cómo se comporta
+└─────────────────────── qué programa ejecutar</code></pre>
+        </div>
+
+        <p>Ejemplo real: <code>ls -la /var/log</code> significa «lista, en formato largo y mostrando archivos ocultos, el contenido de <code>/var/log</code>».</p>
+
+        <p>Las opciones casi siempre tienen dos formas: corta (<code>-l</code>) y larga (<code>--long</code>). Son lo mismo. Si no recuerdas una opción:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>ls --help
+man ls        <span class="c"># el manual completo; se sale con q</span></code></pre>
+        </div>
+
+        <h2 id="ubicacion">Dónde estás: pwd, ls, cd</h2>
+        <p>Antes de tocar nada, necesitas saber dónde estás. La terminal siempre está «dentro» de una carpeta.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>pwd                 <span class="c"># print working directory: la ruta completa</span>
+ls                  <span class="c"># lista lo que hay aquí</span>
+ls -la              <span class="c"># con permisos, tamaño y archivos ocultos</span>
+cd proyectos        <span class="c"># entra a la carpeta "proyectos"</span>
+cd ..               <span class="c"># sube un nivel</span>
+cd ~                <span class="c"># va a tu carpeta personal</span>
+cd /                <span class="c"># va a la raíz del sistema</span>
+cd -                <span class="c"># vuelve a donde estabas antes</span></code></pre>
+        </div>
+
+        <p>Dos rutas que vas a ver siempre:</p>
+        <ul>
+          <li><strong>Absoluta:</strong> empieza por <code>/</code>. Ejemplo: <code>/home/mara/proyectos</code>. Funciona desde cualquier sitio.</li>
+          <li><strong>Relativa:</strong> no empieza por <code>/</code>. Ejemplo: <code>proyectos/web</code>. Depende de dónde estés.</li>
+        </ul>
+
+        <p>Trucos que ahorran tiempo:</p>
+        <ul class="checklist">
+          <li><span class="kbd">Tab</span> autocompleta nombres de archivo y carpeta. Úsalo siempre.</li>
+          <li><span class="kbd">↑</span> recupera el comando anterior. <span class="kbd">Ctrl</span>+<span class="kbd">R</span> busca en el historial.</li>
+          <li><span class="kbd">Ctrl</span>+<span class="kbd">C</span> cancela lo que se está ejecutando.</li>
+          <li><span class="kbd">Ctrl</span>+<span class="kbd">L</span> limpia la pantalla (no borra nada).</li>
+          <li><code>clear</code> hace lo mismo que <span class="kbd">Ctrl</span>+<span class="kbd">L</span>.</li>
+        </ul>
+
+        <h2 id="archivos">Crear, copiar y borrar</h2>
+        <p>Estos son los comandos que más vas a usar. Fíjate en que cada uno tiene su pareja: crear/borrar, copiar/mover.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>mkdir web               <span class="c"># crea la carpeta "web"</span>
+mkdir -p web/src/components  <span class="c"># crea toda la ruta de una vez</span>
+
+touch index.html        <span class="c"># crea un archivo vacío</span>
+
+cp index.html copia.html          <span class="c"># copia un archivo</span>
+cp -r web web-backup              <span class="c"># copia una carpeta entera</span>
+
+mv copia.html archivo.html        <span class="c"># renombra</span>
+mv archivo.html web/              <span class="c"># mueve a otra carpeta</span>
+
+rm archivo.html                   <span class="c"># borra un archivo</span>
+rm -r web-backup                  <span class="c"># borra una carpeta y su contenido</span></code></pre>
+        </div>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">Cuidado con rm</span>
+          <p><code>rm</code> no tiene papelera. Lo que borras, no vuelve. <strong>Nunca</strong> escribas <code>rm -rf /</code> ni <code>rm -rf ~</code>: borra el sistema entero o tu carpeta personal sin preguntar. Antes de borrar, ejecuta <code>ls</code> en la ruta para ver qué hay.</p>
+        </div>
+
+        <h3>Ver el contenido de un archivo</h3>
+        <p>Hay tres formas y cada una sirve para algo distinto:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>cat archivo.txt         <span class="c"># vuelca todo el contenido de golpe</span>
+less archivo.txt        <span class="c"># lo abre paginado; q para salir</span>
+head -20 archivo.txt    <span class="c"># las primeras 20 líneas</span>
+tail -20 archivo.txt    <span class="c"># las últimas 20 líneas</span>
+tail -f archivo.log     <span class="c"># sigue el archivo en vivo (Ctrl+C para salir)</span></code></pre>
+        </div>
+
+        <p><strong>Cuándo usar cada uno:</strong> <code>cat</code> para archivos cortos, <code>less</code> para leer algo largo, <code>tail -f</code> para mirar un log que se está escribiendo ahora mismo. Ese último es el que vas a usar en un servidor.</p>
+
+        <h3>Contar y buscar dentro de archivos</h3>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>wc -l archivo.txt           <span class="c"># cuenta líneas</span>
+wc -w archivo.txt           <span class="c"># cuenta palabras</span>
+
+grep "error" app.log        <span class="c"># busca la palabra en el archivo</span>
+grep -i "error" app.log     <span class="c"># sin distinguir mayúsculas</span>
+grep -n "error" app.log     <span class="c"># con el número de línea</span>
+grep -r "TODO" src/         <span class="c"># busca en toda una carpeta</span>
+grep -c "error" app.log     <span class="c"># cuenta cuántas veces aparece</span></code></pre>
+        </div>
+
+        <p>Combinación que vas a usar mil veces: buscar errores en un log enorme y ver solo los últimos.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>grep -i "error" app.log | tail -20</code></pre>
+        </div>
+
+        <p>Esa barra vertical <code>|</code> se llama <strong>tubería</strong> (pipe). Toma la salida del comando de la izquierda y se la pasa al de la derecha. Es una de las ideas más potentes de Unix: programas pequeños que se encadenan.</p>
+
+        <h2 id="nano">Editar con nano</h2>
+        <p>En un servidor no hay VS Code. Hay editores de terminal, y <code>nano</code> es el más fácil de aprender.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>nano archivo.txt        <span class="c"># abre o crea el archivo</span>
+nano /etc/nginx/nginx.conf   <span class="c"># abre uno del sistema (necesita sudo)</span></code></pre>
+        </div>
+
+        <p>Dentro de nano, abajo verás los atajos. El <code>^</code> significa la tecla <span class="kbd">Ctrl</span>:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Atajo</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">O</span></td><td>Guardar (write <strong>O</strong>ut). Pulsa <span class="kbd">Enter</span> para confirmar el nombre.</td></tr>
+              <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">X</span></td><td>Salir. Si hay cambios sin guardar, te pregunta.</td></tr>
+              <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">K</span></td><td>Cortar la línea actual</td></tr>
+              <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">U</span></td><td>Pegar lo cortado</td></tr>
+              <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">W</span></td><td>Buscar dentro del archivo</td></tr>
+              <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">\</span></td><td>Buscar y reemplazar</td></tr>
+              <tr><td><span class="kbd">Ctrl</span>+<span class="kbd">G</span></td><td>Ayuda</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>La secuencia completa para editar y guardar:</p>
+        <ol class="steps">
+          <li><h4>Abrir</h4><p><code>nano app.js</code></p></li>
+          <li><h4>Escribir</h4><p>Escribe o pega el contenido. El ratón no funciona; usa las flechas.</p></li>
+          <li><h4>Guardar</h4><p><span class="kbd">Ctrl</span>+<span class="kbd">O</span>, luego <span class="kbd">Enter</span>.</p></li>
+          <li><h4>Salir</h4><p><span class="kbd">Ctrl</span>+<span class="kbd">X</span>.</p></li>
+        </ol>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Si nano no está instalado</span>
+          <p>En Termux: <code>pkg install nano</code>. En Debian/Ubuntu: <code>sudo apt install nano</code>. En un VPS mínimo puede que solo esté <code>vi</code>, que es mucho menos amable: <code>i</code> para escribir, <span class="kbd">Esc</span> luego <code>:wq</code> para guardar y salir.</p>
+        </div>
+
+        <h2 id="permisos">Permisos y sudo</h2>
+        <p>Cada archivo tiene un dueño y unos permisos. Cuando ves <code>Permission denied</code>, el problema es ese.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>ls -l
+-rw-r--r-- 1 mara mara  1024 oct 20 10:00 index.html
+drwxr-xr-x 4 mara mara  4096 oct 20 09:12 src</code></pre>
+        </div>
+
+        <p>Esas diez letras se leen así:</p>
+        <ul>
+          <li>Primera: <code>-</code> archivo, <code>d</code> carpeta, <code>l</code> enlace.</li>
+          <li>Las tres siguientes: permisos del <strong>dueño</strong>.</li>
+          <li>Las tres siguientes: del <strong>grupo</strong>.</li>
+          <li>Las tres últimas: del <strong>resto</strong>.</li>
+          <li><code>r</code> leer, <code>w</code> escribir, <code>x</code> ejecutar.</li>
+        </ul>
+
+        <p>Cambiar permisos:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>chmod +x script.sh        <span class="c"># lo hace ejecutable</span>
+chmod 644 archivo.txt     <span class="c"># dueño lee/escribe, resto solo lee</span>
+chmod 755 carpeta         <span class="c"># dueño todo, resto leer y entrar</span>
+
+chown mara archivo.txt              <span class="c"># cambia el dueño</span>
+chown -R mara:mara /var/www/web     <span class="c"># dueño y grupo, recursivo</span></code></pre>
+        </div>
+
+        <p><code>sudo</code> significa «ejecuta esto como administrador». Lo necesitas para tocar cosas del sistema:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>sudo apt update
+sudo nano /etc/hosts
+sudo systemctl restart nginx</code></pre>
+        </div>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">sudo no es un adorno</span>
+          <p>Un comando con <code>sudo</code> puede romper el sistema. Antes de ejecutarlo, lee lo que hace. Si copiaste un comando de internet y no entiendes una parte, no lo ejecutes.</p>
+        </div>
+
+        <h2 id="procesos">Procesos y servicios</h2>
+        <p>Un servidor está lleno de programas corriendo. Estos comandos te dicen qué pasa.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>ps aux                  <span class="c"># todos los procesos</span>
+ps aux | grep node      <span class="c"># solo los de node</span>
+top                     <span class="c"># monitor en vivo; q para salir</span>
+htop                    <span class="c"># lo mismo, más bonito (puede no estar)</span>
+
+df -h                   <span class="c"># espacio en disco</span>
+du -sh carpeta          <span class="c"># cuánto ocupa una carpeta</span>
+free -h                 <span class="c"># memoria RAM</span>
+
+kill 1234               <span class="c"># termina el proceso con PID 1234</span>
+kill -9 1234            <span class="c"># lo mata sin preguntar</span></code></pre>
+        </div>
+
+        <h3>Servicios con systemd</h3>
+        <p>En un VPS, tus apps no se lanzan a mano: se registran como servicios para que arranquen solas y se reinicien si fallan.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>sudo systemctl status mi-app     <span class="c"># ¿está corriendo?</span>
+sudo systemctl start mi-app      <span class="c"># arrancar</span>
+sudo systemctl stop mi-app       <span class="c"># parar</span>
+sudo systemctl restart mi-app    <span class="c"># reiniciar</span>
+sudo systemctl enable mi-app     <span class="c"># que arranque al encender</span>
+journalctl -u mi-app -f          <span class="c"># sus logs en vivo</span></code></pre>
+        </div>
+
+        <p><code>journalctl -u mi-app -f</code> es el equivalente a <code>tail -f</code> pero para un servicio. Es el comando que resuelve el 80% de los «no funciona en el servidor».</p>
+
+        <h2 id="red">Red: ssh, curl, puertos</h2>
+        <p>Conectarte a un VPS:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>ssh root@203.0.113.42            <span class="c"># entrar al servidor</span>
+ssh -p 2222 root@203.0.113.42    <span class="c"># con otro puerto</span>
+exit                             <span class="c"># salir</span></code></pre>
+        </div>
+
+        <p>La primera vez te pregunta si confías en la huella del servidor. Escribe <code>yes</code>. Si cambia sin que tú hayas reinstalado nada, desconfía.</p>
+
+        <p>Probar una URL o una API desde la terminal:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>curl https://api.github.com/users/octocat
+curl -I https://tutorial-dev-es.vercel.app      <span class="c"># solo cabeceras</span>
+curl -X POST https://api.ejemplo.com/tareas \
+  -H "Content-Type: application/json" \
+  -d '{"titulo":"Comprar pan"}'</code></pre>
+        </div>
+
+        <p>La barra invertida <code>\</code> al final de una línea significa «el comando sigue abajo». Sirve para escribir comandos largos sin que se corten.</p>
+
+        <p>Qué está escuchando en qué puerto:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>ss -tulpn            <span class="c"># puertos abiertos y qué proceso los usa</span>
+curl localhost:3000  <span class="c"># probar tu app desde dentro del servidor</span></code></pre>
+        </div>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Por qué "funciona en local pero no fuera"</span>
+          <p>Casi siempre es una de tres: la app escucha solo en <code>localhost</code> en vez de <code>0.0.0.0</code>; el puerto no está abierto en el firewall; o el servicio no está corriendo. Revisa en ese orden.</p>
+        </div>
+
+        <h2 id="pipes">Tuberías y redirecciones</h2>
+        <p>Esta es la parte que convierte la terminal en un taller.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># guardar la salida en un archivo (sobrescribe)</span>
+ls -la > listado.txt
+
+<span class="c"># añadir al final en vez de sobrescribir</span>
+echo "nueva línea" >> listado.txt
+
+<span class="c"># descartar la salida de error</span>
+comando 2> errores.log
+
+<span class="c"># encadenar: los archivos más grandes primero</span>
+du -sh * | sort -h | tail -5
+
+<span class="c"># contar cuántas líneas tienen "error"</span>
+grep -c "error" app.log
+
+<span class="c"># buscar un proceso y matarlo</span>
+ps aux | grep node | grep -v grep</code></pre>
+        </div>
+
+        <p>Los tres flujos de cualquier programa:</p>
+        <ul>
+          <li><code>0</code> entrada estándar (stdin)</li>
+          <li><code>1</code> salida estándar (stdout)</li>
+          <li><code>2</code> salida de error (stderr)</li>
+        </ul>
+        <p>Por eso <code>2&gt;&amp;1</code> significa «manda los errores al mismo sitio que la salida normal». Lo vas a ver en scripts y en cron.</p>
+
+        <h2 id="termux">Termux: la terminal en el bolsillo</h2>
+        <p>Termux es una app de Android que te da un Linux real sin root. Sirve para practicar sin VPS.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># actualizar el gestor de paquetes</span>
+pkg update && pkg upgrade -y
+
+<span class="c"># lo esencial</span>
+pkg install git nodejs nano curl -y
+
+<span class="c"># comprobar</span>
+node -v
+git --version</code></pre>
+        </div>
+
+        <p>Diferencias con un VPS:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>Termux</th><th>VPS</th></tr></thead>
+            <tbody>
+              <tr><td>Permisos</td><td>Sin root (salvo root real)</td><td>Root con <code>sudo</code></td></tr>
+              <tr><td>Persistencia</td><td>Se duerme si Android la cierra</td><td>Encendido 24/7</td></tr>
+              <tr><td>Acceso</td><td>Desde el teléfono</td><td>Por SSH desde cualquier sitio</td></tr>
+              <tr><td>Uso típico</td><td>Practicar, scripts, git</td><td>Servir una web de verdad</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>En Termux, tu carpeta personal es <code>/data/data/com.termux/files/home</code>. Para llegar a las descargas del teléfono: <code>termux-setup-storage</code> y luego <code>cd ~/storage/downloads</code>.</p>
+
+        <h2 id="chuleta">Chuleta</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Quiero…</th><th>Comando</th></tr></thead>
+            <tbody>
+              <tr><td>Saber dónde estoy</td><td><code>pwd</code></td></tr>
+              <tr><td>Ver qué hay</td><td><code>ls -la</code></td></tr>
+              <tr><td>Entrar a una carpeta</td><td><code>cd nombre</code></td></tr>
+              <tr><td>Crear carpeta</td><td><code>mkdir -p ruta/completa</code></td></tr>
+              <tr><td>Leer un archivo</td><td><code>cat</code> o <code>less</code></td></tr>
+              <tr><td>Ver las últimas líneas</td><td><code>tail -20 archivo</code></td></tr>
+              <tr><td>Seguir un log</td><td><code>tail -f archivo.log</code></td></tr>
+              <tr><td>Buscar texto</td><td><code>grep -rn "texto" .</code></td></tr>
+              <tr><td>Editar</td><td><code>nano archivo</code></td></tr>
+              <tr><td>Copiar</td><td><code>cp -r origen destino</code></td></tr>
+              <tr><td>Mover o renombrar</td><td><code>mv origen destino</code></td></tr>
+              <tr><td>Borrar</td><td><code>rm archivo</code></td></tr>
+              <tr><td>Permisos</td><td><code>chmod 755 archivo</code></td></tr>
+              <tr><td>Como admin</td><td><code>sudo comando</code></td></tr>
+              <tr><td>Conectarse</td><td><code>ssh usuario@ip</code></td></tr>
+              <tr><td>Probar una URL</td><td><code>curl -I url</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="ejercicios">Ejercicios</h2>
+        <div class="exercise">
+          <span class="chip">Ejercicio 01</span>
+          <h4>Un taller de práctica</h4>
+          <p>Crea una carpeta <code>taller</code> con tres subcarpetas (<code>src</code>, <code>logs</code>, <code>tmp</code>), un archivo <code>notas.txt</code> con tres líneas y un <code>app.log</code> con cinco líneas inventadas, dos de ellas con la palabra «error». Después lista todo, cuenta los errores con <code>grep -c</code> y muestra las dos últimas líneas del log.</p>
+        </div>
+
+        <div class="exercise">
+          <span class="chip">Ejercicio 02</span>
+          <h4>Editar sin miedo</h4>
+          <p>Abre <code>notas.txt</code> con nano, añade una línea, guarda con <span class="kbd">Ctrl</span>+<span class="kbd">O</span> y sal con <span class="kbd">Ctrl</span>+<span class="kbd">X</span>. Vuelve a abrirlo para comprobar que se guardó. Después haz una copia de seguridad con <code>cp</code> y borra el original.</p>
+        </div>
+
+        <div class="exercise">
+          <span class="chip">Ejercicio 03</span>
+          <h4>Un pipe útil</h4>
+          <p>Ejecuta <code>ls -la /usr/bin | wc -l</code>. ¿Qué crees que cuenta? Ahora prueba <code>du -sh /usr/* 2&gt;/dev/null | sort -h | tail -5</code> y explica qué hace cada parte de la cadena.</p>
+        </div>
+
+        <div class="exercise">
+          <span class="chip">Ejercicio 04</span>
+          <h4>Servicio propio</h4>
+          <p>En un VPS, crea un archivo <code>/etc/systemd/system/hola.service</code> que ejecute <code>python3 -m http.server 8000</code> desde <code>/var/www</code>. Actívalo con <code>systemctl enable --now hola</code> y comprueba con <code>curl localhost:8000</code>. Después mira sus logs con <code>journalctl -u hola -f</code>.</p>
+        </div>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">Lo único que importa</span>
+          <p>La terminal da miedo los primeros veinte minutos y después se vuelve el sitio donde de verdad trabajas. No memorices: aprende a preguntar. <code>--help</code>, <code>man</code> y una búsqueda bien escrita resuelven casi todo.</p>
+        </div>

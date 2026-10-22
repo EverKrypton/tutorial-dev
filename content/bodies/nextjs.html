@@ -1,0 +1,320 @@
+        <h2 id="por-que">Qué añade Next sobre React</h2>
+        <p>React te da componentes. No te da rutas, ni datos en el servidor, ni optimización de imágenes, ni un lugar donde poner una API. Next.js es React más todo eso, con convenciones claras.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>React con Vite</th><th>Next.js</th></tr></thead>
+            <tbody>
+              <tr><td>Rutas</td><td>Instalas un router</td><td>Carpetas en <code>app/</code></td></tr>
+              <tr><td>Datos</td><td>Todo en el navegador</td><td>Puedes leerlos en el servidor</td></tr>
+              <tr><td>API</td><td>Servidor aparte</td><td><code>route.ts</code> en el mismo proyecto</td></tr>
+              <tr><td>SEO</td><td>HTML vacío hasta que carga JS</td><td>HTML completo desde el servidor</td></tr>
+              <tr><td>Deploy</td><td>Configuras un estático</td><td>Un push y listo</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">En simple</span>
+          <p>React es el motor. Next es el coche completo: motor, volante, ruedas y maletero. Puedes montarlo tú pieza a pieza, o arrancar y conducir.</p>
+        </div>
+
+        <h2 id="crear">Crear el proyecto</h2>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>npx create-next-app@latest mi-sitio
+<span class="c"># responde: TypeScript sí, ESLint sí, Tailwind no (aquí usamos CSS propio)</span>
+cd mi-sitio
+npm run dev</code></pre>
+        </div>
+
+        <p>La estructura que importa:</p>
+
+        <div class="code">
+          <div class="code-head"><span>estructura</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>app/
+├── layout.tsx        <span class="c"># envuelve TODAS las páginas</span>
+├── page.tsx          <span class="c"># la ruta "/"</span>
+├── globals.css
+├── about/
+│   └── page.tsx      <span class="c"># la ruta "/about"</span>
+├── blog/
+│   ├── page.tsx      <span class="c"># "/blog"</span>
+│   └── [slug]/
+│       └── page.tsx  <span class="c"># "/blog/cualquier-cosa"</span>
+└── api/
+    └── hola/
+        └── route.ts  <span class="c"># "/api/hola"</span></code></pre>
+        </div>
+
+        <p><strong>Una carpeta es una ruta. Un <code>page.tsx</code> es la página.</strong> No hay archivo de rutas que mantener.</p>
+
+        <h2 id="rutas">Rutas y layout</h2>
+        <p><code>layout.tsx</code> es el marco: se renderiza una vez y envuelve cada página. Ahí van la navegación, el pie y el <code>&lt;html&gt;</code>.</p>
+
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// app/layout.tsx</span>
+<span class="k">import</span> Link <span class="k">from</span> <span class="s">"next/link"</span>;
+<span class="k">import</span> <span class="s">"./globals.css"</span>;
+
+<span class="k">export const</span> metadata = {
+  title: <span class="s">"Mi sitio"</span>,
+  description: <span class="s">"Aprendiendo Next.js"</span>,
+};
+
+<span class="k">export default function</span> <span class="f">RootLayout</span>({ children }: { children: React.ReactNode }) {
+  <span class="k">return</span> (
+    &lt;html lang=<span class="s">"es"</span>&gt;
+      &lt;body&gt;
+        &lt;header&gt;
+          &lt;Link href=<span class="s">"/"</span>&gt;Inicio&lt;/Link&gt;
+          &lt;Link href=<span class="s">"/blog"</span>&gt;Blog&lt;/Link&gt;
+        &lt;/header&gt;
+        &lt;main&gt;{children}&lt;/main&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+}</code></pre>
+        </div>
+
+        <p>Para navegar se usa <code>&lt;Link&gt;</code>, nunca <code>&lt;a&gt;</code> para rutas internas: <code>Link</code> precarga y navega sin recargar la página.</p>
+
+        <h2 id="servidor">Componentes de servidor: la diferencia clave</h2>
+        <p>En el App Router, los componentes son <strong>de servidor por defecto</strong>. Eso significa que su código nunca llega al navegador: se ejecuta en el servidor y solo se envía el HTML resultante.</p>
+
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// app/page.tsx — componente de servidor</span>
+<span class="k">import</span> { readFile } <span class="k">from</span> <span class="s">"node:fs/promises"</span>;
+
+<span class="k">export default async function</span> <span class="f">Home</span>() {
+  <span class="k">const</span> posts = JSON.parse(<span class="k">await</span> readFile(<span class="s">"./data/posts.json"</span>, <span class="s">"utf8"</span>));
+
+  <span class="k">return</span> (
+    &lt;ul&gt;
+      {posts.map((p) =&gt; (
+        &lt;li key={p.slug}&gt;{p.titulo}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}</code></pre>
+        </div>
+
+        <p>Ese <code>readFile</code> solo puede existir en el servidor. En un componente de cliente daría error, porque el navegador no tiene acceso a los archivos del proyecto.</p>
+
+        <p>Cuándo necesitas <code>"use client"</code>:</p>
+        <ul class="checklist">
+          <li>Usas <code>useState</code> o <code>useEffect</code>.</li>
+          <li>Escuchas eventos (<code>onClick</code>, <code>onChange</code>).</li>
+          <li>Usas APIs del navegador (<code>window</code>, <code>localStorage</code>).</li>
+        </ul>
+
+        <p>Todo lo demás se queda en el servidor. Eso hace el sitio más rápido: menos JavaScript enviado, menos trabajo en el teléfono.</p>
+
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="s">"use client"</span>;
+
+<span class="k">import</span> { useState } <span class="k">from</span> <span class="s">"react"</span>;
+
+<span class="k">export function</span> <span class="f">Contador</span>() {
+  <span class="k">const</span> [n, setN] = useState(<span class="n">0</span>);
+  <span class="k">return</span> &lt;button onClick={() =&gt; setN(n + <span class="n">1</span>)}&gt;{n}&lt;/button&gt;;
+}</code></pre>
+        </div>
+
+        <h2 id="datos">Leer datos</h2>
+        <p>Dos formas, y conviene saber cuándo usar cada una.</p>
+
+        <h3>Estático: en el build</h3>
+        <p>Si los datos no cambian, se generan una vez y se sirven desde la CDN. Es lo más rápido posible.</p>
+
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">export default async function</span> <span class="f">Pagina</span>() {
+  <span class="k">const</span> res = <span class="k">await</span> fetch(<span class="s">"https://api.ejemplo.com/datos"</span>, {
+    next: { revalidate: <span class="n">3600</span> }, <span class="c">// se refresca cada hora</span>
+  });
+  <span class="k">const</span> datos = <span class="k">await</span> res.json();
+  <span class="k">return</span> &lt;pre&gt;{JSON.stringify(datos, <span class="k">null</span>, <span class="n">2</span>)}&lt;/pre&gt;;
+}</code></pre>
+        </div>
+
+        <h3>Dinámico: en cada petición</h3>
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">export const</span> dynamic = <span class="s">"force-dynamic"</span>;
+
+<span class="k">export default async function</span> <span class="f">Hora</span>() {
+  <span class="k">return</span> &lt;p&gt;{<span class="k">new</span> Date().toLocaleString(<span class="s">"es-ES"</span>)}&lt;/p&gt;;
+}</code></pre>
+        </div>
+
+        <h3>Rutas con parámetros</h3>
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// app/blog/[slug]/page.tsx</span>
+<span class="k">export default async function</span> <span class="f">Post</span>({
+  params,
+}: {
+  params: Promise&lt;{ slug: string }&gt;;
+}) {
+  <span class="k">const</span> { slug } = <span class="k">await</span> params;
+  <span class="k">const</span> post = <span class="k">await</span> getPost(slug);
+
+  <span class="k">if</span> (!post) notFound();
+
+  <span class="k">return</span> (
+    &lt;article&gt;
+      &lt;h1&gt;{post.titulo}&lt;/h1&gt;
+      &lt;div dangerouslySetInnerHTML={{ __html: post.html }} /&gt;
+    &lt;/article&gt;
+  );
+}</code></pre>
+        </div>
+
+        <h2 id="api">Una API en el mismo proyecto</h2>
+        <p>Un <code>route.ts</code> es una función que recibe una petición y devuelve una respuesta. El nombre del archivo determina la ruta.</p>
+
+        <div class="code">
+          <div class="code-head"><span>ts</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// app/api/tareas/route.ts</span>
+<span class="k">import</span> { NextResponse } <span class="k">from</span> <span class="s">"next/server"</span>;
+
+<span class="k">let</span> tareas = [{ id: <span class="n">1</span>, titulo: <span class="s">"Aprender Next"</span> }];
+
+<span class="k">export async function</span> <span class="f">GET</span>() {
+  <span class="k">return</span> NextResponse.json(tareas);
+}
+
+<span class="k">export async function</span> <span class="f">POST</span>(req: Request) {
+  <span class="k">const</span> body = <span class="k">await</span> req.json();
+  <span class="k">if</span> (!body?.titulo) {
+    <span class="k">return</span> NextResponse.json({ error: <span class="s">"Falta el título"</span> }, { status: <span class="n">400</span> });
+  }
+  <span class="k">const</span> nueva = { id: Date.now(), titulo: body.titulo };
+  tareas.push(nueva);
+  <span class="k">return</span> NextResponse.json(nueva, { status: <span class="n">201</span> });
+}</code></pre>
+        </div>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Ojo con el estado en memoria</span>
+          <p>En serverless, cada instancia tiene su propia memoria y puede apagarse. Un array en una variable sirve para aprender, pero no para producción: usa una base de datos (Postgres, SQLite, KV) o un servicio externo.</p>
+        </div>
+
+        <h2 id="formularios">Formularios con server actions</h2>
+        <p>Next permite llamar al servidor desde un formulario sin escribir un endpoint a mano:</p>
+
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// app/contacto/page.tsx</span>
+<span class="k">import</span> { revalidatePath } <span class="k">from</span> <span class="s">"next/cache"</span>;
+
+<span class="k">async function</span> <span class="f">enviar</span>(formData: FormData) {
+  <span class="s">"use server"</span>;
+  <span class="k">const</span> mensaje = String(formData.get(<span class="s">"mensaje"</span>) ?? <span class="s">""</span>).trim();
+  <span class="k">if</span> (mensaje.length &lt; <span class="n">5</span>) <span class="k">return</span>;
+
+  <span class="k">await</span> guardarMensaje(mensaje);
+  revalidatePath(<span class="s">"/contacto"</span>);
+}
+
+<span class="k">export default function</span> <span class="f">Contacto</span>() {
+  <span class="k">return</span> (
+    &lt;form action={enviar}&gt;
+      &lt;textarea name=<span class="s">"mensaje"</span> required minLength={<span class="n">5</span>} /&gt;
+      &lt;button&gt;Enviar&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+        </div>
+
+        <p>La función marcada con <code>"use server"</code> se ejecuta en el servidor aunque la llames desde el formulario. Ese es el mecanismo que hace que el formulario funcione incluso sin JavaScript.</p>
+
+        <h2 id="metadata">SEO y metadatos</h2>
+        <p>Cada página puede exportar sus metadatos. Next los convierte en etiquetas del <code>&lt;head&gt;</code>:</p>
+
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">import type</span> { Metadata } <span class="k">from</span> <span class="s">"next"</span>;
+
+<span class="k">export const</span> metadata: Metadata = {
+  title: <span class="s">"Mi primera página"</span>,
+  description: <span class="s">"Un curso para aprender a publicar en la web."</span>,
+  openGraph: {
+    title: <span class="s">"Mi primera página"</span>,
+    images: [<span class="s">"/og.png"</span>],
+  },
+};</code></pre>
+        </div>
+
+        <p>Y para rutas dinámicas, una función que recibe los parámetros:</p>
+
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">export async function</span> <span class="f">generateMetadata</span>({ params }) {
+  <span class="k">const</span> { slug } = <span class="k">await</span> params;
+  <span class="k">const</span> post = <span class="k">await</span> getPost(slug);
+  <span class="k">return</span> { title: post.titulo, description: post.resumen };
+}</code></pre>
+        </div>
+
+        <h2 id="imagenes">Imágenes y fuentes</h2>
+        <p>Dos componentes que sustituyen a lo que antes hacías a mano:</p>
+
+        <div class="code">
+          <div class="code-head"><span>tsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">import</span> Image <span class="k">from</span> <span class="s">"next/image"</span>;
+<span class="k">import</span> { GeistSans } <span class="k">from</span> <span class="s">"geist/font/sans"</span>;
+
+&lt;Image src=<span class="s">"/foto.jpg"</span> alt=<span class="s">"Descripción real"</span> width={<span class="n">800</span>} height={<span class="n">600</span>} /&gt;
+
+&lt;html className={GeistSans.variable}&gt;</code></pre>
+        </div>
+
+        <p><code>next/image</code> genera varios tamaños, sirve el adecuado y evita el salto de layout. <code>next/font</code> descarga la tipografía en el build: cero peticiones a Google y cero parpadeo.</p>
+
+        <h2 id="deploy">Publicar</h2>
+        <p>El flujo completo, sin servidor propio:</p>
+
+        <ol class="steps">
+          <li><h4>Sube a GitHub</h4><p><code>git init &amp;&amp; git add -A &amp;&amp; git commit -m "inicio"</code> y crea el repo.</p></li>
+          <li><h4>Importa en Vercel</h4><p>Add New → Project → elige el repo. Detecta Next solo.</p></li>
+          <li><h4>Deploy</h4><p>Te da una URL. Cada push a <code>main</code> publica; cada PR genera un preview.</p></li>
+          <li><h4>Variables de entorno</h4><p>Settings → Environment Variables. Nunca en el código.</p></li>
+        </ol>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">Nunca pongas secretos en el cliente</span>
+          <p>En Next, una variable con prefijo <code>NEXT_PUBLIC_</code> termina en el JavaScript que descarga el visitante. Solo úsalo para cosas públicas (una URL de API, un id de analytics). Las claves van sin prefijo y se leen solo en el servidor.</p>
+        </div>
+
+        <h2 id="ejercicios">Ejercicios</h2>
+        <div class="exercise">
+          <span class="chip">Ejercicio 01</span>
+          <h4>Tres rutas</h4>
+          <p>Crea <code>/</code>, <code>/sobre-mi</code> y <code>/blog</code> con un layout común. Comprueba que la navegación no recarga la página (mira la pestaña Network).</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 02</span>
+          <h4>Un blog desde archivos</h4>
+          <p>Guarda tres posts en <code>content/posts/*.json</code>. Crea <code>/blog</code> que los liste y <code>/blog/[slug]</code> que muestre uno. Todo en componentes de servidor.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 03</span>
+          <h4>API y cliente</h4>
+          <p>Añade <code>/api/tareas</code> con GET y POST. Consúmela desde un componente de cliente con <code>useState</code> y <code>useEffect</code>. Observa que no hay CORS porque comparten dominio.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 04</span>
+          <h4>Deploy real</h4>
+          <p>Sube el proyecto a GitHub y despliégalo en Vercel. Añade un dominio propio si tienes uno y comprueba el certificado HTTPS.</p>
+        </div>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">Lo importante</span>
+          <p>La idea que hace distinto a Next: <strong>el servidor y el cliente viven en el mismo proyecto</strong>, y tú decides qué se ejecuta dónde. Esa decisión es la que separa una web rápida de una lenta.</p>
+        </div>

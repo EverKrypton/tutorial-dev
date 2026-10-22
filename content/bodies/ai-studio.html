@@ -1,0 +1,268 @@
+        <h2 id="que-es">Qué es Google AI Studio</h2>
+        <p>Google AI Studio es la consola web de Gemini. Tiene dos partes: un <strong>playground</strong> para probar prompts y ajustar parámetros, y <strong>Build</strong>, un modo que genera una aplicación completa a partir de una descripción y la publica.</p>
+
+        <p>Es el equivalente de Google a v0 o a Lovable. Lo que lo hace distinto: usa Gemini, te da una API key para consumir el modelo desde tu código y las apps se pueden desplegar en Google Cloud Run.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Herramienta</th><th>Modelo</th><th>Fuerte en</th></tr></thead>
+            <tbody>
+              <tr><td>v0</td><td>Modelos de Vercel</td><td>UI con Next.js y shadcn</td></tr>
+              <tr><td>AI Studio Build</td><td>Gemini</td><td>Apps con IA, multimodal, gratis para probar</td></tr>
+              <tr><td>Lovable / Bolt</td><td>Varios</td><td>Prototipos rápidos full-stack</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="playground">El playground: entender el modelo antes de usarlo</h2>
+        <p>Entra a <code>aistudio.google.com</code>, inicia sesión con tu cuenta de Google y abre el playground. Verás cuatro zonas:</p>
+
+        <ol class="steps">
+          <li>
+            <h4>Sistema</h4>
+            <p>Las instrucciones permanentes: quién es el modelo y cómo debe responder. Es tu prompt de sistema.</p>
+          </li>
+          <li>
+            <h4>Turnos</h4>
+            <p>La conversación. Puedes escribir como usuario o como modelo para dar ejemplos de respuesta.</p>
+          </li>
+          <li>
+            <h4>Parámetros</h4>
+            <p>Temperatura, máximo de tokens, top-p y filtros de seguridad.</p>
+          </li>
+          <li>
+            <h4>Salida</h4>
+            <p>El resultado, con botón para ver el código que lo genera en Python, JavaScript, curl o la SDK.</p>
+          </li>
+        </ol>
+
+        <h3>Los parámetros, en corto</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Parámetro</th><th>Qué hace</th><th>Valor sensato</th></tr></thead>
+            <tbody>
+              <tr><td>Temperatura</td><td>Aleatoriedad. Baja = predecible</td><td>0.2 para datos, 0.9 para ideas</td></tr>
+              <tr><td>Max output tokens</td><td>Longitud máxima de la respuesta</td><td>1024 para chat, más para documentos</td></tr>
+              <tr><td>Top-p</td><td>Recorta la cola de probabilidades</td><td>0.95 por defecto</td></tr>
+              <tr><td>Top-k</td><td>Cuántas opciones considera por token</td><td>40 por defecto</td></tr>
+              <tr><td>Filtros</td><td>Bloquean contenido según categoría</td><td>No los desactives sin motivo</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--info">
+          <span class="callout-label">El botón más útil</span>
+          <p>«Get code» convierte tu prompt en código ejecutable. Es la forma más rápida de pasar de una prueba en la consola a algo que corre en tu servidor, sin adivinar el formato del cuerpo de la petición.</p>
+        </div>
+
+        <h2 id="build">Build: de una idea a una app</h2>
+        <p>Build es el modo de generación de apps. Le describes lo que quieres y produce una aplicación React con su lógica, su interfaz y, si hace falta, llamadas a Gemini.</p>
+
+        <p>Cómo pedir bien, con la misma disciplina del curso de prompting:</p>
+
+        <div class="code">
+          <div class="code-head"><span>prompt</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>Construye una app para llevar el gasto de un viaje en grupo.
+
+QUÉ HACE
+- Añadir un gasto: concepto, importe, quién pagó, entre quiénes se divide.
+- Ver la lista de gastos ordenada por fecha.
+- Ver cuánto debe cada persona a cada otra, calculado.
+
+CÓMO SE VE
+- Mobile first. Una columna en el teléfono.
+- Fondo oscuro, un solo color de acento.
+- Cada gasto es una fila, no una tarjeta con sombra.
+
+REGLAS
+- Los importes se guardan en céntimos, enteros.
+- Nunca dividas por cero.
+- Si no hay gastos, muestra un estado vacío con un botón para añadir el primero.
+- Los datos se guardan en localStorage.
+
+NO HAGAS
+- No inventes usuarios de ejemplo con nombres reales.
+- No añadas login.
+- No uses más de dos tipografías.</code></pre>
+        </div>
+
+        <p>Fíjate en la estructura: qué hace, cómo se ve, reglas y prohibiciones. Es la misma anatomía de prompt del capítulo 09, aplicada a la generación de apps.</p>
+
+        <h3>Qué hace bien y qué no</h3>
+        <div class="badgood">
+          <div class="good"><b>Bien</b><p>Prototipos de apps con IA, formularios, herramientas internas, demos para validar una idea con alguien en diez minutos.</p></div>
+          <div class="bad"><b>Con cuidado</b><p>Lógica de negocio delicada, pagos, autenticación, cualquier cosa donde un error silencioso cueste dinero.</p></div>
+        </div>
+
+        <h2 id="api">Usar Gemini desde tu código</h2>
+        <p>La parte que de verdad te sirve como desarrollador: llamar al modelo desde tu propia app. Primero, una API key.</p>
+
+        <ol class="steps">
+          <li><h4>Obtén la key</h4><p>En AI Studio, botón «Get API key» → crear en un proyecto de Google Cloud. Cópiala una vez y guárdala en un lugar seguro.</p></li>
+          <li><h4>Guárdala como variable de entorno</h4><p><code>GEMINI_API_KEY=...</code> en <code>.env.local</code>, nunca en el código ni en el repositorio.</p></li>
+          <li><h4>Instala la SDK</h4><p><code>npm install @google/genai</code></p></li>
+          <li><h4>Llama al modelo</h4><p>Desde el servidor, nunca desde el navegador.</p></li>
+        </ol>
+
+        <div class="code">
+          <div class="code-head"><span>ts</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// app/api/resumir/route.ts</span>
+<span class="k">import</span> { GoogleGenAI } <span class="k">from</span> <span class="s">"@google/genai"</span>;
+
+<span class="k">const</span> ai = <span class="k">new</span> GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+
+<span class="k">export async function</span> <span class="f">POST</span>(req: Request) {
+  <span class="k">const</span> { texto } = <span class="k">await</span> req.json();
+
+  <span class="k">if</span> (<span class="k">typeof</span> texto !== <span class="s">"string"</span> || texto.length &lt; <span class="n">20</span>) {
+    <span class="k">return</span> Response.json({ error: <span class="s">"Texto demasiado corto"</span> }, { status: <span class="n">400</span> });
+  }
+
+  <span class="k">const</span> res = <span class="k">await</span> ai.models.generateContent({
+    model: <span class="s">"gemini-2.5-flash"</span>,
+    contents: texto,
+    config: {
+      systemInstruction: <span class="s">"Resume en tres viñetas, en español, sin opinar."</span>,
+      temperature: <span class="n">0.2</span>,
+      maxOutputTokens: <span class="n">300</span>,
+    },
+  });
+
+  <span class="k">return</span> Response.json({ resumen: res.text });
+}</code></pre>
+        </div>
+
+        <p>Y desde el cliente:</p>
+
+        <div class="code">
+          <div class="code-head"><span>ts</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">const</span> res = <span class="k">await</span> fetch(<span class="s">"/api/resumir"</span>, {
+  method: <span class="s">"POST"</span>,
+  headers: { <span class="s">"Content-Type"</span>: <span class="s">"application/json"</span> },
+  body: JSON.stringify({ texto }),
+});
+
+<span class="k">if</span> (!res.ok) {
+  <span class="k">const</span> { error } = <span class="k">await</span> res.json();
+  <span class="k">throw new</span> Error(error);
+}
+<span class="k">const</span> { resumen } = <span class="k">await</span> res.json();</code></pre>
+        </div>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">La key nunca va al navegador</span>
+          <p>Si pones <code>NEXT_PUBLIC_GEMINI_API_KEY</code> o llamas a Gemini desde un componente de cliente, cualquiera puede abrir DevTools, copiar tu key y gastar tu cuota. Siempre a través de tu API.</p>
+        </div>
+
+        <h2 id="estructurada">Salidas estructuradas</h2>
+        <p>Si el resultado lo va a consumir un programa, pide JSON con esquema. Gemini lo respeta de forma mucho más fiable que pidiéndolo en prosa.</p>
+
+        <div class="code">
+          <div class="code-head"><span>ts</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">const</span> res = <span class="k">await</span> ai.models.generateContent({
+  model: <span class="s">"gemini-2.5-flash"</span>,
+  contents: <span class="s">`Clasifica este mensaje: "${mensaje}"`</span>,
+  config: {
+    responseMimeType: <span class="s">"application/json"</span>,
+    responseSchema: {
+      type: <span class="s">"object"</span>,
+      properties: {
+        categoria: { type: <span class="s">"string"</span>, enum: [<span class="s">"soporte"</span>, <span class="s">"ventas"</span>, <span class="s">"otro"</span>] },
+        urgente: { type: <span class="s">"boolean"</span> },
+        resumen: { type: <span class="s">"string"</span> },
+      },
+      required: [<span class="s">"categoria"</span>, <span class="s">"urgente"</span>, <span class="s">"resumen"</span>],
+    },
+  },
+});
+
+<span class="k">const</span> dato = JSON.parse(res.text ?? <span class="s">"{}"</span>);</code></pre>
+        </div>
+
+        <p>Valida siempre el JSON antes de usarlo. Un esquema reduce el riesgo, no lo elimina.</p>
+
+        <h2 id="imagenes">Multimodal: imágenes y audio</h2>
+        <p>Una ventaja real de Gemini: el mismo modelo entiende texto, imágenes, audio y vídeo.</p>
+
+        <div class="code">
+          <div class="code-head"><span>ts</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">import</span> { readFile } <span class="k">from</span> <span class="s">"node:fs/promises"</span>;
+
+<span class="k">const</span> imagen = <span class="k">await</span> readFile(<span class="s">"./public/factura.jpg"</span>);
+
+<span class="k">const</span> res = <span class="k">await</span> ai.models.generateContent({
+  model: <span class="s">"gemini-2.5-flash"</span>,
+  contents: [
+    { text: <span class="s">"Extrae el total y la fecha de esta factura. Devuelve JSON."</span> },
+    { inlineData: { mimeType: <span class="s">"image/jpeg"</span>, data: imagen.toString(<span class="s">"base64"</span>) } },
+  ],
+});</code></pre>
+        </div>
+
+        <p>Casos donde esto ahorra semanas: leer tickets y facturas, describir imágenes para accesibilidad, transcribir audio, revisar capturas de pantalla en un test.</p>
+
+        <h2 id="limites">Límites, coste y errores</h2>
+        <ul>
+          <li><strong>Cuota gratuita:</strong> existe, con límites por minuto y por día. Suficiente para aprender, insuficiente para producción con tráfico.</li>
+          <li><strong>Contexto:</strong> cada modelo tiene una ventana máxima. Si pegas un documento enorme, recórtalo o trocéalo.</li>
+          <li><strong>Alucinaciones:</strong> sigue ocurriendo. Si el dato importa, verifícalo o dale la fuente en el prompt.</li>
+          <li><strong>Errores 429:</strong> has superado la cuota. Implementa reintento con espera y un mensaje claro al usuario.</li>
+          <li><strong>Errores 400:</strong> el cuerpo está mal formado o el modelo no existe. Revisa el nombre exacto.</li>
+        </ul>
+
+        <div class="code">
+          <div class="code-head"><span>ts</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">async function</span> <span class="f">conReintento</span>&lt;T&gt;(fn: () =&gt; Promise&lt;T&gt;, intentos = <span class="n">3</span>): Promise&lt;T&gt; {
+  <span class="k">let</span> ultimo: unknown;
+  <span class="k">for</span> (<span class="k">let</span> i = <span class="n">0</span>; i &lt; intentos; i++) {
+    <span class="k">try</span> {
+      <span class="k">return await</span> fn();
+    } <span class="k">catch</span> (e) {
+      ultimo = e;
+      <span class="k">await new</span> Promise((r) =&gt; setTimeout(r, <span class="n">2</span> ** i * <span class="n">500</span>));
+    }
+  }
+  <span class="k">throw</span> ultimo;
+}</code></pre>
+        </div>
+
+        <h2 id="flujo">Un flujo de trabajo real</h2>
+        <ol class="steps">
+          <li><h4>Prueba en el playground</h4><p>Ajusta el prompt con datos reales hasta que la salida sea buena cinco veces seguidas.</p></li>
+          <li><h4>Copia el código</h4><p>«Get code» te da la llamada exacta. Adáptala a tu ruta de API.</p></li>
+          <li><h4>Muévelo al servidor</h4><p>La key en variable de entorno. La ruta valida la entrada y devuelve JSON.</p></li>
+          <li><h4>Diseña los estados</h4><p>Cargando, error, respuesta vacía. Una IA que falla sin mensaje es peor que no tener IA.</p></li>
+          <li><h4>Mide</h4><p>Guarda cuántas veces la respuesta sirve. Si es menos del 80%, el prompt necesita trabajo, no más modelo.</p></li>
+        </ol>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Build no reemplaza entender</span>
+          <p>AI Studio Build te da una app funcionando en minutos. Pero cuando algo falla a las dos semanas, necesitas saber qué hace el código. Genera, lee, entiende, reescribe lo que no te convenza.</p>
+        </div>
+
+        <h2 id="ejercicios">Ejercicios</h2>
+        <div class="exercise">
+          <span class="chip">Ejercicio 01</span>
+          <h4>Del playground al endpoint</h4>
+          <p>Prueba un prompt de clasificación en el playground. Ajusta la temperatura y compara tres ejecuciones. Después llévalo a una ruta <code>/api/clasificar</code> con salida JSON validada.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 02</span>
+          <h4>Una app con Build</h4>
+          <p>Pide una app de notas con resumen automático. Itera tres veces: una de contenido, una de diseño, una de móvil. Después lee el código generado y localiza dónde llama al modelo.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 03</span>
+          <h4>Imagen a datos</h4>
+          <p>Sube una foto de un recibo y pide que extraiga comercio, fecha y total en JSON. Comprueba cuántas veces acierta con cinco recibos distintos.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 04</span>
+          <h4>Los estados que nadie hace</h4>
+          <p>Añade a tu app de IA: estado de carga con texto («pensando…»), error con reintento, y un aviso cuando la respuesta está vacía. Compara la sensación con la versión sin estados.</p>
+        </div>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">Lo importante</span>
+          <p>AI Studio es un laboratorio y un atajo, no una muleta. Lo que te hace bueno no es la herramienta: es saber qué pedir, cómo comprobar la respuesta y qué hacer cuando falla.</p>
+        </div>

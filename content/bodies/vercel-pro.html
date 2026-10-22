@@ -1,0 +1,230 @@
+        <h2 id="mas-alla">Lo que no cuenta el tutorial de cinco minutos</h2>
+        <p>Publicar una página es fácil. Mantenerla viva es donde aparecen las decisiones: qué corre en el servidor, cómo se guardan los secretos, qué pasa cuando el tráfico sube, cómo vuelves atrás cuando algo se rompe.</p>
+
+        <p>Este capítulo es Vercel en serio, después de que ya sabes desplegar.</p>
+
+        <h2 id="modelos">Los tres modelos de ejecución</h2>
+        <p>Antes de escribir código, decide dónde vive:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Modelo</th><th>Qué es</th><th>Cuándo</th><th>Límite</th></tr></thead>
+            <tbody>
+              <tr><td>Estático</td><td>HTML y assets en la CDN</td><td>Contenido que no cambia por usuario</td><td>Ninguno relevante</td></tr>
+              <tr><td>Serverless</td><td>Una función que arranca por petición</td><td>API, formularios, datos privados</td><td>Timeout, arranque en frío</td></tr>
+              <tr><td>Edge</td><td>Función en el nodo más cercano</td><td>Redirecciones, geolocalización, A/B</td><td>APIs limitadas, sin filesystem</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>La regla práctica: <strong>estático por defecto, serverless cuando hay datos privados, edge solo si la latencia es el problema</strong>.</p>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">En simple</span>
+          <p>Estático es un cartel pegado en la pared: se sirve igual a todos y no cuesta nada. Serverless es un empleado que atiende pedidos: cobra por pedido y tarda un segundo en despertar. Edge son sucursales en cada ciudad: rapidísimo, pero con menos herramientas.</p>
+        </div>
+
+        <h2 id="funciones">Funciones que aguantan producción</h2>
+        <p>Una ruta de API ingenua se rompe con el primer caso raro. Esta es la versión que sí aguanta:</p>
+
+        <div class="code">
+          <div class="code-head"><span>ts</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// app/api/suscribir/route.ts</span>
+<span class="k">import</span> { NextResponse } <span class="k">from</span> <span class="s">"next/server"</span>;
+
+<span class="k">export const</span> runtime = <span class="s">"nodejs"</span>;
+<span class="k">export const</span> maxDuration = <span class="n">10</span>;
+
+<span class="k">export async function</span> <span class="f">POST</span>(req: Request) {
+  <span class="k">try</span> {
+    <span class="k">const</span> body = <span class="k">await</span> req.json().catch(() =&gt; <span class="k">null</span>);
+    <span class="k">const</span> email = <span class="k">typeof</span> body?.email === <span class="s">"string"</span> ? body.email.trim() : <span class="s">""</span>;
+
+    <span class="k">if</span> (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      <span class="k">return</span> NextResponse.json({ error: <span class="s">"Correo inválido"</span> }, { status: <span class="n">400</span> });
+    }
+
+    <span class="k">const</span> res = <span class="k">await</span> fetch(<span class="s">"https://api.proveedor.com/suscribir"</span>, {
+      method: <span class="s">"POST"</span>,
+      headers: {
+        <span class="s">"Content-Type"</span>: <span class="s">"application/json"</span>,
+        Authorization: <span class="s">`Bearer ${process.env.PROVEEDOR_KEY}`</span>,
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    <span class="k">if</span> (!res.ok) {
+      console.error(<span class="s">"proveedor falló"</span>, res.status, <span class="k">await</span> res.text());
+      <span class="k">return</span> NextResponse.json({ error: <span class="s">"No pudimos completar la suscripción"</span> }, { status: <span class="n">502</span> });
+    }
+
+    <span class="k">return</span> NextResponse.json({ ok: <span class="k">true</span> }, { status: <span class="n">201</span> });
+  } <span class="k">catch</span> (e) {
+    console.error(<span class="s">"error inesperado"</span>, e);
+    <span class="k">return</span> NextResponse.json({ error: <span class="s">"Error interno"</span> }, { status: <span class="n">500</span> });
+  }
+}</code></pre>
+        </div>
+
+        <p>Cuatro cosas que hacen la diferencia:</p>
+        <ul class="checklist">
+          <li>Valida la entrada antes de usarla, y devuelve 400 con un mensaje concreto.</li>
+          <li>Nunca devuelvas el error crudo del proveedor al cliente: regístralo tú.</li>
+          <li>Distingue 400 (culpa del cliente) de 500 (tuya) de 502 (del proveedor).</li>
+          <li>Pon un <code>maxDuration</code> explícito en vez de confiar en el default.</li>
+        </ul>
+
+        <h2 id="secretos">Secretos y entornos</h2>
+        <p>Vercel tiene tres entornos: <strong>Production</strong>, <strong>Preview</strong> y <strong>Development</strong>. Una variable puede existir en uno y no en otro, y ese es el error número uno de los deploys que «funcionan en preview».</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>vercel env ls
+vercel env add STRIPE_KEY production
+vercel env pull .env.local
+
+<span class="c"># cambiar una y volver a desplegar (las variables no se recargan solas)</span>
+vercel --prod</code></pre>
+        </div>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">Rotar una clave</span>
+          <p>Si una clave se filtra: revócala en el proveedor, crea una nueva, actualiza la variable en Production y Preview, redespliega y comprueba los logs. Borrarla del código no basta: sigue en el historial de Git.</p>
+        </div>
+
+        <h2 id="previews">Previews: el flujo de trabajo de verdad</h2>
+        <p>Cada push a una rama o PR genera una URL única con su propio entorno. Ese es el mecanismo que permite revisar sin tocar producción.</p>
+
+        <div class="code">
+          <div class="code-head"><span>flujo</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>git switch -c feat/precios
+<span class="c"># ...trabajas...</span>
+git commit -am "feat: nueva tabla de precios"
+git push -u origin feat/precios
+<span class="c"># Vercel comenta la URL de preview en el PR</span>
+<span class="c"># se revisa, se aprueba, se mezcla a main → producción</span></code></pre>
+        </div>
+
+        <p>Dos ajustes que conviene hacer desde el principio:</p>
+        <ul>
+          <li><strong>Protección de previews:</strong> que solo tu equipo pueda verlas si el proyecto no es público.</li>
+          <li><strong>Base de datos separada por entorno:</strong> nunca apuntes un preview a la base de datos de producción.</li>
+        </ul>
+
+        <h2 id="cron">Tareas programadas</h2>
+        <p>Con un <code>vercel.json</code> puedes ejecutar una ruta cada cierto tiempo, sin servidor propio:</p>
+
+        <div class="code">
+          <div class="code-head"><span>json</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>{
+  "crons": [
+    { "path": "/api/limpiar", "schedule": "0 3 * * *" },
+    { "path": "/api/informe", "schedule": "0 9 * * 1" }
+  ]
+}</code></pre>
+        </div>
+
+        <p>Y la ruta se protege con el secreto que Vercel inyecta:</p>
+
+        <div class="code">
+          <div class="code-head"><span>ts</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">export async function</span> <span class="f">GET</span>(req: Request) {
+  <span class="k">if</span> (req.headers.get(<span class="s">"authorization"</span>) !== <span class="s">`Bearer ${process.env.CRON_SECRET}`</span>) {
+    <span class="k">return new</span> Response(<span class="s">"No autorizado"</span>, { status: <span class="n">401</span> });
+  }
+  <span class="c">// trabajo real</span>
+  <span class="k">return</span> Response.json({ ok: <span class="k">true</span> });
+}</code></pre>
+        </div>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Cron no es un servidor</span>
+          <p>Las tareas programadas tienen límite de duración. Si necesitas procesar algo de veinte minutos, divídelo en trozos, usa una cola o un servicio de workflows. Un cron no es un daemon.</p>
+        </div>
+
+        <h2 id="cache">Caché y rendimiento</h2>
+        <p>La diferencia entre una web rápida y una lenta casi siempre es caché bien puesta.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Capa</th><th>Qué guarda</th><th>Cómo se controla</th></tr></thead>
+            <tbody>
+              <tr><td>CDN</td><td>HTML y assets estáticos</td><td>Automático en páginas estáticas</td></tr>
+              <tr><td>Datos</td><td>Respuestas de <code>fetch</code></td><td><code>next: { revalidate }</code></td></tr>
+              <tr><td>Imágenes</td><td>Versiones optimizadas</td><td><code>next/image</code></td></tr>
+              <tr><td>Cliente</td><td>Peticiones repetidas</td><td>SWR, React Query o tu propio estado</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code">
+          <div class="code-head"><span>ts</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// revalidar cada 60 s: ni tiempo real ni datos de hace un día</span>
+<span class="k">const</span> res = <span class="k">await</span> fetch(url, { next: { revalidate: <span class="n">60</span> } });
+
+<span class="c">// invalidar a mano tras un cambio</span>
+<span class="k">import</span> { revalidatePath, revalidateTag } <span class="k">from</span> <span class="s">"next/cache"</span>;
+revalidatePath(<span class="s">"/precios"</span>);
+revalidateTag(<span class="s">"productos"</span>);</code></pre>
+        </div>
+
+        <h2 id="observar">Observar: logs y métricas</h2>
+        <p>Lo que no mides no lo puedes arreglar. Lo mínimo:</p>
+
+        <ul>
+          <li><strong>Logs de función:</strong> en el panel del deployment o con <code>vercel logs</code>. Los <code>console.log</code> del servidor aparecen aquí, no en el navegador.</li>
+          <li><strong>Web Vitals:</strong> LCP (carga), INP (respuesta), CLS (estabilidad visual). Son las tres que siente el usuario.</li>
+          <li><strong>Errores:</strong> conecta Sentry o similar. Un error en producción sin traza es un misterio eterno.</li>
+          <li><strong>Uso:</strong> <code>vercel usage</code> para no llevarte una sorpresa en la factura.</li>
+        </ul>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>vercel logs https://mi-app.vercel.app
+vercel inspect https://mi-app.vercel.app --logs
+vercel usage</code></pre>
+        </div>
+
+        <h2 id="rollback">Cuando algo se rompe</h2>
+        <p>El plan, en orden, sin pánico:</p>
+
+        <ol class="steps">
+          <li><h4>Rollback inmediato</h4><p>Promociona el deployment anterior desde el panel. Treinta segundos y el sitio vuelve a funcionar.</p></li>
+          <li><h4>Lee los logs</h4><p>Qué función, qué línea, qué código de estado. Sin eso, estás adivinando.</p></li>
+          <li><h4>Reproduce en preview</h4><p>El fallo casi siempre se reproduce en un preview de la rama.</p></li>
+          <li><h4>Arregla con un commit pequeño</h4><p>Un cambio, una causa. No mezcles el arreglo con una refactorización.</p></li>
+          <li><h4>Anota</h4><p>Qué pasó y cómo se detectó. La próxima vez se detecta antes.</p></li>
+        </ol>
+
+        <h2 id="dominios">Dominios y DNS sin misterio</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Registro</th><th>Para qué</th><th>Valor típico</th></tr></thead>
+            <tbody>
+              <tr><td><code>A</code></td><td>Dominio raíz</td><td><code>76.76.21.21</code></td></tr>
+              <tr><td><code>CNAME</code></td><td>Subdominio (<code>www</code>)</td><td><code>cname.vercel-dns.com</code></td></tr>
+              <tr><td><code>TXT</code></td><td>Verificación de propiedad</td><td>El que te dé Vercel</td></tr>
+              <tr><td><code>MX</code></td><td>Correo</td><td>Tu proveedor de email</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Elige una versión canónica (con o sin <code>www</code>) y redirige la otra. Tener ambas sirviendo contenido duplica páginas y confunde a los buscadores.</p>
+
+        <h2 id="checklist">Checklist de producción</h2>
+        <ul class="checklist">
+          <li>Todas las variables existen en Production y en Preview.</li>
+          <li>Ninguna clave tiene prefijo público.</li>
+          <li>Cada ruta de API valida la entrada y distingue códigos de estado.</li>
+          <li>Los errores se registran en el servidor; el cliente recibe un mensaje útil.</li>
+          <li>Hay un estado de carga y un estado de error en cada vista con datos.</li>
+          <li>El sitio funciona con JavaScript desactivado en las páginas de contenido.</li>
+          <li>Probado en un teléfono real, no solo en el emulador.</li>
+          <li>Sabes cómo hacer rollback y lo has practicado una vez.</li>
+          <li>Web Vitals medidos con datos reales, no solo en tu máquina.</li>
+        </ul>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">Lo importante</span>
+          <p>Desplegar es el principio, no el final. Un proyecto profesional se define por lo que pasa cuando algo falla: si puedes volver atrás en treinta segundos y sabes leer los logs, estás por encima de la mayoría.</p>
+        </div>

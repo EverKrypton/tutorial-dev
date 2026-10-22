@@ -18,43 +18,43 @@
     "sections": [
       [
         "que-es",
-        "Qué es programar"
+        "Qué es programar#"
       ],
       [
         "anatomia",
-        "La anatomía de un programa"
+        "La anatomía de un programa#"
       ],
       [
         "variables",
-        "Variables y tipos"
+        "Variables y tipos#"
       ],
       [
         "decisiones",
-        "Tomar decisiones"
+        "Tomar decisiones#"
       ],
       [
         "repeticion",
-        "Repetir sin morir"
+        "Repetir sin morir#"
       ],
       [
         "funciones",
-        "Funciones"
+        "Funciones#"
       ],
       [
         "datos",
-        "Listas y objetos"
+        "Listas y objetos#"
       ],
       [
         "errores",
-        "Errores y debugging"
+        "Errores y debugging#"
       ],
       [
         "pensar",
-        "Pensar como programador"
+        "Pensar como programador#"
       ],
       [
         "ejercicios",
-        "Ejercicios"
+        "Ejercicios#"
       ]
     ],
     "extra": false
@@ -78,50 +78,119 @@
     "sections": [
       [
         "como-funciona",
-        "Qué pasa cuando abres una web"
+        "Qué pasa cuando abres una web#"
       ],
       [
         "html",
-        "HTML: el esqueleto"
+        "HTML: el esqueleto#"
       ],
       [
         "css",
-        "CSS: la ropa"
+        "CSS: la ropa#"
       ],
       [
         "layout",
-        "Cajas, flex y grid"
+        "Cajas, flex y grid#"
       ],
       [
         "mobile",
-        "Mobile first de verdad"
+        "Mobile first de verdad#"
       ],
       [
         "js",
-        "JavaScript: los músculos"
+        "JavaScript: los músculos#"
       ],
       [
         "a11y",
-        "Accesibilidad mínima"
+        "Accesibilidad mínima#"
       ],
       [
         "proyecto",
-        "Proyecto: tu tarjeta"
+        "Proyecto: tu tarjeta#"
       ],
       [
         "devtools",
-        "DevTools"
+        "DevTools#"
       ],
       [
         "siguiente",
-        "Qué sigue"
+        "Qué sigue#"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "terminal",
+    "number": "03",
+    "group": "Empezar",
+    "title": "La terminal sin miedo",
+    "lede": "La terminal da miedo los primeros veinte minutos y después se vuelve el sitio donde de verdad trabajas. Aquí aprendes los comandos que usa todo el mundo, en tu computadora, en un VPS o en Termux.",
+    "summary": "ls, cd, cat, nano, grep, chmod, ssh, pipes y systemd. La terminal de verdad, en tu máquina o en un VPS.",
+    "duration": "45 min",
+    "level": "Cero",
+    "requires": "Ninguno",
+    "outcome": "Moverte sin ratón",
+    "stack": "Bash · Termux · VPS",
+    "tags": [
+      "terminal",
+      "VPS",
+      "Termux"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Qué es una terminal"
+      ],
+      [
+        "anatomia",
+        "La anatomía de un comando"
+      ],
+      [
+        "ubicacion",
+        "Dónde estás: pwd, ls, cd"
+      ],
+      [
+        "archivos",
+        "Crear, copiar y borrar"
+      ],
+      [
+        "nano",
+        "Editar con nano"
+      ],
+      [
+        "permisos",
+        "Permisos y sudo"
+      ],
+      [
+        "procesos",
+        "Procesos y servicios"
+      ],
+      [
+        "red",
+        "Red: ssh, curl, puertos"
+      ],
+      [
+        "pipes",
+        "Tuberías y redirecciones"
+      ],
+      [
+        "termux",
+        "Termux: la terminal en el bolsillo"
+      ],
+      [
+        "chuleta",
+        "Chuleta"
+      ],
+      [
+        "ejercicios",
+        "Ejercicios"
       ]
     ],
     "extra": false
   },
   {
     "slug": "git-github",
-    "number": "03",
+    "number": "04",
     "group": "Empezar",
     "title": "Git y GitHub sin miedo",
     "lede": "Git guarda fotos de tu proyecto para que puedas volver atrás. GitHub guarda esas fotos en internet para compartirlas. Juntos son el seguro más barato contra «se me rompió todo».",
@@ -138,50 +207,50 @@
     "sections": [
       [
         "que-es",
-        "Git no es GitHub"
+        "Git no es GitHub#"
       ],
       [
         "instalar",
-        "Instalar y configurar"
+        "Instalar y configurar#"
       ],
       [
         "primer-repo",
-        "Tu primer repositorio"
+        "Tu primer repositorio#"
       ],
       [
         "commits",
-        "Commits que sirven"
+        "Commits que sirven#"
       ],
       [
         "ramas",
-        "Ramas"
+        "Ramas#"
       ],
       [
         "remoto",
-        "Subir a GitHub"
+        "Subir a GitHub#"
       ],
       [
         "pr",
-        "Pull requests"
+        "Pull requests#"
       ],
       [
         "deshacer",
-        "Deshacer sin pánico"
+        "Deshacer sin pánico#"
       ],
       [
         "buenas",
-        "Buenas costumbres"
+        "Buenas costumbres#"
       ],
       [
         "chuleta",
-        "Chuleta"
+        "Chuleta#"
       ]
     ],
     "extra": false
   },
   {
     "slug": "vercel",
-    "number": "04",
+    "number": "05",
     "group": "Publicar",
     "title": "Publicar en Vercel",
     "lede": "Tener la página en tu computadora no sirve de mucho. Vercel la pone en internet, le da HTTPS y una URL que puedes mandar por WhatsApp. Y lo mejor: se actualiza cada vez que subes un cambio.",
@@ -198,54 +267,306 @@
     "sections": [
       [
         "que-es",
-        "Qué es Vercel"
+        "Qué es Vercel#"
       ],
       [
         "cuenta",
-        "Cuenta y primer deploy"
+        "Cuenta y primer deploy#"
       ],
       [
         "cli",
-        "La CLI"
+        "La CLI#"
       ],
       [
         "deploy",
-        "Deploy y producción"
+        "Deploy y producción#"
       ],
       [
         "git",
-        "Git + Vercel"
+        "Git + Vercel#"
       ],
       [
         "dominio",
-        "Tu dominio"
+        "Tu dominio#"
       ],
       [
         "env",
-        "Variables de entorno"
+        "Variables de entorno#"
       ],
       [
         "funciones",
-        "Funciones y API"
+        "Funciones y API#"
       ],
       [
         "trucos",
-        "Logs, rollback y analytics"
+        "Logs, rollback y analytics#"
       ],
       [
         "errores",
-        "Errores típicos"
+        "Errores típicos#"
       ],
       [
         "checklist",
-        "Checklist"
+        "Checklist#"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "vercel-pro",
+    "number": "06",
+    "group": "Publicar",
+    "title": "Vercel a fondo",
+    "lede": "Publicar es el principio. Mantenerlo vivo es donde aparecen las decisiones: qué corre dónde, cómo se guardan los secretos y cómo vuelves atrás cuando algo se rompe.",
+    "summary": "Estático, serverless y edge; secretos por entorno; previews; cron; caché; logs; rollback.",
+    "duration": "50 min",
+    "level": "Medio",
+    "requires": "Saber desplegar",
+    "outcome": "Un deploy sólido",
+    "stack": "Vercel · Next.js",
+    "tags": [
+      "deploy",
+      "producción",
+      "caché"
+    ],
+    "sections": [
+      [
+        "mas-alla",
+        "Lo que no cuenta el tutorial de cinco minutos"
+      ],
+      [
+        "modelos",
+        "Los tres modelos de ejecución"
+      ],
+      [
+        "funciones",
+        "Funciones que aguantan producción"
+      ],
+      [
+        "secretos",
+        "Secretos y entornos"
+      ],
+      [
+        "previews",
+        "Previews: el flujo de trabajo de verdad"
+      ],
+      [
+        "cron",
+        "Tareas programadas"
+      ],
+      [
+        "cache",
+        "Caché y rendimiento"
+      ],
+      [
+        "observar",
+        "Observar: logs y métricas"
+      ],
+      [
+        "rollback",
+        "Cuando algo se rompe"
+      ],
+      [
+        "dominios",
+        "Dominios y DNS sin misterio"
+      ],
+      [
+        "checklist",
+        "Checklist de producción"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "servidores",
+    "number": "07",
+    "group": "Backend",
+    "title": "Tu primer servidor y tu primera API",
+    "lede": "Una web y un servidor son dos programas hablando por HTTP. Aquí escribes el servidor, diseñas la API, conectas el cliente y lo pones en internet.",
+    "summary": "HTTP, una API con Hono, CORS, persistencia, nginx y deploy. El circuito completo, de localhost a internet.",
+    "duration": "60 min",
+    "level": "Inicial",
+    "requires": "Saber usar la terminal",
+    "outcome": "Una API pública",
+    "stack": "Node · Hono · HTTP",
+    "tags": [
+      "API",
+      "HTTP",
+      "backend"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Qué es un servidor, de verdad"
+      ],
+      [
+        "http",
+        "HTTP en una servilleta"
+      ],
+      [
+        "api",
+        "Tu primera API con Hono"
+      ],
+      [
+        "persistencia",
+        "Guardar de verdad: un archivo JSON"
+      ],
+      [
+        "cors",
+        "Conectar una web a tu servidor"
+      ],
+      [
+        "frontend",
+        "Una web mínima que consume la API"
+      ],
+      [
+        "deploy",
+        "Poner el servidor en internet"
+      ],
+      [
+        "seguridad",
+        "Lo mínimo de seguridad"
+      ],
+      [
+        "ejercicios",
+        "Ejercicios"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "react",
+    "number": "08",
+    "group": "Frontend",
+    "title": "React desde cero",
+    "lede": "React no es una librería de componentes: es una forma de pensar la interfaz como función del estado. Si entiendes eso, todo lo demás cae solo.",
+    "summary": "JSX, componentes, props, estado, listas, efectos y los cinco errores que todos cometemos.",
+    "duration": "55 min",
+    "level": "Inicial",
+    "requires": "JavaScript básico",
+    "outcome": "Una app interactiva",
+    "stack": "React · Vite",
+    "tags": [
+      "React",
+      "estado",
+      "componentes"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Qué es React y qué problema resuelve"
+      ],
+      [
+        "preparar",
+        "Preparar el proyecto"
+      ],
+      [
+        "jsx",
+        "JSX: HTML con superpoderes"
+      ],
+      [
+        "componentes",
+        "Componentes y props"
+      ],
+      [
+        "estado",
+        "Estado con useState"
+      ],
+      [
+        "listas",
+        "Listas y eventos"
+      ],
+      [
+        "efectos",
+        "useEffect: hablar con el mundo exterior"
+      ],
+      [
+        "derivado",
+        "Lo que no necesita estado"
+      ],
+      [
+        "estructura",
+        "Estructurar una app pequeña"
+      ],
+      [
+        "errores",
+        "Los cinco errores que todo el mundo comete"
+      ],
+      [
+        "ejercicios",
+        "Ejercicios"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "nextjs",
+    "number": "09",
+    "group": "Frontend",
+    "title": "Next.js en serio",
+    "lede": "Next es React más rutas, datos en el servidor, API y deploy. La decisión importante no es qué componente usar: es qué se ejecuta en el servidor y qué en el navegador.",
+    "summary": "App Router, componentes de servidor, datos, rutas de API, server actions, metadatos y deploy.",
+    "duration": "60 min",
+    "level": "Medio",
+    "requires": "React",
+    "outcome": "Un sitio full-stack",
+    "stack": "Next.js · TypeScript",
+    "tags": [
+      "Next.js",
+      "servidor",
+      "rutas"
+    ],
+    "sections": [
+      [
+        "por-que",
+        "Qué añade Next sobre React"
+      ],
+      [
+        "crear",
+        "Crear el proyecto"
+      ],
+      [
+        "rutas",
+        "Rutas y layout"
+      ],
+      [
+        "servidor",
+        "Componentes de servidor: la diferencia clave"
+      ],
+      [
+        "datos",
+        "Leer datos"
+      ],
+      [
+        "api",
+        "Una API en el mismo proyecto"
+      ],
+      [
+        "formularios",
+        "Formularios con server actions"
+      ],
+      [
+        "metadata",
+        "SEO y metadatos"
+      ],
+      [
+        "imagenes",
+        "Imágenes y fuentes"
+      ],
+      [
+        "deploy",
+        "Publicar"
+      ],
+      [
+        "ejercicios",
+        "Ejercicios"
       ]
     ],
     "extra": false
   },
   {
     "slug": "v0",
-    "number": "05",
+    "number": "10",
     "group": "Construir con IA",
     "title": "v0: tu copiloto de interfaces",
     "lede": "v0 es un agente de Vercel que convierte una descripción en una interfaz real, con código que puedes abrir, editar y publicar. No es magia: es un compañero que necesita buenas instrucciones y criterio.",
@@ -262,46 +583,103 @@
     "sections": [
       [
         "que-es",
-        "Qué es v0 (y qué no)"
+        "Qué es v0 (y qué no)#"
       ],
       [
         "empezar",
-        "Tu primera pantalla"
+        "Tu primera pantalla#"
       ],
       [
         "prompt",
-        "Cómo pedir bien"
+        "Cómo pedir bien#"
       ],
       [
         "iterar",
-        "Iterar sin perder el rumbo"
+        "Iterar sin perder el rumbo#"
       ],
       [
         "codigo",
-        "El código es tuyo"
+        "El código es tuyo#"
       ],
       [
         "deploy",
-        "De v0 a producción"
+        "De v0 a producción#"
       ],
       [
         "usos",
-        "Usos que valen la pena"
+        "Usos que valen la pena#"
       ],
       [
         "limites",
-        "Límites y trampas"
+        "Límites y trampas#"
       ],
       [
         "ejercicio",
-        "Ejercicio"
+        "Ejercicio#"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "ai-studio",
+    "number": "11",
+    "group": "Construir con IA",
+    "title": "Google AI Studio Build",
+    "lede": "AI Studio es el laboratorio de Gemini y también un generador de apps. Sirve para prototipar en minutos y, sobre todo, para usar el modelo desde tu propio código.",
+    "summary": "Playground, parámetros, Build, la API de Gemini, salidas JSON, multimodal y límites reales.",
+    "duration": "45 min",
+    "level": "Inicial",
+    "requires": "Cuenta de Google",
+    "outcome": "Una app con IA",
+    "stack": "Gemini · API",
+    "tags": [
+      "Gemini",
+      "IA",
+      "API"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Qué es Google AI Studio"
+      ],
+      [
+        "playground",
+        "El playground: entender el modelo antes de usarlo"
+      ],
+      [
+        "build",
+        "Build: de una idea a una app"
+      ],
+      [
+        "api",
+        "Usar Gemini desde tu código"
+      ],
+      [
+        "estructurada",
+        "Salidas estructuradas"
+      ],
+      [
+        "imagenes",
+        "Multimodal: imágenes y audio"
+      ],
+      [
+        "limites",
+        "Límites, coste y errores"
+      ],
+      [
+        "flujo",
+        "Un flujo de trabajo real"
+      ],
+      [
+        "ejercicios",
+        "Ejercicios"
       ]
     ],
     "extra": false
   },
   {
     "slug": "ia-cli",
-    "number": "06",
+    "number": "12",
     "group": "Construir con IA",
     "title": "La IA en tu terminal",
     "lede": "Un chat te da texto. Un harness le da manos: puede leer tu proyecto, escribir archivos, correr comandos y comprobar si lo que hizo funciona. Es la diferencia entre un consejero y un compañero de trabajo.",
@@ -318,51 +696,51 @@
     "sections": [
       [
         "harness",
-        "Qué es un harness"
+        "Qué es un harness#"
       ],
       [
         "instalar",
-        "Instalar opencode"
+        "Instalar opencode#"
       ],
       [
         "modelos",
-        "Modelos: cuál y cuándo"
+        "Modelos: cuál y cuándo#"
       ],
       [
         "proveedores",
-        "Proveedores y API keys"
+        "Proveedores y API keys#"
       ],
       [
         "sesion",
-        "Una sesión paso a paso"
+        "Una sesión paso a paso#"
       ],
       [
         "contexto",
-        "Contexto: el recurso escaso"
+        "Contexto: el recurso escaso#"
       ],
       [
         "permisos",
-        "Permisos y seguridad"
+        "Permisos y seguridad#"
       ],
       [
         "comandos",
-        "Comandos que importan"
+        "Comandos que importan#"
       ],
       [
         "modos",
-        "Plan, build y subagentes"
+        "Plan, build y subagentes#"
       ],
       [
         "coste",
-        "Coste y límites"
+        "Coste y límites#"
       ]
     ],
     "extra": false
   },
   {
     "slug": "skills",
-    "number": "07",
-    "group": "Construir con IA",
+    "number": "13",
+    "group": "Agentes",
     "title": "Skills: enséñale trucos a tu IA",
     "lede": "Una skill es una carpeta con un archivo de texto que le enseña a tu agente cómo hacer una tarea de tu manera. Se carga solo cuando hace falta, así que no ocupa contexto todo el tiempo.",
     "summary": "Instrucciones reutilizables que el agente carga solo cuando hace falta.",
@@ -378,47 +756,47 @@
     "sections": [
       [
         "que-es",
-        "Qué es una skill"
+        "Qué es una skill#"
       ],
       [
         "estructura",
-        "Anatomía de un SKILL.md"
+        "Anatomía de un SKILL.md#"
       ],
       [
         "donde",
-        "Dónde se guardan"
+        "Dónde se guardan#"
       ],
       [
         "descubrir",
-        "Cómo se activan"
+        "Cómo se activan#"
       ],
       [
         "primera",
-        "Tu primera skill"
+        "Tu primera skill#"
       ],
       [
         "buenas",
-        "Qué hace buena a una skill"
+        "Qué hace buena a una skill#"
       ],
       [
         "permisos",
-        "Permisos"
+        "Permisos#"
       ],
       [
         "ideas",
-        "Ideas para tu proyecto"
+        "Ideas para tu proyecto#"
       ],
       [
         "errores",
-        "Errores comunes"
+        "Errores comunes#"
       ]
     ],
     "extra": false
   },
   {
     "slug": "agentes",
-    "number": "08",
-    "group": "Construir con IA",
+    "number": "14",
+    "group": "Agentes",
     "title": "Tu propio agente",
     "lede": "Un agente es un asistente con nombre, instrucciones y límites. No necesitas programar una IA: necesitas escribir un archivo de texto que le diga cómo comportarse, qué puede tocar y cuándo pedirte permiso.",
     "summary": "Un asistente con nombre, reglas, permisos y herramientas, definido en un archivo.",
@@ -434,46 +812,46 @@
     "sections": [
       [
         "que-es",
-        "Qué es un agente"
+        "Qué es un agente#"
       ],
       [
         "tipos",
-        "Primarios y subagentes"
+        "Primarios y subagentes#"
       ],
       [
         "crear",
-        "Crear el tuyo"
+        "Crear el tuyo#"
       ],
       [
         "archivo",
-        "El archivo completo"
+        "El archivo completo#"
       ],
       [
         "opciones",
-        "Las opciones que importan"
+        "Las opciones que importan#"
       ],
       [
         "permisos",
-        "Permisos por herramienta"
+        "Permisos por herramienta#"
       ],
       [
         "subagentes",
-        "Subagentes y orquestación"
+        "Subagentes y orquestación#"
       ],
       [
         "ejemplos",
-        "Tres agentes útiles"
+        "Tres agentes útiles#"
       ],
       [
         "probar",
-        "Probar y mejorar"
+        "Probar y mejorar#"
       ]
     ],
     "extra": false
   },
   {
     "slug": "prompting",
-    "number": "09",
+    "number": "15",
     "group": "Profundizar",
     "title": "Curso de prompting, a fondo",
     "lede": "Pedir bien no es escribir bonito: es reducir la incertidumbre. Dieciséis módulos para entender cómo razonan los modelos, cómo estructurar una petición y cómo comprobar que el resultado sirve.",
@@ -490,78 +868,78 @@
     "sections": [
       [
         "m0",
-        "0. Cómo leer el curso"
+        "0. Cómo leer el curso#"
       ],
       [
         "m1",
-        "1. Qué hace un modelo"
+        "1. Qué hace un modelo#"
       ],
       [
         "m2",
-        "2. La anatomía del prompt"
+        "2. La anatomía del prompt#"
       ],
       [
         "m3",
-        "3. Contexto"
+        "3. Contexto#"
       ],
       [
         "m4",
-        "4. Especificidad"
+        "4. Especificidad#"
       ],
       [
         "m5",
-        "5. Estructura y delimitadores"
+        "5. Estructura y delimitadores#"
       ],
       [
         "m6",
-        "6. Ejemplos"
+        "6. Ejemplos#"
       ],
       [
         "m7",
-        "7. Rol y tono"
+        "7. Rol y tono#"
       ],
       [
         "m8",
-        "8. Razonamiento"
+        "8. Razonamiento#"
       ],
       [
         "m9",
-        "9. Salidas estructuradas"
+        "9. Salidas estructuradas#"
       ],
       [
         "m10",
-        "10. Herramientas y agentes"
+        "10. Herramientas y agentes#"
       ],
       [
         "m11",
-        "11. Iteración y conversación"
+        "11. Iteración y conversación#"
       ],
       [
         "m12",
-        "12. Evaluación"
+        "12. Evaluación#"
       ],
       [
         "m13",
-        "13. Seguridad"
+        "13. Seguridad#"
       ],
       [
         "m14",
-        "14. Anti-patrones"
+        "14. Anti-patrones#"
       ],
       [
         "m15",
-        "15. Plantillas"
+        "15. Plantillas#"
       ],
       [
         "m16",
-        "16. Plan de práctica"
+        "16. Plan de práctica#"
       ]
     ],
     "extra": false
   },
   {
     "slug": "glosario",
-    "number": "10",
+    "number": "16",
     "group": "Profundizar",
     "title": "Glosario y chuleta",
     "lede": "Las palabras que vas a escuchar mil veces, en una línea cada una. Y los comandos que de verdad se usan, listos para copiar.",
@@ -578,27 +956,27 @@
     "sections": [
       [
         "web",
-        "Web"
+        "Web#"
       ],
       [
         "git",
-        "Git y GitHub"
+        "Git y GitHub#"
       ],
       [
         "vercel",
-        "Vercel"
+        "Vercel#"
       ],
       [
         "ia",
-        "IA y modelos"
+        "IA y modelos#"
       ],
       [
         "agentes",
-        "Agentes"
+        "Agentes#"
       ],
       [
         "chuleta",
-        "Chuletas de comandos"
+        "Chuletas de comandos#"
       ]
     ],
     "extra": false
@@ -622,55 +1000,55 @@
     "sections": [
       [
         "filosofia",
-        "Dos filosofías"
+        "Dos filosofías#"
       ],
       [
         "genjutsu",
-        "Genjutsu"
+        "Genjutsu#"
       ],
       [
         "cast",
-        "Cast: la ilusión"
+        "Cast: la ilusión#"
       ],
       [
         "paint",
-        "Paint: el mundo visual"
+        "Paint: el mundo visual#"
       ],
       [
         "subskills",
-        "Las sub-skills"
+        "Las sub-skills#"
       ],
       [
         "impeccable",
-        "Impeccable"
+        "Impeccable#"
       ],
       [
         "modos",
-        "Los cuatro modos"
+        "Los cuatro modos#"
       ],
       [
         "comandos",
-        "Comandos"
+        "Comandos#"
       ],
       [
         "craft",
-        "El piso de calidad"
+        "El piso de calidad#"
       ],
       [
         "elegir",
-        "Cuál usar y cuándo"
+        "Cuál usar y cuándo#"
       ],
       [
         "instalar",
-        "Instalarlas"
+        "Instalarlas#"
       ],
       [
         "anatomia",
-        "Qué las hace profesionales"
+        "Qué las hace profesionales#"
       ],
       [
         "ejercicio",
-        "Ejercicio"
+        "Ejercicio#"
       ]
     ],
     "extra": true

@@ -1,0 +1,375 @@
+        <h2 id="que-es">Qué es React y qué problema resuelve</h2>
+        <p>Con HTML y JavaScript normal, actualizar la pantalla es manual: buscas el elemento, lo modificas, recuerdas qué cambió, y si el estado se complica acabas con veinte líneas que se pisan entre sí.</p>
+
+        <p>React cambia el modelo: describes <strong>cómo se ve la interfaz para un estado dado</strong> y React se encarga de actualizar el DOM. No dices «borra este <code>li</code> y añade otro»; dices «con estas tareas, pinta esta lista».</p>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">En simple</span>
+          <p>Antes: mueves las piezas del dominó una a una. Con React: describes la figura final y el framework coloca las piezas. Tú te preocupas por los datos, no por el orden de los movimientos.</p>
+        </div>
+
+        <p>La idea central es una función: <code>ui = f(estado)</code>. Mismo estado, misma interfaz. Cambia el estado, React vuelve a llamar a la función y actualiza solo lo que difiere.</p>
+
+        <h2 id="preparar">Preparar el proyecto</h2>
+        <p>La forma moderna de empezar es con Vite, que es rápido y no te esconde nada:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>npm create vite@latest mi-app -- --template react
+cd mi-app
+npm install
+npm run dev</code></pre>
+        </div>
+
+        <p>Te da <code>http://localhost:5173</code>. La estructura mínima:</p>
+
+        <div class="code">
+          <div class="code-head"><span>estructura</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>mi-app/
+├── index.html          <span class="c"># la única página real</span>
+├── src/
+│   ├── main.jsx        <span class="c"># monta React en #root</span>
+│   ├── App.jsx         <span class="c"># tu componente raíz</span>
+│   └── index.css
+└── package.json</code></pre>
+        </div>
+
+        <p><code>main.jsx</code> hace una sola cosa:</p>
+
+        <div class="code">
+          <div class="code-head"><span>jsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">import</span> { StrictMode } <span class="k">from</span> <span class="s">"react"</span>;
+<span class="k">import</span> { createRoot } <span class="k">from</span> <span class="s">"react-dom/client"</span>;
+<span class="k">import</span> App <span class="k">from</span> <span class="s">"./App.jsx"</span>;
+
+createRoot(document.getElementById(<span class="s">"root"</span>)).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);</code></pre>
+        </div>
+
+        <h2 id="jsx">JSX: HTML con superpoderes</h2>
+        <p>JSX parece HTML pero es JavaScript. Tres diferencias que confunden al principio:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>HTML</th><th>JSX</th><th>Por qué</th></tr></thead>
+            <tbody>
+              <tr><td><code>class="caja"</code></td><td><code>className="caja"</code></td><td><code>class</code> es palabra reservada en JS</td></tr>
+              <tr><td><code>for="campo"</code></td><td><code>htmlFor="campo"</code></td><td>Igual con <code>for</code></td></tr>
+              <tr><td><code>&lt;br&gt;</code></td><td><code>&lt;br /&gt;</code></td><td>Todo se cierra</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Y lo importante: <strong>puedes insertar JavaScript con llaves</strong>.</p>
+
+        <div class="code">
+          <div class="code-head"><span>jsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">const</span> nombre = <span class="s">"Mara"</span>;
+<span class="k">const</span> tareas = [<span class="s">"Estudiar"</span>, <span class="s">"Practicar"</span>];
+
+<span class="k">function</span> <span class="f">App</span>() {
+  <span class="k">return</span> (
+    &lt;main&gt;
+      &lt;h1&gt;Hola, {nombre}&lt;/h1&gt;
+      &lt;p&gt;Tienes {tareas.length} tareas.&lt;/p&gt;
+      &lt;ul&gt;
+        {tareas.map((t) =&gt; (
+          &lt;li key={t}&gt;{t}&lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/main&gt;
+  );
+}</code></pre>
+        </div>
+
+        <p>Dos reglas que rompen el código si se ignoran:</p>
+        <ul>
+          <li>Un componente devuelve <strong>un solo elemento raíz</strong>. Si necesitas dos, envuélvelos en <code>&lt;&gt;...&lt;/&gt;</code>.</li>
+          <li>En una lista, cada elemento necesita una <code>key</code> estable. No uses el índice si la lista cambia de orden.</li>
+        </ul>
+
+        <h2 id="componentes">Componentes y props</h2>
+        <p>Un componente es una función que devuelve JSX. Se escribe con mayúscula inicial, porque React distingue así entre una etiqueta HTML y tu componente.</p>
+
+        <div class="code">
+          <div class="code-head"><span>jsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">function</span> <span class="f">Tarjeta</span>({ titulo, descripcion, hecho }) {
+  <span class="k">return</span> (
+    &lt;article className=<span class="s">"tarjeta"</span>&gt;
+      &lt;h2&gt;{titulo}&lt;/h2&gt;
+      &lt;p&gt;{descripcion}&lt;/p&gt;
+      {hecho &amp;&amp; &lt;span&gt;Hecho&lt;/span&gt;}
+    &lt;/article&gt;
+  );
+}
+
+<span class="k">export default function</span> <span class="f">App</span>() {
+  <span class="k">return</span> (
+    &lt;&gt;
+      &lt;Tarjeta titulo=<span class="s">"HTML"</span> descripcion=<span class="s">"Estructura"</span> hecho /&gt;
+      &lt;Tarjeta titulo=<span class="s">"CSS"</span> descripcion=<span class="s">"Estilo"</span> hecho={false} /&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+        </div>
+
+        <p>Las <strong>props</strong> son los argumentos del componente. Son de solo lectura: un componente nunca modifica las props que recibe. Si algo debe cambiar, es estado, y el estado vive en quien lo controla.</p>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Composición antes que herencia</span>
+          <p>React no usa herencia. Si dos componentes comparten algo, extraes ese algo a un tercero y lo pasas como <code>children</code> o como prop. Es la misma idea que las funciones pequeñas que se combinan.</p>
+        </div>
+
+        <h2 id="estado">Estado con useState</h2>
+        <p>El estado es lo que cambia con el tiempo. Se declara con <code>useState</code>, que devuelve dos cosas: el valor y la función para cambiarlo.</p>
+
+        <div class="code">
+          <div class="code-head"><span>jsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">import</span> { useState } <span class="k">from</span> <span class="s">"react"</span>;
+
+<span class="k">export default function</span> <span class="f">Contador</span>() {
+  <span class="k">const</span> [cuenta, setCuenta] = useState(<span class="n">0</span>);
+
+  <span class="k">return</span> (
+    &lt;div&gt;
+      &lt;p&gt;{cuenta}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCuenta(cuenta + <span class="n">1</span>)}&gt;Sumar&lt;/button&gt;
+      &lt;button onClick={() =&gt; setCuenta(<span class="n">0</span>)}&gt;Reiniciar&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+        </div>
+
+        <p>Tres reglas del estado que cuestan horas si no las sabes:</p>
+        <ol>
+          <li><strong>Nunca lo modifiques directamente.</strong> <code>cuenta++</code> no repinta. Usa el setter.</li>
+          <li><strong>Si depende del valor anterior, usa la función:</strong> <code>setCuenta(c =&gt; c + 1)</code>. Con clics rápidos, la versión directa pierde actualizaciones.</li>
+          <li><strong>El estado se reinicia si el componente se desmonta.</strong> Si tiene que sobrevivir, súbelo al padre o guárdalo fuera.</li>
+        </ol>
+
+        <h3>Un formulario controlado</h3>
+        <div class="code">
+          <div class="code-head"><span>jsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">function</span> <span class="f">Formulario</span>({ onCrear }) {
+  <span class="k">const</span> [texto, setTexto] = useState(<span class="s">""</span>);
+
+  <span class="k">function</span> <span class="f">enviar</span>(e) {
+    e.preventDefault();
+    <span class="k">const</span> limpio = texto.trim();
+    <span class="k">if</span> (!limpio) <span class="k">return</span>;
+    onCrear(limpio);
+    setTexto(<span class="s">""</span>);
+  }
+
+  <span class="k">return</span> (
+    &lt;form onSubmit={enviar}&gt;
+      &lt;input
+        value={texto}
+        onChange={(e) =&gt; setTexto(e.target.value)}
+        placeholder=<span class="s">"Nueva tarea"</span>
+      /&gt;
+      &lt;button disabled={!texto.trim()}&gt;Añadir&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+        </div>
+
+        <p>El input está «controlado» por React: su valor viene del estado y cada tecla lo actualiza. Eso permite validar en vivo, deshabilitar el botón y limpiar el campo sin tocar el DOM a mano.</p>
+
+        <h2 id="listas">Listas y eventos</h2>
+        <p>El patrón que vas a repetir siempre: array en estado, <code>map</code> para pintar, <code>filter</code> para borrar, spread para añadir.</p>
+
+        <div class="code">
+          <div class="code-head"><span>jsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">export default function</span> <span class="f">Tareas</span>() {
+  <span class="k">const</span> [tareas, setTareas] = useState([
+    { id: <span class="n">1</span>, titulo: <span class="s">"Estudiar React"</span>, hecha: <span class="k">false</span> },
+  ]);
+
+  <span class="k">const</span> añadir = (titulo) =&gt;
+    setTareas((t) =&gt; [...t, { id: crypto.randomUUID(), titulo, hecha: <span class="k">false</span> }]);
+
+  <span class="k">const</span> alternar = (id) =&gt;
+    setTareas((t) =&gt; t.map((x) =&gt; (x.id === id ? { ...x, hecha: !x.hecha } : x)));
+
+  <span class="k">const</span> borrar = (id) =&gt; setTareas((t) =&gt; t.filter((x) =&gt; x.id !== id));
+
+  <span class="k">return</span> (
+    &lt;section&gt;
+      &lt;Formulario onCrear={añadir} /&gt;
+      &lt;ul&gt;
+        {tareas.map((t) =&gt; (
+          &lt;li key={t.id}&gt;
+            &lt;label&gt;
+              &lt;input type=<span class="s">"checkbox"</span> checked={t.hecha} onChange={() =&gt; alternar(t.id)} /&gt;
+              {t.titulo}
+            &lt;/label&gt;
+            &lt;button onClick={() =&gt; borrar(t.id)}&gt;Borrar&lt;/button&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+        </div>
+
+        <p>Fíjate en que nunca hacemos <code>tareas.push()</code>. Creamos un array nuevo. React compara por referencia: si mutas el mismo array, no ve el cambio.</p>
+
+        <h2 id="efectos">useEffect: hablar con el mundo exterior</h2>
+        <p>Un componente debe ser puro: mismos datos, mismo resultado. Pero a veces necesitas algo externo: leer <code>localStorage</code>, pedir datos a una API, suscribirte a un evento. Para eso está <code>useEffect</code>.</p>
+
+        <div class="code">
+          <div class="code-head"><span>jsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">import</span> { useEffect, useState } <span class="k">from</span> <span class="s">"react"</span>;
+
+<span class="k">export function</span> <span class="f">ListaRemota</span>() {
+  <span class="k">const</span> [datos, setDatos] = useState(<span class="k">null</span>);
+  <span class="k">const</span> [error, setError] = useState(<span class="k">null</span>);
+  <span class="k">const</span> [cargando, setCargando] = useState(<span class="k">true</span>);
+
+  useEffect(() =&gt; {
+    <span class="k">let</span> vivo = <span class="k">true</span>;
+
+    fetch(<span class="s">"/api/tareas"</span>)
+      .then((r) =&gt; {
+        <span class="k">if</span> (!r.ok) <span class="k">throw new</span> Error(<span class="s">`Error ${r.status}`</span>);
+        <span class="k">return</span> r.json();
+      })
+      .then((d) =&gt; vivo &amp;&amp; setDatos(d))
+      .catch((e) =&gt; vivo &amp;&amp; setError(e.message))
+      .finally(() =&gt; vivo &amp;&amp; setCargando(<span class="k">false</span>));
+
+    <span class="k">return</span> () =&gt; {
+      vivo = <span class="k">false</span>;
+    };
+  }, []);
+
+  <span class="k">if</span> (cargando) <span class="k">return</span> &lt;p&gt;Cargando…&lt;/p&gt;;
+  <span class="k">if</span> (error) <span class="k">return</span> &lt;p role=<span class="s">"alert"</span>&gt;{error}&lt;/p&gt;;
+  <span class="k">if</span> (!datos?.length) <span class="k">return</span> &lt;p&gt;No hay nada todavía.&lt;/p&gt;;
+
+  <span class="k">return</span> (
+    &lt;ul&gt;
+      {datos.map((d) =&gt; (
+        &lt;li key={d.id}&gt;{d.titulo}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}</code></pre>
+        </div>
+
+        <p>El array final se llama <strong>lista de dependencias</strong> y decide cuándo se vuelve a ejecutar:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Dependencias</th><th>Cuándo corre</th></tr></thead>
+            <tbody>
+              <tr><td><code>[]</code></td><td>Una vez, al montar</td></tr>
+              <tr><td><code>[id]</code></td><td>Al montar y cada vez que cambie <code>id</code></td></tr>
+              <tr><td>sin array</td><td>Después de cada render (casi nunca quieres esto)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>La función que devuelves se llama <strong>cleanup</strong>: se ejecuta al desmontar o antes de la siguiente ejecución. Ahí cancelas timers, cierras conexiones o, como arriba, marcas que la petición ya no interesa.</p>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">El error clásico</span>
+          <p>Un <code>useEffect</code> sin array que hace <code>setEstado</code> provoca un bucle infinito: render → efecto → setEstado → render. Si tu pestaña se congela, mira ahí primero.</p>
+        </div>
+
+        <h2 id="derivado">Lo que no necesita estado</h2>
+        <p>Uno de los errores más comunes es guardar en estado cosas que se pueden calcular. Si un valor sale de otro, no lo dupliques.</p>
+
+        <div class="badgood">
+          <div class="bad"><b>Mal</b><p>Guardar <code>total</code> en estado y actualizarlo a mano en cada cambio. Tarde o temprano se desincroniza.</p></div>
+          <div class="good"><b>Bien</b><p><code>const total = tareas.filter(t =&gt; t.hecha).length;</code> en el render. Siempre correcto, cero mantenimiento.</p></div>
+        </div>
+
+        <h2 id="estructura">Estructurar una app pequeña</h2>
+        <p>No hace falta ninguna librería de estado al principio. La regla es: <strong>el estado vive en el ancestro común más cercano</strong> de los componentes que lo usan.</p>
+
+        <div class="code">
+          <div class="code-head"><span>estructura</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>src/
+├── App.jsx              <span class="c"># dueño del estado de tareas</span>
+├── components/
+│   ├── Formulario.jsx   <span class="c"># recibe onCrear</span>
+│   ├── Lista.jsx        <span class="c"># recibe tareas, onAlternar, onBorrar</span>
+│   └── Item.jsx         <span class="c"># recibe una tarea y sus callbacks</span>
+└── hooks/
+    └── useTareas.js     <span class="c"># lógica reutilizable</span></code></pre>
+        </div>
+
+        <p>Un hook propio es solo una función que empieza por <code>use</code> y llama a otros hooks:</p>
+
+        <div class="code">
+          <div class="code-head"><span>jsx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">export function</span> <span class="f">useTareas</span>() {
+  <span class="k">const</span> [tareas, setTareas] = useState([]);
+
+  <span class="k">const</span> añadir = (titulo) =&gt;
+    setTareas((t) =&gt; [...t, { id: crypto.randomUUID(), titulo, hecha: <span class="k">false</span> }]);
+
+  <span class="k">const</span> alternar = (id) =&gt;
+    setTareas((t) =&gt; t.map((x) =&gt; (x.id === id ? { ...x, hecha: !x.hecha } : x)));
+
+  <span class="k">const</span> borrar = (id) =&gt; setTareas((t) =&gt; t.filter((x) =&gt; x.id !== id));
+
+  <span class="k">return</span> { tareas, añadir, alternar, borrar };
+}</code></pre>
+        </div>
+
+        <h2 id="errores">Los cinco errores que todo el mundo comete</h2>
+        <ol class="steps">
+          <li>
+            <h4>Mutar el estado</h4>
+            <p><code>tareas.push(x)</code> no repinta. Crea un array nuevo con spread.</p>
+          </li>
+          <li>
+            <h4>Keys con el índice</h4>
+            <p>Al reordenar o borrar, React reutiliza el nodo equivocado y el input se queda con el valor de otra fila. Usa un id estable.</p>
+          </li>
+          <li>
+            <h4>useEffect para todo</h4>
+            <p>Si un valor se puede calcular en el render, no va en un efecto. Los efectos son para el mundo exterior.</p>
+          </li>
+          <li>
+            <h4>Dependencias incompletas</h4>
+            <p>Si usas una variable dentro del efecto, va en el array. El linter te avisa; hazle caso.</p>
+          </li>
+          <li>
+            <h4>Estado duplicado</h4>
+            <p>Dos estados que deben coincidir acaban no coincidiendo. Deriva uno del otro.</p>
+          </li>
+        </ol>
+
+        <h2 id="ejercicios">Ejercicios</h2>
+        <div class="exercise">
+          <span class="chip">Ejercicio 01</span>
+          <h4>Contador con historia</h4>
+          <p>Un contador con sumar, restar y reiniciar. Añade un límite: no baja de cero y no sube de diez. El botón correspondiente se deshabilita en el límite.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 02</span>
+          <h4>Lista de tareas completa</h4>
+          <p>Añadir, alternar, borrar y filtrar (todas / pendientes / hechas). Muestra un contador de pendientes calculado, no guardado en estado.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 03</span>
+          <h4>Persistencia</h4>
+          <p>Guarda las tareas en <code>localStorage</code> al cambiar y recupéralas al montar. Cuidado: el primer render en el servidor no tiene <code>localStorage</code>; piensa dónde va ese acceso.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 04</span>
+          <h4>Consumir tu API</h4>
+          <p>Conecta la lista a la API del capítulo anterior con <code>fetch</code>. Maneja los tres estados: cargando, error y vacío. No muestres una lista vacía mientras carga.</p>
+        </div>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">Lo importante</span>
+          <p>React es una forma de pensar: describes la interfaz como función del estado. Si dominas estado, props, listas y efectos, ya sabes React. El resto es ecosistema.</p>
+        </div>

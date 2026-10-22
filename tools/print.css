@@ -13,8 +13,8 @@
   --muted: #5b606b;
   --line: #d6d9de;
   --line-2: #b6bbc3;
-  --accent: #4f5bc4;
-  --accent-ink: #3b47b0;
+  --accent: #0f8a6d;
+  --accent-ink: #0a6b55;
   --green: #1c6b3a;
   --blue: #1a4f9c;
   --purple: #6a2f96;
@@ -81,7 +81,7 @@ code, kbd { font-family: var(--mono); }
   translate: -50% 0;
   width: 220mm;
   height: 150mm;
-  background: radial-gradient(closest-side, rgba(94, 106, 210, 0.55), transparent 70%);
+  background: radial-gradient(closest-side, rgba(47, 224, 184, 0.30), transparent 70%);
 }
 
 .cover::after {
@@ -103,7 +103,7 @@ code, kbd { font-family: var(--mono); }
   width: 11mm;
   height: 11mm;
   border-radius: 2.6mm;
-  background: linear-gradient(150deg, #828fff, #5e6ad2);
+  background: linear-gradient(150deg, #6df2d4, #0f9e7d);
   color: #fff;
   font-family: var(--mono);
   font-size: 15pt;
@@ -130,7 +130,7 @@ code, kbd { font-family: var(--mono); }
 
 .cover h1 em {
   font-style: normal;
-  color: #8f9bff;
+  color: #6df2d4;
 }
 
 .cover-sub {
@@ -434,7 +434,7 @@ code, kbd { font-family: var(--mono); }
   tab-size: 2;
 }
 .code pre .c { color: #7a808c; font-style: italic; }
-.code pre .k { color: #5b2fa8; }
+.code pre .k { color: #0a6b55; }
 .code pre .s { color: #1c6b32; }
 .code pre .n { color: #1a4f9c; }
 .code pre .f { color: #8a3a12; }

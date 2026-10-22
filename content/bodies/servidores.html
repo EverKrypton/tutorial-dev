@@ -1,0 +1,416 @@
+        <h2 id="que-es">Qué es un servidor, de verdad</h2>
+        <p>Cuando abres una web, tu navegador hace una petición y alguien responde. Ese «alguien» es un programa que está corriendo en una máquina, esperando. Eso es un servidor: un programa que escucha en un puerto y contesta.</p>
+
+        <p>No es una máquina mágica. Es esto:</p>
+
+        <div class="code">
+          <div class="code-head"><span>javascript</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">import</span> { createServer } <span class="k">from</span> <span class="s">"node:http"</span>;
+
+<span class="k">const</span> server = createServer((req, res) =&gt; {
+  res.writeHead(<span class="n">200</span>, { <span class="s">"Content-Type"</span>: <span class="s">"text/plain; charset=utf-8"</span> });
+  res.end(<span class="s">"Hola desde el servidor"</span>);
+});
+
+server.listen(<span class="n">3000</span>, () =&gt; {
+  console.log(<span class="s">"Escuchando en http://localhost:3000"</span>);
+});</code></pre>
+        </div>
+
+        <p>Guárdalo como <code>server.mjs</code> y ejecuta <code>node server.mjs</code>. Abre <code>http://localhost:3000</code> y ahí está: tu primer servidor. Diez líneas.</p>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">En simple</span>
+          <p>Un servidor es un camarero que no se cansa. Está parado en la puerta (el puerto) esperando pedidos. Cada vez que alguien pide algo, mira qué pidió, va a la cocina y trae la respuesta. Nunca cierra el restaurante.</p>
+        </div>
+
+        <h2 id="http">HTTP en una servilleta</h2>
+        <p>Todo lo que pasa entre navegador y servidor son cuatro cosas:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pieza</th><th>Ejemplo</th><th>Qué es</th></tr></thead>
+            <tbody>
+              <tr><td>Método</td><td><code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code></td><td>Qué quieres hacer</td></tr>
+              <tr><td>Ruta</td><td><code>/api/tareas/3</code></td><td>Sobre qué</td></tr>
+              <tr><td>Cabeceras</td><td><code>Content-Type: application/json</code></td><td>Metadatos de la petición</td></tr>
+              <tr><td>Cuerpo</td><td><code>{"titulo":"Comprar pan"}</code></td><td>Los datos (en POST/PUT)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Y la respuesta tiene lo mismo: un <strong>código de estado</strong>, cabeceras y cuerpo.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Código</th><th>Significa</th><th>Cuándo</th></tr></thead>
+            <tbody>
+              <tr><td><code>200</code></td><td>OK</td><td>Todo bien</td></tr>
+              <tr><td><code>201</code></td><td>Creado</td><td>Acabas de insertar algo</td></tr>
+              <tr><td><code>204</code></td><td>Sin contenido</td><td>Borraste algo, no hay cuerpo</td></tr>
+              <tr><td><code>400</code></td><td>Petición inválida</td><td>Faltan datos o están mal</td></tr>
+              <tr><td><code>401</code></td><td>No autenticado</td><td>No has iniciado sesión</td></tr>
+              <tr><td><code>403</code></td><td>Prohibido</td><td>Estás dentro, pero no puedes</td></tr>
+              <tr><td><code>404</code></td><td>No encontrado</td><td>Esa ruta no existe</td></tr>
+              <tr><td><code>500</code></td><td>Error del servidor</td><td>Tu código falló</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Regla que casi nadie sigue al principio: <strong>el código de estado es parte de la respuesta</strong>. Si algo falla y devuelves <code>200</code> con un mensaje de error dentro, el cliente no puede distinguir el éxito del fallo.</p>
+
+        <h2 id="api">Tu primera API con Hono</h2>
+        <p>Escribir rutas a mano con <code>node:http</code> funciona, pero se vuelve tedioso. Un framework pequeño te ahorra el parseo y el enrutado. <strong>Hono</strong> es ligero, moderno y corre en Node, Bun, Deno y Vercel.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>mkdir mi-api && cd mi-api
+npm init -y
+npm install hono @hono/node-server
+npm pkg set type=module</code></pre>
+        </div>
+
+        <div class="code">
+          <div class="code-head"><span>javascript</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// server.mjs</span>
+<span class="k">import</span> { Hono } <span class="k">from</span> <span class="s">"hono"</span>;
+<span class="k">import</span> { serve } <span class="k">from</span> <span class="s">"@hono/node-server"</span>;
+
+<span class="k">const</span> app = <span class="k">new</span> Hono();
+
+<span class="c">// datos en memoria, para empezar</span>
+<span class="k">let</span> tareas = [
+  { id: <span class="n">1</span>, titulo: <span class="s">"Aprender HTTP"</span>, hecha: <span class="k">true</span> },
+  { id: <span class="n">2</span>, titulo: <span class="s">"Montar la API"</span>, hecha: <span class="k">false</span> },
+];
+
+app.get(<span class="s">"/api/tareas"</span>, (c) =&gt; c.json(tareas));
+
+app.get(<span class="s">"/api/tareas/:id"</span>, (c) =&gt; {
+  <span class="k">const</span> tarea = tareas.find((t) =&gt; t.id === Number(c.req.param(<span class="s">"id"</span>)));
+  <span class="k">if</span> (!tarea) <span class="k">return</span> c.json({ error: <span class="s">"No existe"</span> }, <span class="n">404</span>);
+  <span class="k">return</span> c.json(tarea);
+});
+
+app.post(<span class="s">"/api/tareas"</span>, <span class="k">async</span> (c) =&gt; {
+  <span class="k">const</span> body = <span class="k">await</span> c.req.json();
+  <span class="k">if</span> (!body?.titulo) <span class="k">return</span> c.json({ error: <span class="s">"Falta el título"</span> }, <span class="n">400</span>);
+  <span class="k">const</span> nueva = { id: Date.now(), titulo: body.titulo, hecha: <span class="k">false</span> };
+  tareas.push(nueva);
+  <span class="k">return</span> c.json(nueva, <span class="n">201</span>);
+});
+
+app.delete(<span class="s">"/api/tareas/:id"</span>, (c) =&gt; {
+  <span class="k">const</span> id = Number(c.req.param(<span class="s">"id"</span>));
+  tareas = tareas.filter((t) =&gt; t.id !== id);
+  <span class="k">return</span> c.body(<span class="k">null</span>, <span class="n">204</span>);
+});
+
+serve({ fetch: app.fetch, port: <span class="n">3000</span> }, (info) =&gt; {
+  console.log(<span class="s">`API en http://localhost:${info.port}`</span>);
+});</code></pre>
+        </div>
+
+        <p>Pruébala sin escribir nada de interfaz:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>node server.mjs
+
+<span class="c"># en otra terminal</span>
+curl localhost:3000/api/tareas
+curl localhost:3000/api/tareas/1
+
+curl -X POST localhost:3000/api/tareas \
+  -H "Content-Type: application/json" \
+  -d '{"titulo":"Publicar la web"}'
+
+curl -X DELETE localhost:3000/api/tareas/1 -i</code></pre>
+        </div>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Por qué curl y no el navegador</span>
+          <p>El navegador solo hace <code>GET</code> cuando escribes una URL. Para probar <code>POST</code>, <code>PUT</code> o <code>DELETE</code> necesitas <code>curl</code>, Postman o un formulario. Aprender <code>curl</code> te hace independiente de cualquier herramienta gráfica.</p>
+        </div>
+
+        <h2 id="persistencia">Guardar de verdad: un archivo JSON</h2>
+        <p>Los datos en memoria desaparecen al reiniciar. Antes de meter una base de datos, aprende a persistir en un archivo: es suficiente para aprender y para muchas herramientas pequeñas.</p>
+
+        <div class="code">
+          <div class="code-head"><span>javascript</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">import</span> { readFile, writeFile } <span class="k">from</span> <span class="s">"node:fs/promises"</span>;
+
+<span class="k">const</span> RUTA = <span class="s">"./tareas.json"</span>;
+
+<span class="k">async function</span> <span class="f">leer</span>() {
+  <span class="k">try</span> {
+    <span class="k">return</span> JSON.parse(<span class="k">await</span> readFile(RUTA, <span class="s">"utf8"</span>));
+  } <span class="k">catch</span> {
+    <span class="k">return</span> [];
+  }
+}
+
+<span class="k">async function</span> <span class="f">guardar</span>(tareas) {
+  <span class="k">await</span> writeFile(RUTA, JSON.stringify(tareas, <span class="k">null</span>, <span class="n">2</span>));
+}</code></pre>
+        </div>
+
+        <p>Y en cada ruta: <code>const tareas = await leer()</code> al empezar, <code>await guardar(tareas)</code> al terminar. Cuando el proyecto crezca, cambias esas dos funciones por consultas a SQLite o Postgres y el resto del código no se entera.</p>
+
+        <h2 id="cors">Conectar una web a tu servidor</h2>
+        <p>Aquí está el error que frena a todo el mundo la primera vez. Tienes la API en el puerto 3000 y la web en el 5173. La web hace <code>fetch("http://localhost:3000/api/tareas")</code> y el navegador responde:</p>
+
+        <div class="code">
+          <div class="code-head"><span>error</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>Access to fetch at 'http://localhost:3000/api/tareas'
+from origin 'http://localhost:5173' has been blocked by CORS policy</code></pre>
+        </div>
+
+        <p><strong>CORS</strong> es una regla del navegador: una página solo puede leer respuestas de otro origen si ese servidor lo autoriza explícitamente. No es un bug: es una protección.</p>
+
+        <p>La solución está en el servidor, no en el cliente. Con Hono:</p>
+
+        <div class="code">
+          <div class="code-head"><span>javascript</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">import</span> { cors } <span class="k">from</span> <span class="s">"hono/cors"</span>;
+
+app.use(<span class="s">"/api/*"</span>, cors({
+  origin: [<span class="s">"http://localhost:5173"</span>, <span class="s">"https://mi-web.vercel.app"</span>],
+  allowMethods: [<span class="s">"GET"</span>, <span class="s">"POST"</span>, <span class="s">"DELETE"</span>],
+}));</code></pre>
+        </div>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">Nunca uses "*" en producción</span>
+          <p><code>origin: "*"</code> permite que cualquier web lea tu API. Sirve para practicar, pero si hay datos de usuarios o escritura, lista los orígenes permitidos. Y recuerda: si hay cookies o sesión, además necesitas <code>credentials: true</code> y un origen exacto, nunca <code>*</code>.</p>
+        </div>
+
+        <h3>El cliente, paso a paso</h3>
+
+        <div class="code">
+          <div class="code-head"><span>javascript</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">const</span> API = <span class="s">"http://localhost:3000/api"</span>;
+
+<span class="k">async function</span> <span class="f">listar</span>() {
+  <span class="k">const</span> res = <span class="k">await</span> fetch(<span class="s">`${API}/tareas`</span>);
+  <span class="k">if</span> (!res.ok) <span class="k">throw new</span> Error(<span class="s">`Error ${res.status}`</span>);
+  <span class="k">return</span> res.json();
+}
+
+<span class="k">async function</span> <span class="f">crear</span>(titulo) {
+  <span class="k">const</span> res = <span class="k">await</span> fetch(<span class="s">`${API}/tareas`</span>, {
+    method: <span class="s">"POST"</span>,
+    headers: { <span class="s">"Content-Type"</span>: <span class="s">"application/json"</span> },
+    body: JSON.stringify({ titulo }),
+  });
+  <span class="k">if</span> (!res.ok) {
+    <span class="k">const</span> { error } = <span class="k">await</span> res.json();
+    <span class="k">throw new</span> Error(error);
+  }
+  <span class="k">return</span> res.json();
+}</code></pre>
+        </div>
+
+        <p>Cuatro reglas para no sufrir:</p>
+        <ul class="checklist">
+          <li>Comprueba <code>res.ok</code> siempre. <code>fetch</code> no lanza error en un 404.</li>
+          <li>Manda <code>Content-Type: application/json</code> en los POST con cuerpo JSON.</li>
+          <li>Serializa con <code>JSON.stringify</code> y lee con <code>res.json()</code>.</li>
+          <li>Envuelve todo en <code>try/catch</code> y muestra un estado de error en la interfaz.</li>
+        </ul>
+
+        <h2 id="frontend">Una web mínima que consume la API</h2>
+        <p>Sin frameworks, para ver el circuito completo:</p>
+
+        <div class="code">
+          <div class="code-head"><span>html</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>&lt;!doctype html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Tareas&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main&gt;
+    &lt;h1&gt;Tareas&lt;/h1&gt;
+    &lt;form id="form"&gt;
+      &lt;input id="titulo" placeholder="Nueva tarea" required&gt;
+      &lt;button&gt;Añadir&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;ul id="lista"&gt;&lt;/ul&gt;
+    &lt;p id="estado"&gt;&lt;/p&gt;
+  &lt;/main&gt;
+  &lt;script type="module" src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <div class="code">
+          <div class="code-head"><span>javascript</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">const</span> API = <span class="s">"http://localhost:3000/api"</span>;
+<span class="k">const</span> lista = document.querySelector(<span class="s">"#lista"</span>);
+<span class="k">const</span> estado = document.querySelector(<span class="s">"#estado"</span>);
+
+<span class="k">async function</span> <span class="f">pintar</span>() {
+  estado.textContent = <span class="s">"Cargando…"</span>;
+  <span class="k">try</span> {
+    <span class="k">const</span> res = <span class="k">await</span> fetch(<span class="s">`${API}/tareas`</span>);
+    <span class="k">if</span> (!res.ok) <span class="k">throw new</span> Error(<span class="s">"No se pudo cargar"</span>);
+    <span class="k">const</span> tareas = <span class="k">await</span> res.json();
+    lista.innerHTML = tareas
+      .map((t) =&gt; <span class="s">`&lt;li&gt;${t.titulo}&lt;/li&gt;`</span>)
+      .join(<span class="s">""</span>);
+    estado.textContent = <span class="s">""</span>;
+  } <span class="k">catch</span> (e) {
+    estado.textContent = e.message;
+  }
+}
+
+document.querySelector(<span class="s">"#form"</span>).addEventListener(<span class="s">"submit"</span>, <span class="k">async</span> (e) =&gt; {
+  e.preventDefault();
+  <span class="k">const</span> input = document.querySelector(<span class="s">"#titulo"</span>);
+  <span class="k">await</span> fetch(<span class="s">`${API}/tareas`</span>, {
+    method: <span class="s">"POST"</span>,
+    headers: { <span class="s">"Content-Type"</span>: <span class="s">"application/json"</span> },
+    body: JSON.stringify({ titulo: input.value }),
+  });
+  input.value = <span class="s">""</span>;
+  pintar();
+});
+
+pintar();</code></pre>
+        </div>
+
+        <p>Con esto tienes el circuito completo: formulario → fetch → API → JSON → render. Todo lo demás que construyas encima es la misma idea con más piezas.</p>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">Cuidado con innerHTML</span>
+          <p><code>innerHTML</code> con texto que viene del usuario es una puerta abierta a XSS: si alguien escribe <code>&lt;img src=x onerror=alert(1)&gt;</code>, se ejecuta. Para datos reales usa <code>textContent</code> o crea nodos con <code>document.createElement</code>.</p>
+        </div>
+
+        <h2 id="deploy">Poner el servidor en internet</h2>
+        <p>En tu computadora el servidor vive en <code>localhost</code>, que solo existe para ti. Para que el mundo lo alcance hay tres caminos:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Opción</th><th>Cuándo</th><th>Esfuerzo</th></tr></thead>
+            <tbody>
+              <tr><td>Serverless (Vercel)</td><td>API pequeña, tráfico variable</td><td>Mínimo</td></tr>
+              <tr><td>VPS con systemd + nginx</td><td>Control total, websockets, procesos largos</td><td>Medio</td></tr>
+              <tr><td>Plataforma gestionada (Railway, Render, Fly)</td><td>Quieres un servidor sin administrarlo</td><td>Bajo</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Opción A: Vercel, sin servidor propio</h3>
+        <p>Con Next.js, un archivo en <code>app/api/tareas/route.ts</code> ya es una API. No hay que abrir puertos ni configurar nada:</p>
+
+        <div class="code">
+          <div class="code-head"><span>typescript</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// app/api/tareas/route.ts</span>
+<span class="k">export async function</span> <span class="f">GET</span>() {
+  <span class="k">return</span> Response.json([{ id: <span class="n">1</span>, titulo: <span class="s">"Aprender"</span> }]);
+}
+
+<span class="k">export async function</span> <span class="f">POST</span>(req: Request) {
+  <span class="k">const</span> body = <span class="k">await</span> req.json();
+  <span class="k">if</span> (!body?.titulo) {
+    <span class="k">return</span> Response.json({ error: <span class="s">"Falta el título"</span> }, { status: <span class="n">400</span> });
+  }
+  <span class="k">return</span> Response.json({ id: Date.now(), ...body }, { status: <span class="n">201</span> });
+}</code></pre>
+        </div>
+
+        <p>Queda en <code>https://tu-proyecto.vercel.app/api/tareas</code>. Como la web y la API comparten dominio, <strong>CORS desaparece</strong>. Esa es la razón principal por la que la gente empieza con Next.</p>
+
+        <h3>Opción B: un VPS</h3>
+        <p>Pasos reales, en orden:</p>
+
+        <ol class="steps">
+          <li>
+            <h4>Entra por SSH</h4>
+            <p><code>ssh root@tu-ip</code>. Actualiza: <code>apt update &amp;&amp; apt upgrade -y</code>.</p>
+          </li>
+          <li>
+            <h4>Crea un usuario sin root</h4>
+            <p><code>adduser mara</code> y <code>usermod -aG sudo mara</code>. Trabajar como root todo el día es pedir un accidente.</p>
+          </li>
+          <li>
+            <h4>Instala Node</h4>
+            <p>Con nvm o con el paquete de NodeSource. Comprueba con <code>node -v</code>.</p>
+          </li>
+          <li>
+            <h4>Sube el código</h4>
+            <p><code>git clone https://github.com/tu-usuario/mi-api.git</code> y <code>npm install --omit=dev</code>.</p>
+          </li>
+          <li>
+            <h4>Regístralo como servicio</h4>
+            <p>Un archivo en <code>/etc/systemd/system/mi-api.service</code> con <code>ExecStart=/usr/bin/node /home/mara/mi-api/server.mjs</code> y <code>Restart=always</code>.</p>
+          </li>
+          <li>
+            <h4>Pon nginx delante</h4>
+            <p>nginx escucha en el puerto 80/443, termina el HTTPS y reenvía a <code>localhost:3000</code>. Tu app nunca se expone directamente.</p>
+          </li>
+          <li>
+            <h4>HTTPS con certbot</h4>
+            <p><code>certbot --nginx -d api.tudominio.com</code>. Renueva solo.</p>
+          </li>
+        </ol>
+
+        <div class="code">
+          <div class="code-head"><span>nginx</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>server {
+  server_name api.tudominio.com;
+
+  location / {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+}</code></pre>
+        </div>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Por qué nginx delante</span>
+          <p>Node no debería enfrentarse solo a internet: nginx maneja TLS, comprime, sirve archivos estáticos rápido y aguanta picos. Además te deja tener varias apps en el mismo servidor, cada una en su subdominio.</p>
+        </div>
+
+        <h2 id="seguridad">Lo mínimo de seguridad</h2>
+        <ul class="checklist">
+          <li>Nunca subas <code>.env</code> al repositorio. Las claves viven en variables de entorno del servidor.</li>
+          <li>Valida todo lo que llega: si esperas un número, comprueba que lo sea.</li>
+          <li>No devuelvas el error interno al cliente. Registra el detalle, responde algo genérico.</li>
+          <li>Limita el tamaño del cuerpo y el número de peticiones si la API es pública.</li>
+          <li>Actualiza dependencias: <code>npm audit</code>.</li>
+          <li>Si hay usuarios, contraseñas con hash (bcrypt/argon2), nunca en texto plano.</li>
+        </ul>
+
+        <h2 id="ejercicios">Ejercicios</h2>
+        <div class="exercise">
+          <span class="chip">Ejercicio 01</span>
+          <h4>Servidor de veinte líneas</h4>
+          <p>Escribe un servidor con <code>node:http</code> que responda «Hola» en <code>/</code>, un JSON en <code>/api/hora</code> con la fecha actual, y un 404 en cualquier otra ruta. Pruébalo con <code>curl</code>.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 02</span>
+          <h4>CRUD completo</h4>
+          <p>Convierte el ejemplo de Hono en un CRUD de notas con persistencia en JSON: listar, ver una, crear, editar (<code>PUT</code>) y borrar. Prueba los cinco verbos con <code>curl</code> antes de tocar la interfaz.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 03</span>
+          <h4>Rompe el CORS a propósito</h4>
+          <p>Sirve la web en un puerto y la API en otro, sin configurar CORS. Lee el error completo del navegador. Después añade el middleware y comprueba que desaparece. Entender el error vale más que copiar la solución.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 04</span>
+          <h4>De localhost a internet</h4>
+          <p>Despliega la API en Vercel como route handler y apunta la web a la URL pública. Comprueba que ya no hay CORS porque comparten origen. Después intenta la misma API en un VPS con systemd y nginx y compara el esfuerzo.</p>
+        </div>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">Lo importante</span>
+          <p>Una web y un servidor son dos programas hablando por HTTP. Si entiendes método, ruta, cabecera, cuerpo y código de estado, entiendes el 90% de internet. El resto son herramientas encima de esa misma idea.</p>
+        </div>

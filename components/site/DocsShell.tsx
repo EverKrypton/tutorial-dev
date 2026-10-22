@@ -25,7 +25,7 @@ export function DocsShell({
       <aside className="sidebar" aria-label="Temario del curso">
         <div className="sidebar-inner">
           <SidebarNav chapters={navChapters} current={current} />
-          <SidebarProgress total={10} />
+          <SidebarProgress total={chapters.length} />
           <div className="side-foot">
             <Link href="/ejemplos">
               <span aria-hidden="true">◫</span>

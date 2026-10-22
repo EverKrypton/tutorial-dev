@@ -48,7 +48,6 @@
   --dv-gold: #d8b45a;
   --dv-gold-2: #f0d083;
   padding: 0;
-  min-height: 430px;
 }
 
 .dv--oddsly::before {
@@ -261,7 +260,6 @@
   --dv-muted: #74736a;
   background: var(--dv-bg);
   color: var(--dv-ink);
-  min-height: 430px;
   display: grid;
   grid-template-columns: 1fr;
 }
@@ -422,7 +420,6 @@
   --dv-muted: #7d8494;
   background: var(--dv-bg);
   color: var(--dv-ink);
-  min-height: 430px;
   padding: 12px;
 }
 
@@ -545,7 +542,6 @@
   --dv-muted: #77766d;
   background: #fbfaf7;
   color: var(--dv-ink);
-  min-height: 430px;
   padding: 12px;
 }
 
@@ -690,7 +686,6 @@
 .dv--settings {
   background: #fbfaf7;
   color: #15150f;
-  min-height: 430px;
   padding: 12px;
 }
 
@@ -806,7 +801,6 @@
 .dv--auth {
   background: #0f0f11;
   color: #f2f1ee;
-  min-height: 430px;
   display: grid;
   grid-template-columns: 1fr;
 }
@@ -915,7 +909,6 @@
 .dv--pricing {
   background: #fbfaf7;
   color: #15150f;
-  min-height: 430px;
   padding: 14px 12px;
 }
 .dv-price-head { text-align: center; margin-bottom: 12px; }
@@ -1010,7 +1003,6 @@
   position: relative;
   background: #0d0d10;
   color: #ecebe7;
-  min-height: 430px;
   padding: 12px;
 }
 .dv-pal-bg { filter: blur(1px); opacity: 0.4; }
@@ -1095,7 +1087,6 @@
 
 .dv--mobile {
   background: #0b0b0d;
-  min-height: 430px;
   display: grid;
   place-items: center;
   padding: 14px;
@@ -1219,7 +1210,6 @@
 .dv--states {
   background: #fbfaf7;
   color: #15150f;
-  min-height: 430px;
   padding: 12px;
   display: grid;
   gap: 8px;
@@ -1325,3 +1315,7 @@
   .dv--analytics { grid-template-columns: 152px minmax(0, 1fr); }
   .dv-kpis { gap: 9px; }
 }
+
+
+/* las demos ocupan el ancho de su contenedor, sin altura forzada */
+.demo-canvas .dv { min-height: 0; }

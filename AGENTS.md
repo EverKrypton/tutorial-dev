@@ -45,4 +45,6 @@ Antes de dar algo por terminado, revisa a 360 px, 768 px y 1440 px: sin scroll h
 
 - No cambies el contenido pedagógico sin que se pida.
 - No agregues claves, tokens ni datos personales.
-- Si agregas una entrada: actualiza `content/chapters.json`, añade `content/bodies/<slug>.html` y regenera el PDF con `./todo.sh --pdf`.
+- Si agregas una entrada: añade `content/bodies/<slug>.html`, actualiza `content/chapters.json` (con `sections` extraídas de los `<h2 id>`) y regenera el PDF con `./todo.sh --pdf`.
+- Los ejemplos viven en `components/examples/` y se registran en `registry.tsx`; el índice los muestra a tamaño real, no en miniatura.
+- El PDF se sirve desde `public/descargas/tutorial-dev.pdf` con `Content-Disposition: attachment` (descarga directa, no se abre en el navegador).

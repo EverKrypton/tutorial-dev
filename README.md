@@ -6,25 +6,31 @@ Curso abierto, en español, para aprender a construir y publicar para la web. Si
 
 ## Qué incluye
 
-Once entradas que van de cero a una URL publicada:
+Diecisiete entradas que van de cero a una URL publicada:
 
 1. **Cómo piensa un programa** — variables, condiciones, bucles, funciones, errores.
 2. **Tu primera página web** — HTML, CSS, JavaScript, mobile first, accesibilidad.
-3. **Git y GitHub sin miedo** — commits, ramas, remotos, pull requests, deshacer.
-4. **Publicar en Vercel** — deploy, previews, dominios, variables, funciones, rollback.
-5. **v0: tu copiloto de interfaces** — prompting visual, iteración, código propio.
-6. **La IA en tu terminal** — harness, modelos, proveedores, contexto, permisos.
-7. **Skills** — cómo escribir un `SKILL.md` y reutilizar tu forma de trabajar.
-8. **Tu propio agente** — instrucciones, permisos, subagentes, ejemplos completos.
-9. **Curso de prompting, a fondo** — 16 módulos: contexto, estructura, ejemplos, razonamiento, JSON, agentes, evaluación, seguridad.
-10. **Glosario y chuleta** — términos y comandos listos para copiar.
-11. **El arsenal** — genjutsu e impeccable por dentro: dos skills de diseño reales.
+3. **La terminal sin miedo** — `ls`, `cd`, `cat`, `nano`, `grep`, `chmod`, `ssh`, pipes, systemd. En tu máquina, en un VPS o en Termux.
+4. **Git y GitHub sin miedo** — commits, ramas, remotos, pull requests, deshacer.
+5. **Publicar en Vercel** — deploy, previews, dominios, variables, funciones, rollback.
+6. **Vercel a fondo** — estático, serverless y edge; secretos por entorno; cron; caché; logs; rollback.
+7. **Tu primer servidor y tu primera API** — HTTP, una API con Hono, CORS, persistencia, nginx y deploy.
+8. **React desde cero** — JSX, componentes, props, estado, listas, efectos y los errores clásicos.
+9. **Next.js en serio** — App Router, componentes de servidor, datos, rutas de API, server actions.
+10. **v0: tu copiloto de interfaces** — prompting visual, iteración, código propio.
+11. **Google AI Studio Build** — playground, parámetros, generación de apps, la API de Gemini y salidas JSON.
+12. **La IA en tu terminal** — harness, modelos, proveedores, contexto, permisos.
+13. **Skills** — cómo escribir un `SKILL.md` y reutilizar tu forma de trabajar.
+14. **Tu propio agente** — instrucciones, permisos, subagentes, ejemplos completos.
+15. **Curso de prompting, a fondo** — 17 módulos: contexto, estructura, ejemplos, razonamiento, JSON, agentes, evaluación, seguridad.
+16. **Glosario y chuleta** — términos y comandos listos para copiar.
+17. **El arsenal** — genjutsu e impeccable por dentro: dos skills de diseño reales.
 
 Además:
 
-- **Galería de ejemplos** (`/ejemplos`): diez patrones de interfaz construidos e interactivos — cabecera de datos en vivo, dashboard de analítica, panel de trading, tabla de administración, ajustes, entrada, precios, paleta de comandos, app móvil y estados vacío/carga/error.
+- **Galería de ejemplos** (`/ejemplos`): diez patrones de interfaz a tamaño real e interactivos — cabecera de datos en vivo, dashboard de analítica, panel de trading, tabla de administración, ajustes, entrada, precios, paleta de comandos, app móvil y estados vacío/carga/error.
 - **Sistema de diseño** (`/diseno`): tokens, escala tipográfica, espaciado, radios y componentes con sus estados.
-- **PDF completo** (`/descargas/tutorial-dev.pdf`): 88 páginas, portada, índice con números de página, marcadores y enlaces internos.
+- **PDF completo** (`/descargas/tutorial-dev.pdf`): 139 páginas, portada, índice con números de página, marcadores y enlaces internos. Se sirve como descarga directa.
 
 ## Stack
 
@@ -44,7 +50,7 @@ Además:
 │   ├── globals.css           # sistema visual
 │   ├── demos.css             # estilos de los ejemplos
 │   ├── curso/[slug]/page.tsx # capítulo
-│   ├── ejemplos/             # galería y detalle de cada demo
+│   ├── ejemplos/             # galería a tamaño real y detalle de cada demo
 │   ├── diseno/page.tsx       # sistema de diseño
 │   └── not-found.tsx
 ├── components/
@@ -55,7 +61,7 @@ Además:
 │   └── bodies/*.html         # cuerpo de cada capítulo
 ├── lib/content.ts            # lectura de contenido
 ├── public/
-│   ├── descargas/*.pdf
+│   ├── descargas/*.pdf       # descarga directa
 │   ├── proyectos/mi-tarjeta/ # proyecto del capítulo 02
 │   └── skills/               # copias de lectura de genjutsu e impeccable
 ├── skills/                   # fuente de esas skills
@@ -87,7 +93,7 @@ npm run pdf      # regenera el PDF (requiere python3, pypdf y poppler)
 
 ## Cómo está hecho
 
-- Un solo acento (bermellón) y una escala de superficies; nada de sombras decorativas.
+- Un solo acento (menta) y una escala de superficies azul-tinta; nada de sombras decorativas.
 - Mobile first real: los estilos base son para 360 px y los `@media` solo añaden.
 - El contenido es visible sin JavaScript; las mejoras (copiar, revelado, progreso) se añaden encima.
 - Accesibilidad: foco visible, contraste, `aria-pressed`/`role="switch"` en los controles, `prefers-reduced-motion` respetado.

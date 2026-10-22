@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     locale: "es_ES",
     title: "tutorial.dev — De la primera etiqueta al primer deploy",
     description:
-      "Curso abierto en español, desde cero. Once entradas, de la primera etiqueta al primer deploy.",
+      "Curso abierto en español, desde cero: terminal, Git, servidores, React, Next.js, IA y prompting.",
   },
   twitter: { card: "summary_large_image" },
   icons: { icon: "/favicon.svg" },
@@ -127,7 +127,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             >
               <IconGitHub />
             </a>
-            <MobileNav chapters={navChapters} total={10} />
+            <MobileNav chapters={navChapters} total={chapters.length} />
           </div>
         </header>
 

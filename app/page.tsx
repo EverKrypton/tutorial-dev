@@ -8,7 +8,7 @@ import { IconArrow, IconDownload } from "@/components/site/Icons";
 export const metadata: Metadata = {
   title: "De la primera etiqueta al primer deploy",
   description:
-    "Once entradas que empiezan en «no sé por dónde empezar» y terminan en una URL pública. Fundamentos, HTML y CSS, Git, Vercel, IA, skills, agentes y prompting.",
+    "Diecisiete entradas que empiezan en «no sé por dónde empezar» y terminan en una URL pública: fundamentos, terminal, Git, Vercel, servidores, React, Next.js, IA, agentes y prompting.",
 };
 
 const PREVIEWS = [
@@ -34,7 +34,7 @@ export default function Home() {
               Aprende a construir para la web. Y a <em>publicarlo</em>.
             </h1>
             <p className="hero-lede">
-              Once entradas que empiezan en «no sé por dónde empezar» y terminan en una URL
+              Diecisiete entradas que empiezan en «no sé por dónde empezar» y terminan en una URL
               que puedes abrir desde el teléfono de cualquiera. Fundamentos, HTML y CSS, Git,
               Vercel, y después IA: modelos, terminal, skills, agentes y prompting.
             </p>
@@ -50,7 +50,7 @@ export default function Home() {
             </div>
             <div className="hero-meta">
               <span className="chip">Sin requisitos</span>
-              <span className="chip">11 entradas</span>
+              <span className="chip">{chapters.length} entradas</span>
               <span className="chip">4–6 horas</span>
               <span className="chip">Mobile first</span>
               <span className="chip">MIT</span>
@@ -108,7 +108,7 @@ export default function Home() {
         <section className="section" id="temario">
           <div className="sec-head reveal">
             <span className="eyebrow">Temario</span>
-            <h2>Once entradas, en el orden en que se aprenden.</h2>
+            <h2>{chapters.length} entradas, en el orden en que se aprenden.</h2>
             <p>
               Cada entrada explica un mecanismo y termina en algo que puedes abrir y usar. No hay
               examen: hay un entregable por capítulo.
@@ -138,6 +138,64 @@ export default function Home() {
                 </span>
               </Link>
             ))}
+          </div>
+        </section>
+      </div>
+
+
+      <div className="shell" style={{ display: "block" }}>
+        <section className="section">
+          <div className="sec-head reveal">
+            <span className="eyebrow">Rutas</span>
+            <h2>Tres formas de entrar.</h2>
+            <p>
+              El temario está en orden, pero no todo el mundo llega al mismo punto. Elige la puerta
+              que se parezca a la tuya; siempre puedes volver.
+            </p>
+          </div>
+
+          <div className="grid-3">
+            <article className="card reveal">
+              <span className="card-k">Nunca he programado</span>
+              <h3>De cero a publicar</h3>
+              <p>
+                Fundamentos, primera web, terminal, Git y Vercel. El camino más largo y el que
+                menos huecos deja.
+              </p>
+              <div className="card-links">
+                <Link href="/curso/fundamentos">Cap. 01</Link>
+                <Link href="/curso/terminal">Cap. 03</Link>
+                <Link href="/curso/vercel">Cap. 05</Link>
+              </div>
+            </article>
+
+            <article className="card reveal">
+              <span className="card-k">Quiero programar de verdad</span>
+              <h3>Backend y frontend moderno</h3>
+              <p>
+                Servidores, APIs, HTTP, React y Next.js. El tramo que convierte una página en una
+                aplicación.
+              </p>
+              <div className="card-links">
+                <Link href="/curso/servidores">Cap. 07</Link>
+                <Link href="/curso/react">Cap. 08</Link>
+                <Link href="/curso/nextjs">Cap. 09</Link>
+              </div>
+            </article>
+
+            <article className="card reveal">
+              <span className="card-k">Quiero construir con IA</span>
+              <h3>Herramientas y criterio</h3>
+              <p>
+                v0, AI Studio, harness de terminal, skills, agentes y prompting. La IA acelera; el
+                criterio lo pones tú.
+              </p>
+              <div className="card-links">
+                <Link href="/curso/v0">Cap. 10</Link>
+                <Link href="/curso/ai-studio">Cap. 11</Link>
+                <Link href="/curso/prompting">Cap. 15</Link>
+              </div>
+            </article>
           </div>
         </section>
       </div>

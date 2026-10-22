@@ -8,28 +8,29 @@
 :root {
   color-scheme: dark;
 
-  --bg: #0b0b0c;
-  --bg-2: #101012;
-  --panel: #141416;
-  --panel-2: #1a1a1d;
-  --panel-3: #202024;
-  --line: #26262a;
-  --line-2: #34343a;
-  --line-3: #46464e;
+  --bg: #060a0e;
+  --bg-2: #0a1015;
+  --panel: #0d141a;
+  --panel-2: #131c24;
+  --panel-3: #18242e;
+  --line: #1b2833;
+  --line-2: #293a48;
+  --line-3: #3c5163;
 
-  --ink: #f4f3ef;
-  --ink-2: #c9c8c1;
-  --muted: #8e8d86;
-  --faint: #6a6963;
+  --ink: #e9f4f2;
+  --ink-2: #b7cac7;
+  --muted: #7b9491;
+  --faint: #5a706f;
 
-  --accent: #ff5a1f;
-  --accent-ink: #ff7a45;
-  --accent-soft: rgba(255, 90, 31, 0.13);
-  --accent-line: rgba(255, 90, 31, 0.38);
-  --ok: #58d68d;
-  --ok-soft: rgba(88, 214, 141, 0.12);
-  --warn: #f5b544;
-  --danger: #f2544b;
+  --accent: #2fe0b8;
+  --accent-ink: #6df2d4;
+  --on-accent: #04120e;
+  --accent-soft: rgba(47, 224, 184, 0.11);
+  --accent-line: rgba(47, 224, 184, 0.36);
+  --ok: #7fe08a;
+  --ok-soft: rgba(127, 224, 138, 0.11);
+  --warn: #ffb454;
+  --danger: #ff6b6b;
 
   --r-xs: 5px;
   --r-sm: 8px;
@@ -56,28 +57,29 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --bg: #faf9f6;
-  --bg-2: #f4f3ef;
+  --bg: #f6faf8;
+  --bg-2: #eef4f1;
   --panel: #ffffff;
-  --panel-2: #f7f6f2;
-  --panel-3: #eeece6;
-  --line: #e3e1da;
-  --line-2: #cfccc2;
-  --line-3: #b3afa3;
+  --panel-2: #f2f7f5;
+  --panel-3: #e7efec;
+  --line: #dde7e3;
+  --line-2: #c4d3ce;
+  --line-3: #a3b6b0;
 
-  --ink: #121211;
-  --ink-2: #33322e;
-  --muted: #6d6b63;
-  --faint: #8c8a80;
+  --ink: #08110f;
+  --ink-2: #2b3a37;
+  --muted: #5f736f;
+  --faint: #80948f;
 
-  --accent: #d8410b;
-  --accent-ink: #b33507;
-  --accent-soft: rgba(216, 65, 11, 0.09);
-  --accent-line: rgba(216, 65, 11, 0.32);
-  --ok: #1f8a4c;
-  --ok-soft: rgba(31, 138, 76, 0.10);
-  --shadow-1: 0 1px 2px rgba(20, 18, 12, 0.05), 0 18px 40px -30px rgba(20, 18, 12, 0.35);
-  --shadow-2: 0 30px 70px -45px rgba(20, 18, 12, 0.45);
+  --accent: #0f9e7d;
+  --accent-ink: #0a7a60;
+  --on-accent: #ffffff;
+  --accent-soft: rgba(15, 158, 125, 0.09);
+  --accent-line: rgba(15, 158, 125, 0.30);
+  --ok: #17824a;
+  --ok-soft: rgba(23, 130, 74, 0.10);
+  --shadow-1: 0 1px 2px rgba(8, 20, 16, 0.05), 0 18px 40px -30px rgba(8, 20, 16, 0.30);
+  --shadow-2: 0 30px 70px -45px rgba(8, 20, 16, 0.40);
 }
 
 *,
@@ -326,12 +328,12 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
   cursor: pointer;
   transition: transform 0.15s var(--ease), background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
-.btn:hover { background: var(--accent); color: #fff; }
+.btn:hover { background: var(--accent); color: var(--on-accent); }
 .btn:active { transform: translateY(1px); }
 .btn svg { width: 14px; height: 14px; }
 
-.btn--accent { background: var(--accent); color: #fff; }
-.btn--accent:hover { background: var(--accent-ink); }
+.btn--accent { background: var(--accent); color: var(--on-accent); font-weight: 600; }
+.btn--accent:hover { background: var(--accent-ink); color: var(--on-accent); }
 
 .btn--ghost {
   background: var(--panel);
@@ -1615,7 +1617,14 @@ td code { white-space: nowrap; }
 .demo-canvas {
   padding: 0;
   background: var(--bg-2);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+/* en pantallas pequeñas la demo conserva su ancho mínimo y se desplaza */
+.demo-canvas > .dv {
+  min-width: 520px;
 }
 
 .demo-note {
@@ -1759,3 +1768,79 @@ td code { white-space: nowrap; }
   body { background: #fff; color: #000; }
   .shell { display: block; }
 }
+
+/* ==========================================================================
+   EJEMPLOS A TAMAÑO REAL (índice)
+   ========================================================================== */
+
+.demo-block {
+  padding: 34px 0 30px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: calc(var(--topbar) + 20px);
+}
+.demo-block:first-of-type { border-top: 0; padding-top: 8px; }
+
+.demo-block-head {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.demo-block-n {
+  color: var(--accent-ink);
+  line-height: 2;
+  font-size: 11px;
+}
+.demo-block-head h2 {
+  font-size: clamp(1.15rem, 3.6vw, 1.4rem);
+  letter-spacing: -0.024em;
+  line-height: 1.2;
+}
+.demo-block-head h2 a { transition: color 0.15s ease; }
+.demo-block-head h2 a:hover { color: var(--accent-ink); }
+.demo-block-head p {
+  margin: 5px 0 0;
+  max-width: 62ch;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.demo-block-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.demo-block-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+  color: var(--faint);
+}
+
+/* la demo ocupa todo el ancho disponible, sin escalar */
+.demo-block .demo-stage { margin-top: 0; }
+.demo-block .demo-canvas { padding: 0; }
+
+/* enlaces dentro de las tarjetas */
+.card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.card-links a {
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.card-links a:hover { border-color: var(--accent); color: var(--accent-ink); }

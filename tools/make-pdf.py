@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Genera descargas/tutorial-dev.pdf a partir del contenido de src/pages.
+"""Genera public/descargas/tutorial-dev.pdf a partir del contenido de content/.
 
 Hace varias pasadas: compone el HTML de impresión, mide en qué página cae
 cada capítulo, vuelve a imprimir con esos números y finalmente fusiona la
@@ -27,32 +27,13 @@ TOOLS = ROOT / "tools"
 DL = ROOT / "public" / "descargas"
 TMP = ROOT / ".build"
 
-TITLES = {
-    "fundamentos": "Cómo piensa un programa",
-    "primera-web": "Tu primera página web",
-    "git-github": "Git y GitHub sin miedo",
-    "vercel": "Publicar en Vercel",
-    "v0": "tu copiloto de interfaces",
-    "ia-cli": "La IA en tu terminal",
-    "skills": "enséñale trucos a tu IA",
-    "agentes": "Tu propio agente",
-    "prompting": "Curso de prompting, a fondo",
-    "glosario": "Glosario y chuleta",
-    "arsenal": "El arsenal: genjutsu e impeccable",
-}
-
+_CHAPTERS = json.loads((ROOT / "content" / "chapters.json").read_text(encoding="utf-8"))
+TITLES = {c["slug"]: c["title"] for c in _CHAPTERS}
 LABELS = {
-    "fundamentos": "01 · Cómo piensa un programa",
-    "primera-web": "02 · Tu primera página web",
-    "git-github": "03 · Git y GitHub sin miedo",
-    "vercel": "04 · Publicar en Vercel",
-    "v0": "05 · v0: tu copiloto de interfaces",
-    "ia-cli": "06 · La IA en tu terminal",
-    "skills": "07 · Skills: enséñale trucos a tu IA",
-    "agentes": "08 · Tu propio agente",
-    "prompting": "09 · Curso de prompting, a fondo",
-    "glosario": "10 · Glosario y chuleta",
-    "arsenal": "Extra · El arsenal: genjutsu e impeccable",
+    c["slug"]: (
+        f'{c["number"]} · {c["title"]}' if not c.get("extra") else f'Extra · {c["title"]}'
+    )
+    for c in _CHAPTERS
 }
 
 
