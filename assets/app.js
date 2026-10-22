@@ -202,7 +202,7 @@
   /* ---------- revelado con escalonado ---------- */
   const reveals = document.querySelectorAll(".reveal");
   if (reveals.length) {
-    if (!("IntersectionObserver" in window)) {
+    if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       reveals.forEach((el) => el.classList.add("is-in"));
     } else {
       const io = new IntersectionObserver(
