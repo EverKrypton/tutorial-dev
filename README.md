@@ -2,7 +2,7 @@
 
 Curso abierto, en español, para aprender a construir y publicar tu primera web. Sin humo y sin saltarse los porqués.
 
-**Sitio en vivo:** https://tutorial-dev.vercel.app
+**Sitio en vivo:** https://tutorial-dev-es.vercel.app
 
 ## Qué incluye
 
