@@ -51,12 +51,12 @@ const cover = `${head("tutorial.dev — Curso completo")}
   <span class="cover-mark">t</span>
   <span class="cover-eyebrow">Curso abierto · Edición 2026</span>
   <h1>Aprende a construir para la web. Y a <em>publicarlo</em>.</h1>
-  <p class="cover-sub">Diecisiete entradas que empiezan en «no sé por dónde empezar» y terminan en una URL que puedes abrir desde el teléfono de cualquiera: fundamentos, terminal, Git, Vercel, servidores, React, Next.js, IA, agentes y prompting.</p>
+  <p class="cover-sub">Dieciocho entradas que empiezan en «no sé por dónde empezar» y terminan en una URL que puedes abrir desde el teléfono de cualquiera: fundamentos, terminal, Termux, Git, Vercel, servidores, React, Next.js, IA, agentes y prompting.</p>
   <div class="cover-rule"></div>
   <dl class="cover-facts">
     <div><dt>Nivel</dt><dd>Desde cero</dd></div>
-    <div><dt>Duración</dt><dd>9–11 horas</dd></div>
-    <div><dt>Entradas</dt><dd>16 + 1 extra</dd></div>
+    <div><dt>Duración</dt><dd>11–13 horas</dd></div>
+    <div><dt>Entradas</dt><dd>17 + 1 extra</dd></div>
     <div><dt>Requisitos</dt><dd>Ninguno</dd></div>
     <div><dt>Idioma</dt><dd>Español</dd></div>
     <div><dt>Licencia</dt><dd>MIT</dd></div>
@@ -149,7 +149,7 @@ ${chaptersHtml}
     <div>
       <h3>Contenido</h3>
       <ul>
-        <li>16 entradas + 1 extra</li>
+        <li>17 entradas + 1 extra</li>
         <li>17 módulos de prompting</li>
         <li>Glosario y chuletas de comandos</li>
       </ul>
@@ -164,7 +164,7 @@ ${chaptersHtml}
     <div>
       <h3>Herramientas del curso</h3>
       <ul>
-        <li>Git y GitHub</li>
+        <li>Git y GitHub · Termux</li>
         <li>Vercel y v0</li>
         <li>opencode, skills y agentes</li>
       </ul>

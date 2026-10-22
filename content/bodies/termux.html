@@ -1,0 +1,527 @@
+        <h2 id="que-es">Linux en el bolsillo</h2>
+        <p>Termux es una app de Android que te da una terminal Linux de verdad, sin root y sin emulador. Dentro tienes <code>bash</code>, <code>git</code>, <code>node</code>, <code>python</code>, <code>openssh</code> y un gestor de paquetes propio. No es una maqueta: es un entorno real con el que puedes programar y hasta servir una web.</p>
+
+        <p>Sirve para tres cosas concretas:</p>
+        <ul>
+          <li>Practicar todo lo del capítulo anterior sin encender la computadora.</li>
+          <li>Tener Git, Node y Python en el teléfono, para arreglar algo desde cualquier sitio.</li>
+          <li>Entender Linux de verdad, porque aquí no hay interfaz gráfica que tape lo que pasa.</li>
+        </ul>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">En simple</span>
+          <p>Tu teléfono ya es una computadora. Termux es la puerta para usar esa computadora como se usaba antes: escribiendo órdenes.</p>
+        </div>
+
+        <h2 id="instalar">Instalar Termux (por F-Droid)</h2>
+        <p>Esto importa: <strong>la versión de Google Play está abandonada</strong> y da errores raros con los paquetes. La versión que funciona es la de F-Droid.</p>
+
+        <ol class="steps">
+          <li>
+            <h4>Instala F-Droid</h4>
+            <p>Abre <a href="https://f-droid.org" target="_blank" rel="noopener">f-droid.org</a> en el navegador del teléfono y descarga el APK. Android te pedirá permiso para instalar apps de esta fuente: acéptalo solo para F-Droid.</p>
+          </li>
+          <li>
+            <h4>Busca Termux dentro de F-Droid</h4>
+            <p>Enlace directo: <a href="https://f-droid.org/packages/com.termux/" target="_blank" rel="noopener">f-droid.org/packages/com.termux</a>. Pulsa «Descargar APK» o instálalo desde la app de F-Droid.</p>
+          </li>
+          <li>
+            <h4>Instala y abre</h4>
+            <p>Verás un prompt como <code>~ $</code>. Ya estás dentro de un Linux.</p>
+          </li>
+          <li>
+            <h4>Actualiza todo antes de nada</h4>
+            <div class="code">
+              <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+              <pre><code>pkg update
+pkg upgrade -y</code></pre>
+            </div>
+            <p>La primera vez tarda un rato y pregunta cosas: acepta los valores por defecto pulsando <span class="kbd">Enter</span>.</p>
+          </li>
+        </ol>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">No mezcles repositorios</span>
+          <p>Si instalas Termux desde Play Store y luego desde F-Droid, las firmas no coinciden y Android no te deja actualizar. Desinstala la de Play Store antes. Y no instales la versión de Play Store «porque es más fácil»: es la causa del 90% de los errores de paquetes.</p>
+        </div>
+
+        <h3>Permisos que conviene darle</h3>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>termux-setup-storage     <span class="c"># acceso a Descargas, Documentos, etc.</span>
+termux-wake-lock         <span class="c"># evita que Android duerma la sesión</span>
+termux-wake-unlock       <span class="c"># liberarlo cuando termines</span></code></pre>
+        </div>
+
+        <p>Después de <code>termux-setup-storage</code> tendrás una carpeta <code>~/storage</code> con enlaces a lo que hay en el teléfono:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>ls ~/storage
+<span class="c"># dcim  downloads  movies  music  pictures  shared</span>
+
+cd ~/storage/downloads
+ls</code></pre>
+        </div>
+
+        <h2 id="pkg">pkg, apt y la diferencia que confunde</h2>
+        <p>En Termux el gestor de paquetes se llama <code>pkg</code>. Es un envoltorio cómodo sobre <code>apt</code>, que también existe dentro de Termux. Los dos funcionan, pero <code>pkg</code> hace lo correcto por defecto.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Quiero…</th><th>Termux (<code>pkg</code>)</th><th>Debian/Ubuntu (<code>apt</code>)</th></tr></thead>
+            <tbody>
+              <tr><td>Actualizar la lista</td><td><code>pkg update</code></td><td><code>sudo apt update</code></td></tr>
+              <tr><td>Actualizar todo</td><td><code>pkg upgrade -y</code></td><td><code>sudo apt upgrade -y</code></td></tr>
+              <tr><td>Instalar</td><td><code>pkg install git</code></td><td><code>sudo apt install git</code></td></tr>
+              <tr><td>Borrar</td><td><code>pkg uninstall git</code></td><td><code>sudo apt remove git</code></td></tr>
+              <tr><td>Buscar</td><td><code>pkg search node</code></td><td><code>apt search node</code></td></tr>
+              <tr><td>Ver qué tienes</td><td><code>pkg list-installed</code></td><td><code>dpkg -l</code></td></tr>
+              <tr><td>Limpiar caché</td><td><code>pkg clean</code></td><td><code>sudo apt clean</code></td></tr>
+              <tr><td>Información</td><td><code>pkg show nodejs</code></td><td><code>apt show nodejs</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Por qué en Termux no hay sudo</span>
+          <p>Termux corre como un usuario normal dentro de Android. No hay <code>sudo</code> porque no eres root del sistema y no lo necesitas: tus paquetes van a <code>$PREFIX</code>, una carpeta tuya. Si de verdad necesitas <code>apt</code> con root simulado, se hace con <code>proot-distro</code> (lo vemos abajo).</p>
+        </div>
+
+        <h2 id="esenciales">Instalar lo esencial, paso a paso</h2>
+        <p>Este es el bloque que vas a ejecutar el primer día. Cópialo tal cual, en orden.</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># 1. Actualizar el sistema de paquetes</span>
+pkg update -y &amp;&amp; pkg upgrade -y
+
+<span class="c"># 2. Herramientas base</span>
+pkg install -y git nano curl wget unzip tar
+
+<span class="c"># 3. Node.js y npm</span>
+pkg install -y nodejs-lts
+
+<span class="c"># 4. Python</span>
+pkg install -y python
+
+<span class="c"># 5. OpenSSL (el binario y las cabeceras)</span>
+pkg install -y openssl openssl-tool
+
+<span class="c"># 6. SSH: cliente y servidor</span>
+pkg install -y openssh
+
+<span class="c"># 7. Comprobar que todo está</span>
+git --version
+node -v
+npm -v
+python --version
+openssl version
+ssh -V</code></pre>
+        </div>
+
+        <h3>Qué instala cada cosa</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Paquete</th><th>Qué te da</th><th>Comando para comprobar</th></tr></thead>
+            <tbody>
+              <tr><td><code>git</code></td><td>Control de versiones</td><td><code>git --version</code></td></tr>
+              <tr><td><code>nodejs-lts</code></td><td>Node y npm</td><td><code>node -v</code></td></tr>
+              <tr><td><code>python</code></td><td>Python 3 y pip</td><td><code>python --version</code></td></tr>
+              <tr><td><code>openssl</code></td><td>Librería criptográfica</td><td><code>openssl version</code></td></tr>
+              <tr><td><code>openssl-tool</code></td><td>El comando <code>openssl</code> completo</td><td><code>openssl rand -hex 16</code></td></tr>
+              <tr><td><code>openssh</code></td><td><code>ssh</code>, <code>scp</code>, <code>ssh-keygen</code>, <code>sshd</code></td><td><code>ssh -V</code></td></tr>
+              <tr><td><code>nano</code></td><td>Editor de texto en terminal</td><td><code>nano --version</code></td></tr>
+              <tr><td><code>curl</code></td><td>Peticiones HTTP</td><td><code>curl --version</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">Si un paquete falla</span>
+          <p>Ejecuta <code>pkg update</code> otra vez y repite. Si sigue, mira el mensaje completo: casi siempre dice «dependencia X no encontrada», y se resuelve instalando esa dependencia primero. No borres la app: perderías todo lo que tengas en <code>~</code>.</p>
+        </div>
+
+        <h2 id="certbot">Certificados y certbot</h2>
+        <p><strong>Certbot</strong> sirve para pedir certificados HTTPS gratuitos de Let's Encrypt. En Termux solo tiene sentido si estás sirviendo algo con un dominio real; en el teléfono, para practicar, casi nunca lo necesitas.</p>
+
+        <p>Intenta primero el paquete nativo:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>pkg install -y certbot</code></pre>
+        </div>
+
+        <p>Si no existe en tu repositorio, instálalo con pip dentro de Python:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>pkg install -y python-pip
+pip install --upgrade certbot
+
+<span class="c"># comprobar</span>
+certbot --version</code></pre>
+        </div>
+
+        <p>Uso típico en un servidor de verdad (VPS, no teléfono):</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># 1. El dominio tiene que apuntar ya a tu IP</span>
+dig +short midominio.com
+
+<span class="c"># 2. Pedir el certificado con nginx delante</span>
+sudo certbot --nginx -d midominio.com -d www.midominio.com
+
+<span class="c"># 3. Probar la renovación automática</span>
+sudo certbot renew --dry-run
+
+<span class="c"># 4. Ver los certificados</span>
+sudo certbot certificates</code></pre>
+        </div>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Si no tienes dominio</span>
+          <p>Let's Encrypt no emite certificados para direcciones IP ni para <code>localhost</code>. Para practicar HTTPS en local, genera un certificado autofirmado con <code>openssl</code> (lo tienes más abajo) y acepta el aviso del navegador.</p>
+        </div>
+
+        <h3>Un certificado autofirmado con openssl</h3>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># clave privada + certificado válido 365 días</span>
+openssl req -x509 -newkey rsa:2048 -nodes \
+  -keyout key.pem -out cert.pem -days 365 \
+  -subj "/CN=localhost"
+
+<span class="c"># ver qué contiene</span>
+openssl x509 -in cert.pem -noout -text | head -20
+
+<span class="c"># generar un secreto aleatorio (útil para JWT, sesiones)</span>
+openssl rand -hex 32</code></pre>
+        </div>
+
+        <h2 id="proot">apt de verdad con proot-distro</h2>
+        <p>Si quieres un Debian o Ubuntu completo dentro del teléfono, con <code>apt</code>, <code>sudo</code> y todo:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>pkg install -y proot-distro
+
+<span class="c"># instalar una distro</span>
+proot-distro install debian
+
+<span class="c"># entrar</span>
+proot-distro login debian
+
+<span class="c"># ya dentro, esto sí es apt de verdad</span>
+apt update
+apt upgrade -y
+apt install -y curl git nano python3 nodejs openssl certbot
+
+<span class="c"># salir</span>
+exit</code></pre>
+        </div>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">No mezcles los dos mundos</span>
+          <p>Lo que instalas con <code>pkg</code> vive fuera de la distro y lo que instalas con <code>apt</code> vive dentro. Un <code>node</code> instalado con <code>pkg</code> no aparece al entrar en Debian. Decide dónde vas a trabajar y quédate ahí.</p>
+        </div>
+
+        <h2 id="git">Todos los comandos de Git</h2>
+        <p>La tabla completa, agrupada por para qué sirve. Es la misma en Termux, en Linux, en macOS y en Windows.</p>
+
+        <h3>Configurar</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git config --global user.name "Tu Nombre"</code></td><td>Tu nombre en los commits</td></tr>
+              <tr><td><code>git config --global user.email "tu@correo.com"</code></td><td>Tu correo en los commits</td></tr>
+              <tr><td><code>git config --global init.defaultBranch main</code></td><td>Que las ramas nuevas se llamen <code>main</code></td></tr>
+              <tr><td><code>git config --global core.editor nano</code></td><td>Usar nano como editor de Git</td></tr>
+              <tr><td><code>git config --global pull.rebase true</code></td><td>Rebase al hacer pull en vez de merge</td></tr>
+              <tr><td><code>git config --global color.ui auto</code></td><td>Color en la salida</td></tr>
+              <tr><td><code>git config --global alias.st status</code></td><td>Crear un alias (<code>git st</code>)</td></tr>
+              <tr><td><code>git config --list</code></td><td>Ver toda la configuración</td></tr>
+              <tr><td><code>git config --global --edit</code></td><td>Editar el archivo de configuración</td></tr>
+              <tr><td><code>git help &lt;comando&gt;</code></td><td>Manual de un comando</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Crear y clonar</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git init</code></td><td>Crear un repositorio en la carpeta actual</td></tr>
+              <tr><td><code>git init --bare</code></td><td>Repositorio sin copia de trabajo (para servir)</td></tr>
+              <tr><td><code>git clone URL</code></td><td>Copiar un repositorio remoto</td></tr>
+              <tr><td><code>git clone URL carpeta</code></td><td>Clonar en una carpeta concreta</td></tr>
+              <tr><td><code>git clone --depth 1 URL</code></td><td>Clonar solo el último commit (rápido)</td></tr>
+              <tr><td><code>git clone -b rama URL</code></td><td>Clonar una rama concreta</td></tr>
+              <tr><td><code>git clone --recurse-submodules URL</code></td><td>Clonar también los submódulos</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Ver qué está pasando</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git status</code></td><td>Estado de los archivos</td></tr>
+              <tr><td><code>git status -s</code></td><td>Lo mismo, en formato corto</td></tr>
+              <tr><td><code>git diff</code></td><td>Cambios sin preparar</td></tr>
+              <tr><td><code>git diff --staged</code></td><td>Cambios preparados para el commit</td></tr>
+              <tr><td><code>git diff rama1..rama2</code></td><td>Diferencias entre dos ramas</td></tr>
+              <tr><td><code>git log</code></td><td>Historial completo</td></tr>
+              <tr><td><code>git log --oneline</code></td><td>Una línea por commit</td></tr>
+              <tr><td><code>git log --oneline --graph --all</code></td><td>Historial gráfico de todas las ramas</td></tr>
+              <tr><td><code>git log -p archivo</code></td><td>Historial de un archivo con sus cambios</td></tr>
+              <tr><td><code>git log --author="Mara"</code></td><td>Commits de una persona</td></tr>
+              <tr><td><code>git show &lt;hash&gt;</code></td><td>Detalle de un commit</td></tr>
+              <tr><td><code>git blame archivo</code></td><td>Quién cambió cada línea</td></tr>
+              <tr><td><code>git shortlog -sn</code></td><td>Commits por persona</td></tr>
+              <tr><td><code>git describe --tags</code></td><td>El tag más cercano</td></tr>
+              <tr><td><code>git reflog</code></td><td>Todo lo que has hecho, incluso lo borrado</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Guardar cambios</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git add archivo</code></td><td>Preparar un archivo</td></tr>
+              <tr><td><code>git add .</code></td><td>Preparar todo lo de esta carpeta</td></tr>
+              <tr><td><code>git add -A</code></td><td>Preparar todo, incluidos borrados</td></tr>
+              <tr><td><code>git add -p</code></td><td>Elegir trozo por trozo qué entra</td></tr>
+              <tr><td><code>git commit -m "mensaje"</code></td><td>Crear el commit</td></tr>
+              <tr><td><code>git commit -am "mensaje"</code></td><td>Añadir y commitear lo ya seguido</td></tr>
+              <tr><td><code>git commit --amend</code></td><td>Corregir el último commit</td></tr>
+              <tr><td><code>git commit --amend --no-edit</code></td><td>Corregirlo sin cambiar el mensaje</td></tr>
+              <tr><td><code>git commit --allow-empty -m "..."</code></td><td>Commit sin cambios (para relanzar CI)</td></tr>
+              <tr><td><code>git cherry-pick &lt;hash&gt;</code></td><td>Traer un commit concreto de otra rama</td></tr>
+              <tr><td><code>git rm archivo</code></td><td>Borrar y preparar el borrado</td></tr>
+              <tr><td><code>git rm --cached archivo</code></td><td>Dejar de seguir sin borrarlo del disco</td></tr>
+              <tr><td><code>git mv viejo nuevo</code></td><td>Renombrar y preparar el cambio</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Ramas</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git branch</code></td><td>Listar ramas locales</td></tr>
+              <tr><td><code>git branch -a</code></td><td>Listar locales y remotas</td></tr>
+              <tr><td><code>git branch nueva</code></td><td>Crear una rama</td></tr>
+              <tr><td><code>git branch -d rama</code></td><td>Borrar una rama ya mezclada</td></tr>
+              <tr><td><code>git branch -D rama</code></td><td>Borrarla aunque no esté mezclada</td></tr>
+              <tr><td><code>git branch -m nuevo</code></td><td>Renombrar la rama actual</td></tr>
+              <tr><td><code>git switch rama</code></td><td>Cambiar de rama</td></tr>
+              <tr><td><code>git switch -c rama</code></td><td>Crear y cambiar</td></tr>
+              <tr><td><code>git switch -</code></td><td>Volver a la rama anterior</td></tr>
+              <tr><td><code>git checkout rama</code></td><td>Forma antigua de cambiar de rama</td></tr>
+              <tr><td><code>git checkout -b rama</code></td><td>Forma antigua de crear y cambiar</td></tr>
+              <tr><td><code>git merge rama</code></td><td>Traer una rama a la actual</td></tr>
+              <tr><td><code>git merge --no-ff rama</code></td><td>Mezclar dejando un commit de merge</td></tr>
+              <tr><td><code>git merge --abort</code></td><td>Cancelar un merge con conflicto</td></tr>
+              <tr><td><code>git rebase main</code></td><td>Reaplicar tus commits encima de main</td></tr>
+              <tr><td><code>git rebase -i HEAD~3</code></td><td>Reordenar, unir o editar los últimos 3</td></tr>
+              <tr><td><code>git rebase --abort</code></td><td>Cancelar un rebase</td></tr>
+              <tr><td><code>git rebase --continue</code></td><td>Seguir tras resolver un conflicto</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Remotos</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git remote -v</code></td><td>Ver los remotos</td></tr>
+              <tr><td><code>git remote add origin URL</code></td><td>Añadir un remoto</td></tr>
+              <tr><td><code>git remote set-url origin URL</code></td><td>Cambiar la URL</td></tr>
+              <tr><td><code>git remote remove origin</code></td><td>Quitarlo</td></tr>
+              <tr><td><code>git fetch</code></td><td>Bajar cambios sin tocar tu copia</td></tr>
+              <tr><td><code>git fetch --all --prune</code></td><td>Bajar todo y limpiar ramas borradas</td></tr>
+              <tr><td><code>git pull</code></td><td>Bajar y mezclar en tu rama</td></tr>
+              <tr><td><code>git pull --rebase</code></td><td>Bajar y reaplicar tus commits encima</td></tr>
+              <tr><td><code>git push</code></td><td>Subir tu rama</td></tr>
+              <tr><td><code>git push -u origin rama</code></td><td>Subir y dejarla enlazada</td></tr>
+              <tr><td><code>git push --force-with-lease</code></td><td>Forzar de forma segura (rebase propio)</td></tr>
+              <tr><td><code>git push origin --delete rama</code></td><td>Borrar una rama del remoto</td></tr>
+              <tr><td><code>git push --tags</code></td><td>Subir las etiquetas</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Etiquetas</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git tag</code></td><td>Listar etiquetas</td></tr>
+              <tr><td><code>git tag v1.0.0</code></td><td>Crear una etiqueta ligera</td></tr>
+              <tr><td><code>git tag -a v1.0.0 -m "primera versión"</code></td><td>Etiqueta anotada</td></tr>
+              <tr><td><code>git tag -d v1.0.0</code></td><td>Borrar una etiqueta</td></tr>
+              <tr><td><code>git push origin v1.0.0</code></td><td>Subir una etiqueta concreta</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Deshacer</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git restore archivo</code></td><td>Descartar cambios no guardados</td></tr>
+              <tr><td><code>git restore --staged archivo</code></td><td>Sacarlo del staging</td></tr>
+              <tr><td><code>git restore --source=HEAD~1 archivo</code></td><td>Recuperar la versión anterior</td></tr>
+              <tr><td><code>git reset HEAD~1</code></td><td>Deshacer el último commit, dejando los cambios</td></tr>
+              <tr><td><code>git reset --soft HEAD~1</code></td><td>Deshacerlo dejándolo preparado</td></tr>
+              <tr><td><code>git reset --hard HEAD~1</code></td><td>Deshacerlo y borrar los cambios</td></tr>
+              <tr><td><code>git revert &lt;hash&gt;</code></td><td>Crear un commit que deshace otro (seguro)</td></tr>
+              <tr><td><code>git revert --no-commit &lt;hash&gt;</code></td><td>Revertir sin commitear todavía</td></tr>
+              <tr><td><code>git clean -n</code></td><td>Ver qué archivos sin seguir se borrarían</td></tr>
+              <tr><td><code>git clean -fd</code></td><td>Borrarlos de verdad</td></tr>
+              <tr><td><code>git stash</code></td><td>Apartar cambios sin commitear</td></tr>
+              <tr><td><code>git stash -u</code></td><td>Apartar también los archivos nuevos</td></tr>
+              <tr><td><code>git stash list</code></td><td>Ver lo apartado</td></tr>
+              <tr><td><code>git stash pop</code></td><td>Recuperar y borrar de la lista</td></tr>
+              <tr><td><code>git stash apply</code></td><td>Recuperar sin borrar de la lista</td></tr>
+              <tr><td><code>git stash drop</code></td><td>Descartar lo apartado</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Avanzado y mantenimiento</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>git submodule add URL ruta</code></td><td>Añadir un submódulo</td></tr>
+              <tr><td><code>git submodule update --init --recursive</code></td><td>Bajar los submódulos</td></tr>
+              <tr><td><code>git worktree add ../otra rama</code></td><td>Trabajar dos ramas a la vez en carpetas distintas</td></tr>
+              <tr><td><code>git bisect start</code></td><td>Buscar qué commit rompió algo</td></tr>
+              <tr><td><code>git bisect good &lt;hash&gt;</code> / <code>bad &lt;hash&gt;</code></td><td>Marcar los extremos</td></tr>
+              <tr><td><code>git bisect reset</code></td><td>Terminar la búsqueda</td></tr>
+              <tr><td><code>git archive -o salida.zip HEAD</code></td><td>Exportar el proyecto sin historial</td></tr>
+              <tr><td><code>git apply parche.patch</code></td><td>Aplicar un parche</td></tr>
+              <tr><td><code>git format-patch -1</code></td><td>Exportar un commit como parche</td></tr>
+              <tr><td><code>git gc --prune=now</code></td><td>Compactar el repositorio</td></tr>
+              <tr><td><code>git fsck</code></td><td>Comprobar que no está corrupto</td></tr>
+              <tr><td><code>git count-objects -vH</code></td><td>Ver cuánto ocupa</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Git en Termux: los ajustes que sí importan</h3>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># identidad (una sola vez)</span>
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@correo.com"
+
+<span class="c"># nano como editor: sin esto, git abre vi y te pierdes</span>
+git config --global core.editor nano
+
+<span class="c"># rama principal moderna</span>
+git config --global init.defaultBranch main
+
+<span class="c"># que no pida usuario y contraseña en cada push</span>
+git config --global credential.helper store
+
+<span class="c"># claves SSH (mejor que contraseñas)</span>
+ssh-keygen -t ed25519 -C "tu@correo.com"
+cat ~/.ssh/id_ed25519.pub
+<span class="c"># copia esa línea y pégala en GitHub → Settings → SSH keys</span>
+
+<span class="c"># probar la conexión</span>
+ssh -T git@github.com</code></pre>
+        </div>
+
+        <div class="callout callout--warn">
+          <span class="callout-label">El token, no la contraseña</span>
+          <p>GitHub ya no acepta contraseñas por HTTPS. Si usas <code>credential.helper store</code>, cuando pida contraseña pega un <strong>token personal</strong> (Settings → Developer settings → Tokens). Y ojo: <code>store</code> guarda el token en texto plano en <code>~/.git-credentials</code>. En un teléfono compartido, usa SSH.</p>
+        </div>
+
+        <h2 id="servidor">Servir algo desde el teléfono</h2>
+        <p>No es lo normal, pero se puede y enseña mucho:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># un servidor estático en el puerto 8080</span>
+cd ~/storage/downloads/mi-web
+python -m http.server 8080
+
+<span class="c"># en el navegador del teléfono:</span>
+<span class="c"># http://localhost:8080</span></code></pre>
+        </div>
+
+        <p>Para que no se corte al bloquear la pantalla:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>termux-wake-lock
+nohup python -m http.server 8080 &gt; ~/server.log 2&gt;&amp;1 &amp;
+
+<span class="c"># ver el log</span>
+tail -f ~/server.log
+
+<span class="c"># pararlo</span>
+pkill -f http.server</code></pre>
+        </div>
+
+        <div class="callout callout--info">
+          <span class="callout-label">Termux no es un servidor de producción</span>
+          <p>Android duerme procesos, la IP cambia y no hay garantía de disponibilidad. Úsalo para probar y aprender. Cuando algo tiene que estar encendido de verdad, va a un VPS o a Vercel.</p>
+        </div>
+
+        <h2 id="chuleta">Chuleta de Termux</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Quiero…</th><th>Comando</th></tr></thead>
+            <tbody>
+              <tr><td>Actualizar todo</td><td><code>pkg update &amp;&amp; pkg upgrade -y</code></td></tr>
+              <tr><td>Instalar algo</td><td><code>pkg install paquete</code></td></tr>
+              <tr><td>Buscar un paquete</td><td><code>pkg search texto</code></td></tr>
+              <tr><td>Ver instalados</td><td><code>pkg list-installed</code></td></tr>
+              <tr><td>Acceso a archivos del teléfono</td><td><code>termux-setup-storage</code></td></tr>
+              <tr><td>Que no se duerma</td><td><code>termux-wake-lock</code></td></tr>
+              <tr><td>Ver la IP local</td><td><code>ifconfig</code> o <code>ip addr</code></td></tr>
+              <tr><td>Abrir un enlace</td><td><code>termux-open-url https://…</code></td></tr>
+              <tr><td>Compartir un archivo</td><td><code>termux-share archivo</code></td></tr>
+              <tr><td>Vibración / notificación</td><td><code>pkg install termux-api</code></td></tr>
+              <tr><td>Entrar a Debian</td><td><code>proot-distro login debian</code></td></tr>
+              <tr><td>Salir de la sesión</td><td><code>exit</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="ejercicios">Ejercicios</h2>
+        <div class="exercise">
+          <span class="chip">Ejercicio 01</span>
+          <h4>Poner el taller en marcha</h4>
+          <p>Instala Termux desde F-Droid, ejecuta <code>pkg update &amp;&amp; pkg upgrade -y</code>, instala <code>git nano nodejs-lts python openssl openssh</code> y comprueba las seis versiones. Si algo falla, lee el error completo antes de tocar nada.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 02</span>
+          <h4>Tu primer repositorio en el teléfono</h4>
+          <p>Crea <code>~/proyectos/prueba</code>, un <code>README.md</code> con nano, y haz <code>git init</code>, <code>git add .</code>, <code>git commit -m "inicio"</code>. Después mira el historial con <code>git log --oneline</code> y el estado con <code>git status</code>.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 03</span>
+          <h4>Rama, conflicto y deshacer</h4>
+          <p>Crea una rama, cambia la misma línea del README en dos ramas distintas y provoca un conflicto al mezclar. Resuélvelo a mano en nano, haz commit, y luego practica <code>git restore</code> y <code>git stash</code>.</p>
+        </div>
+        <div class="exercise">
+          <span class="chip">Ejercicio 04</span>
+          <h4>Servir tu web desde el bolsillo</h4>
+          <p>Copia una carpeta con un <code>index.html</code> a <code>~/storage/downloads</code>, sirve con <code>python -m http.server</code> y ábrela en el navegador del teléfono. Después hazlo con <code>nohup</code> y <code>termux-wake-lock</code> y comprueba que sigue viva al cambiar de app.</p>
+        </div>
+
+        <div class="callout callout--kid">
+          <span class="callout-label">Lo importante</span>
+          <p>Termux no es un juguete: es un Linux completo que cabe en el bolsillo. Todo lo que aprendas aquí se aplica tal cual en un VPS. La diferencia entre los dos es solo dónde está enchufado el cable.</p>
+        </div>

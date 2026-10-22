@@ -6,31 +6,32 @@ Curso abierto, en español, para aprender a construir y publicar para la web. Si
 
 ## Qué incluye
 
-Diecisiete entradas que van de cero a una URL publicada:
+Dieciocho entradas que van de cero a una URL publicada:
 
 1. **Cómo piensa un programa** — variables, condiciones, bucles, funciones, errores.
 2. **Tu primera página web** — HTML, CSS, JavaScript, mobile first, accesibilidad.
 3. **La terminal sin miedo** — `ls`, `cd`, `cat`, `nano`, `grep`, `chmod`, `ssh`, pipes, systemd. En tu máquina, en un VPS o en Termux.
-4. **Git y GitHub sin miedo** — commits, ramas, remotos, pull requests, deshacer.
-5. **Publicar en Vercel** — deploy, previews, dominios, variables, funciones, rollback.
-6. **Vercel a fondo** — estático, serverless y edge; secretos por entorno; cron; caché; logs; rollback.
-7. **Tu primer servidor y tu primera API** — HTTP, una API con Hono, CORS, persistencia, nginx y deploy.
-8. **React desde cero** — JSX, componentes, props, estado, listas, efectos y los errores clásicos.
-9. **Next.js en serio** — App Router, componentes de servidor, datos, rutas de API, server actions.
-10. **v0: tu copiloto de interfaces** — prompting visual, iteración, código propio.
-11. **Google AI Studio Build** — playground, parámetros, generación de apps, la API de Gemini y salidas JSON.
-12. **La IA en tu terminal** — harness, modelos, proveedores, contexto, permisos.
-13. **Skills** — cómo escribir un `SKILL.md` y reutilizar tu forma de trabajar.
-14. **Tu propio agente** — instrucciones, permisos, subagentes, ejemplos completos.
-15. **Curso de prompting, a fondo** — 17 módulos: contexto, estructura, ejemplos, razonamiento, JSON, agentes, evaluación, seguridad.
-16. **Glosario y chuleta** — términos y comandos listos para copiar.
-17. **El arsenal** — genjutsu e impeccable por dentro: dos skills de diseño reales.
+4. **Termux: Linux en el bolsillo** — instalación desde F-Droid, `pkg` y `apt`, Node, Python, OpenSSL, certbot, SSH, proot-distro y **todos los comandos de Git**.
+5. **Git y GitHub sin miedo** — commits, ramas, remotos, pull requests, deshacer.
+6. **Publicar en Vercel** — deploy, previews, dominios, variables, funciones, rollback.
+7. **Vercel a fondo** — estático, serverless y edge; secretos por entorno; cron; caché; logs; rollback.
+8. **Tu primer servidor y tu primera API** — HTTP, una API con Hono, CORS, persistencia, nginx y deploy.
+9. **React desde cero** — JSX, componentes, props, estado, listas, efectos y los errores clásicos.
+10. **Next.js en serio** — App Router, componentes de servidor, datos, rutas de API, server actions.
+11. **v0: tu copiloto de interfaces** — prompting visual, iteración, código propio.
+12. **Google AI Studio Build** — playground, parámetros, generación de apps, la API de Gemini y salidas JSON.
+13. **La IA en tu terminal** — harness, modelos, proveedores, contexto, permisos.
+14. **Skills** — cómo escribir un `SKILL.md` y reutilizar tu forma de trabajar.
+15. **Tu propio agente** — instrucciones, permisos, subagentes, ejemplos completos.
+16. **Curso de prompting, a fondo** — 17 módulos: contexto, estructura, ejemplos, razonamiento, JSON, agentes, evaluación, seguridad.
+17. **Glosario y chuleta** — términos y comandos listos para copiar.
+18. **El arsenal** — genjutsu e impeccable por dentro: dos skills de diseño reales.
 
 Además:
 
 - **Galería de ejemplos** (`/ejemplos`): diez patrones de interfaz a tamaño real e interactivos — cabecera de datos en vivo, dashboard de analítica, panel de trading, tabla de administración, ajustes, entrada, precios, paleta de comandos, app móvil y estados vacío/carga/error.
 - **Sistema de diseño** (`/diseno`): tokens, escala tipográfica, espaciado, radios y componentes con sus estados.
-- **PDF completo** (`/descargas/tutorial-dev.pdf`): 139 páginas, portada, índice con números de página, marcadores y enlaces internos. Se sirve como descarga directa.
+- **PDF completo** (`/descargas/tutorial-dev.pdf`): 155 páginas, portada, índice con números de página, marcadores y enlaces internos. Se sirve como descarga directa.
 
 ## Stack
 

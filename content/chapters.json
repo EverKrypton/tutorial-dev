@@ -189,8 +189,69 @@
     "extra": false
   },
   {
-    "slug": "git-github",
+    "slug": "termux",
     "number": "04",
+    "group": "Empezar",
+    "title": "Termux: Linux en el bolsillo",
+    "lede": "Termux te da un Linux real dentro de Android, sin root y sin emulador. Aquí lo instalas desde F-Droid, montas Node, Python y OpenSSL, y aprendes todos los comandos de Git.",
+    "summary": "Instalar Termux desde F-Droid, pkg y apt, Node, Python, OpenSSL, certbot, SSH y todos los comandos de Git.",
+    "duration": "55 min",
+    "level": "Cero",
+    "requires": "Un Android",
+    "outcome": "Linux en el móvil",
+    "stack": "Termux · pkg · Git",
+    "tags": [
+      "Termux",
+      "F-Droid",
+      "Git"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Linux en el bolsillo"
+      ],
+      [
+        "instalar",
+        "Instalar Termux (por F-Droid)"
+      ],
+      [
+        "pkg",
+        "pkg, apt y la diferencia que confunde"
+      ],
+      [
+        "esenciales",
+        "Instalar lo esencial, paso a paso"
+      ],
+      [
+        "certbot",
+        "Certificados y certbot"
+      ],
+      [
+        "proot",
+        "apt de verdad con proot-distro"
+      ],
+      [
+        "git",
+        "Todos los comandos de Git"
+      ],
+      [
+        "servidor",
+        "Servir algo desde el teléfono"
+      ],
+      [
+        "chuleta",
+        "Chuleta de Termux"
+      ],
+      [
+        "ejercicios",
+        "Ejercicios"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "git-github",
+    "number": "05",
     "group": "Empezar",
     "title": "Git y GitHub sin miedo",
     "lede": "Git guarda fotos de tu proyecto para que puedas volver atrás. GitHub guarda esas fotos en internet para compartirlas. Juntos son el seguro más barato contra «se me rompió todo».",
@@ -250,7 +311,7 @@
   },
   {
     "slug": "vercel",
-    "number": "05",
+    "number": "06",
     "group": "Publicar",
     "title": "Publicar en Vercel",
     "lede": "Tener la página en tu computadora no sirve de mucho. Vercel la pone en internet, le da HTTPS y una URL que puedes mandar por WhatsApp. Y lo mejor: se actualiza cada vez que subes un cambio.",
@@ -314,7 +375,7 @@
   },
   {
     "slug": "vercel-pro",
-    "number": "06",
+    "number": "07",
     "group": "Publicar",
     "title": "Vercel a fondo",
     "lede": "Publicar es el principio. Mantenerlo vivo es donde aparecen las decisiones: qué corre dónde, cómo se guardan los secretos y cómo vuelves atrás cuando algo se rompe.",
@@ -379,7 +440,7 @@
   },
   {
     "slug": "servidores",
-    "number": "07",
+    "number": "08",
     "group": "Backend",
     "title": "Tu primer servidor y tu primera API",
     "lede": "Una web y un servidor son dos programas hablando por HTTP. Aquí escribes el servidor, diseñas la API, conectas el cliente y lo pones en internet.",
@@ -436,7 +497,7 @@
   },
   {
     "slug": "react",
-    "number": "08",
+    "number": "09",
     "group": "Frontend",
     "title": "React desde cero",
     "lede": "React no es una librería de componentes: es una forma de pensar la interfaz como función del estado. Si entiendes eso, todo lo demás cae solo.",
@@ -501,7 +562,7 @@
   },
   {
     "slug": "nextjs",
-    "number": "09",
+    "number": "10",
     "group": "Frontend",
     "title": "Next.js en serio",
     "lede": "Next es React más rutas, datos en el servidor, API y deploy. La decisión importante no es qué componente usar: es qué se ejecuta en el servidor y qué en el navegador.",
@@ -566,7 +627,7 @@
   },
   {
     "slug": "v0",
-    "number": "10",
+    "number": "11",
     "group": "Construir con IA",
     "title": "v0: tu copiloto de interfaces",
     "lede": "v0 es un agente de Vercel que convierte una descripción en una interfaz real, con código que puedes abrir, editar y publicar. No es magia: es un compañero que necesita buenas instrucciones y criterio.",
@@ -622,7 +683,7 @@
   },
   {
     "slug": "ai-studio",
-    "number": "11",
+    "number": "12",
     "group": "Construir con IA",
     "title": "Google AI Studio Build",
     "lede": "AI Studio es el laboratorio de Gemini y también un generador de apps. Sirve para prototipar en minutos y, sobre todo, para usar el modelo desde tu propio código.",
@@ -679,7 +740,7 @@
   },
   {
     "slug": "ia-cli",
-    "number": "12",
+    "number": "13",
     "group": "Construir con IA",
     "title": "La IA en tu terminal",
     "lede": "Un chat te da texto. Un harness le da manos: puede leer tu proyecto, escribir archivos, correr comandos y comprobar si lo que hizo funciona. Es la diferencia entre un consejero y un compañero de trabajo.",
@@ -739,7 +800,7 @@
   },
   {
     "slug": "skills",
-    "number": "13",
+    "number": "14",
     "group": "Agentes",
     "title": "Skills: enséñale trucos a tu IA",
     "lede": "Una skill es una carpeta con un archivo de texto que le enseña a tu agente cómo hacer una tarea de tu manera. Se carga solo cuando hace falta, así que no ocupa contexto todo el tiempo.",
@@ -795,7 +856,7 @@
   },
   {
     "slug": "agentes",
-    "number": "14",
+    "number": "15",
     "group": "Agentes",
     "title": "Tu propio agente",
     "lede": "Un agente es un asistente con nombre, instrucciones y límites. No necesitas programar una IA: necesitas escribir un archivo de texto que le diga cómo comportarse, qué puede tocar y cuándo pedirte permiso.",
@@ -851,7 +912,7 @@
   },
   {
     "slug": "prompting",
-    "number": "15",
+    "number": "16",
     "group": "Profundizar",
     "title": "Curso de prompting, a fondo",
     "lede": "Pedir bien no es escribir bonito: es reducir la incertidumbre. Dieciséis módulos para entender cómo razonan los modelos, cómo estructurar una petición y cómo comprobar que el resultado sirve.",
@@ -939,7 +1000,7 @@
   },
   {
     "slug": "glosario",
-    "number": "16",
+    "number": "17",
     "group": "Profundizar",
     "title": "Glosario y chuleta",
     "lede": "Las palabras que vas a escuchar mil veces, en una línea cada una. Y los comandos que de verdad se usan, listos para copiar.",

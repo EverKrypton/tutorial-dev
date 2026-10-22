@@ -1844,3 +1844,51 @@ td code { white-space: nowrap; }
   transition: border-color 0.15s ease, color 0.15s ease;
 }
 .card-links a:hover { border-color: var(--accent); color: var(--accent-ink); }
+
+/* ==========================================================================
+   AVISO "NUEVO" EN EL HERO
+   ========================================================================== */
+
+.hero-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  padding: 4px 10px 4px 4px;
+  border: 1px solid var(--accent-line);
+  border-radius: 99px;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s var(--ease);
+}
+.hero-new:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  transform: translateY(-1px);
+}
+.hero-new svg {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+}
+.hero-new > span {
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

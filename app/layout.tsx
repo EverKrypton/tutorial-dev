@@ -107,6 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <nav className="top-links" aria-label="Principal">
             <Link href="/curso/fundamentos">Curso</Link>
+            <Link href="/curso/termux">Termux</Link>
             <Link href="/ejemplos">Ejemplos</Link>
             <Link href="/diseno">Sistema</Link>
             <a href="/descargas/tutorial-dev.pdf">PDF</a>
@@ -154,6 +155,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <h3>Curso</h3>
                   <Link href="/curso/fundamentos">Fundamentos</Link>
                   <Link href="/curso/primera-web">Primera web</Link>
+                  <Link href="/curso/termux">Termux</Link>
                   <Link href="/curso/git-github">Git y GitHub</Link>
                   <Link href="/curso/vercel">Vercel</Link>
                 </div>

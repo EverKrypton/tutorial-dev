@@ -8,7 +8,7 @@ import { IconArrow, IconDownload } from "@/components/site/Icons";
 export const metadata: Metadata = {
   title: "De la primera etiqueta al primer deploy",
   description:
-    "Diecisiete entradas que empiezan en «no sé por dónde empezar» y terminan en una URL pública: fundamentos, terminal, Git, Vercel, servidores, React, Next.js, IA, agentes y prompting.",
+    "Dieciocho entradas que empiezan en «no sé por dónde empezar» y terminan en una URL pública: fundamentos, terminal, Termux, Git, Vercel, servidores, React, Next.js, IA, agentes y prompting.",
 };
 
 const PREVIEWS = [
@@ -29,14 +29,21 @@ export default function Home() {
       <section className="hero">
         <div className="shell" style={{ display: "block" }}>
           <div className="hero-inner">
-            <span className="eyebrow">Curso abierto · Edición 2026</span>
+            <div className="hero-top">
+              <span className="eyebrow">Curso abierto · Edición 2026</span>
+              <Link className="hero-new" href="/curso/termux">
+                <span>Nuevo</span>
+                Termux en el móvil
+                <IconArrow style={{ width: 12, height: 12 }} />
+              </Link>
+            </div>
             <h1>
               Aprende a construir para la web. Y a <em>publicarlo</em>.
             </h1>
             <p className="hero-lede">
-              Diecisiete entradas que empiezan en «no sé por dónde empezar» y terminan en una URL
-              que puedes abrir desde el teléfono de cualquiera. Fundamentos, HTML y CSS, Git,
-              Vercel, y después IA: modelos, terminal, skills, agentes y prompting.
+              Dieciocho entradas que empiezan en «no sé por dónde empezar» y terminan en una URL
+              que puedes abrir desde el teléfono de cualquiera. Fundamentos, terminal, Termux,
+              Git, Vercel, servidores, React, Next.js y después IA.
             </p>
             <div className="hero-actions">
               <Link className="btn btn--accent btn--lg" href="/curso/fundamentos">
@@ -51,7 +58,7 @@ export default function Home() {
             <div className="hero-meta">
               <span className="chip">Sin requisitos</span>
               <span className="chip">{chapters.length} entradas</span>
-              <span className="chip">4–6 horas</span>
+              <span className="chip">{Math.round(totalMinutes / 60)} horas</span>
               <span className="chip">Mobile first</span>
               <span className="chip">MIT</span>
             </div>
@@ -165,7 +172,7 @@ export default function Home() {
               <div className="card-links">
                 <Link href="/curso/fundamentos">Cap. 01</Link>
                 <Link href="/curso/terminal">Cap. 03</Link>
-                <Link href="/curso/vercel">Cap. 05</Link>
+                <Link href="/curso/vercel">Cap. 06</Link>
               </div>
             </article>
 
@@ -177,9 +184,9 @@ export default function Home() {
                 aplicación.
               </p>
               <div className="card-links">
-                <Link href="/curso/servidores">Cap. 07</Link>
-                <Link href="/curso/react">Cap. 08</Link>
-                <Link href="/curso/nextjs">Cap. 09</Link>
+                <Link href="/curso/servidores">Cap. 08</Link>
+                <Link href="/curso/react">Cap. 09</Link>
+                <Link href="/curso/nextjs">Cap. 10</Link>
               </div>
             </article>
 
@@ -191,9 +198,9 @@ export default function Home() {
                 criterio lo pones tú.
               </p>
               <div className="card-links">
-                <Link href="/curso/v0">Cap. 10</Link>
-                <Link href="/curso/ai-studio">Cap. 11</Link>
-                <Link href="/curso/prompting">Cap. 15</Link>
+                <Link href="/curso/v0">Cap. 11</Link>
+                <Link href="/curso/ai-studio">Cap. 12</Link>
+                <Link href="/curso/prompting">Cap. 16</Link>
               </div>
             </article>
           </div>
