@@ -24,7 +24,7 @@ from pypdf.generic import ArrayObject, FloatObject, NameObject, NullObject
 
 ROOT = Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
-DL = ROOT / "descargas"
+DL = ROOT / "public" / "descargas"
 TMP = ROOT / ".build"
 
 TITLES = {
@@ -52,7 +52,7 @@ LABELS = {
     "agentes": "08 · Tu propio agente",
     "prompting": "09 · Curso de prompting, a fondo",
     "glosario": "10 · Glosario y chuleta",
-    "arsenal": "11 · El arsenal: genjutsu e impeccable",
+    "arsenal": "Extra · El arsenal: genjutsu e impeccable",
 }
 
 
@@ -84,7 +84,7 @@ def serve():
 
 def build_html():
     TMP.mkdir(parents=True, exist_ok=True)
-    subprocess.run(["node", str(TOOLS / "build-pdf.mjs")], check=True, cwd=ROOT)
+    subprocess.run(["node", str(TOOLS / "build-print.mjs")], check=True, cwd=ROOT)
 
 
 def render(site_url):
@@ -246,8 +246,6 @@ def main():
     finally:
         httpd.shutdown()
 
-    for tmp in (DL / "_portada.html", DL / "_libro.html"):
-        tmp.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

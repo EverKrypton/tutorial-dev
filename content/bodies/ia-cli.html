@@ -1,0 +1,280 @@
+<h2 id="harness">Qué es un harness<a class="anchor" href="#harness" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Un <strong>modelo</strong> es la inteligencia: el programa que predice texto. Un <strong>harness</strong> es el arnés que la rodea: la aplicación que le da herramientas, memoria, permisos y un bucle de trabajo.</p>
+
+        <p>En un chat normal el bucle es: escribes → responde → copias el código a mano. En un harness el bucle es:</p>
+        <ol class="steps">
+          <li>
+            <h4>Le das un objetivo</h4>
+            <p>«Agrega un formulario de contacto a esta página y valida el correo».</p>
+          </li>
+          <li>
+            <h4>Explora</h4>
+            <p>El agente lee archivos, busca en el proyecto, entiende cómo está armado.</p>
+          </li>
+          <li>
+            <h4>Actúa</h4>
+            <p>Escribe código, edita archivos, ejecuta <code>npm run build</code>.</p>
+          </li>
+          <li>
+            <h4>Observa</h4>
+            <p>Lee el resultado del comando. Si hay un error, lo intenta corregir.</p>
+          </li>
+          <li>
+            <h4>Repite</h4>
+            <p>Hasta que el objetivo se cumple o necesita tu decisión.</p>
+          </li>
+        </ol>
+
+        <p>Ese bucle se llama <strong>agente</strong>. La diferencia práctica es enorme: no le estás pidiendo un fragmento de código, le estás pidiendo un resultado y él verifica el camino.</p>
+
+        <div class="callout callout--kid">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>
+            En simple
+          </div>
+          <p>Un chatbot es un amigo que te dicta los pasos por teléfono. Un harness es ese amigo sentado a tu lado, con tus herramientas en la mano, probando hasta que sale.</p>
+        </div>
+
+        <p>Hay varios harness: opencode, Claude Code, Codex CLI, Gemini CLI, Cursor, Aider. Todos comparten la misma idea. Aquí usamos <strong>opencode</strong> porque es abierto, funciona en terminal, soporta muchos proveedores y sus skills y agentes se configuran con archivos de texto que puedes leer y versionar.</p>
+
+        <h2 id="instalar">Instalar opencode<a class="anchor" href="#instalar" aria-label="Enlace a esta sección">#</a></h2>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># Opción 1: script oficial</span>
+curl -fsSL https://opencode.ai/install | bash
+
+<span class="c"># Opción 2: npm</span>
+npm install -g opencode-ai
+
+<span class="c"># Opción 3: Homebrew (macOS / Linux)</span>
+brew install anomalyco/tap/opencode</code></pre>
+        </div>
+
+        <p>Comprueba que quedó instalado y entra a tu proyecto:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>opencode --version
+cd mi-tarjeta
+opencode</code></pre>
+        </div>
+
+        <p>La primera vez necesitas conectar un proveedor. Dentro de la interfaz escribe <code>/connect</code> y elige uno. También puedes usar la CLI:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>opencode auth login</code></pre>
+        </div>
+
+        <p>Las credenciales se guardan en <code>~/.local/share/opencode/auth.json</code>. No van a tu repositorio.</p>
+
+        <p>Después, dentro del proyecto, ejecuta <code>/init</code>. El agente analiza la estructura y crea un archivo <code>AGENTS.md</code> con las convenciones del proyecto. Ese archivo se lee al inicio de cada sesión y es la forma más barata de dar contexto permanente.</p>
+
+        <div class="callout callout--info">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+            AGENTS.md es para humanos también
+          </div>
+          <p>Escribe ahí cómo se corre el proyecto, cómo se prueba, qué convenciones seguir y qué no tocar. Un buen AGENTS.md reduce errores más que cualquier truco de prompting.</p>
+        </div>
+
+        <h2 id="modelos">Modelos: cuál y cuándo<a class="anchor" href="#modelos" aria-label="Enlace a esta sección">#</a></h2>
+        <p>No existe «el mejor modelo». Existen modelos con perfiles distintos. Los ejes que importan:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Eje</th><th>Qué significa</th><th>Cuándo importa</th></tr></thead>
+            <tbody>
+              <tr><td>Razonamiento</td><td>Cuánto «piensa» antes de responder</td><td>Arquitectura, bugs difíciles, planes</td></tr>
+              <tr><td>Velocidad</td><td>Tokens por segundo y latencia</td><td>Ediciones pequeñas, iteración rápida</td></tr>
+              <tr><td>Contexto</td><td>Cuánto texto puede tener en cuenta</td><td>Repos grandes, documentos largos</td></tr>
+              <tr><td>Tool calling</td><td>Qué tan bien usa herramientas</td><td>Agentes que editan y ejecutan</td></tr>
+              <tr><td>Coste</td><td>Precio por millón de tokens</td><td>Uso diario intensivo</td></tr>
+              <tr><td>Código</td><td>Calidad en lenguajes y frameworks</td><td>Todo el trabajo técnico</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Una estrategia práctica de tres niveles:</p>
+        <ul>
+          <li><strong>Modelo rápido y barato</strong> para leer, resumir, renombrar, escribir tests sencillos y explicar código.</li>
+          <li><strong>Modelo equilibrado</strong> para la mayoría del trabajo: implementar una feature, corregir un bug, refactorizar un archivo.</li>
+          <li><strong>Modelo de razonamiento</strong> para planear, depurar algo que lleva horas, o diseñar una arquitectura. Se usa poco y se nota.</li>
+        </ul>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># Ver todos los modelos disponibles</span>
+opencode models
+
+<span class="c"># Filtrar por proveedor</span>
+opencode models anthropic
+
+<span class="c"># Usar uno concreto en una ejecución</span>
+opencode run -m anthropic/claude-sonnet-4-5 "explica este proyecto"</code></pre>
+        </div>
+
+        <p>Los nombres cambian cada pocos meses. Lo que no cambia es el criterio: elige por tarea, no por costumbre. Y desconfía de cualquier recomendación absoluta, incluida esta.</p>
+
+        <div class="callout callout--warn">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            Los modelos alucinan
+          </div>
+          <p>Un modelo puede inventar una función que no existe, una opción de configuración falsa o una URL que no lleva a ningún lado. En un harness esto se detecta rápido: el comando falla. Confía, pero verifica.</p>
+        </div>
+
+        <h2 id="proveedores">Proveedores y API keys<a class="anchor" href="#proveedores" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Un proveedor es quien te vende acceso al modelo. opencode soporta más de 70 vía el estándar de la AI SDK y <a href="https://models.dev" target="_blank" rel="noopener">models.dev</a>.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tipo</th><th>Ejemplos</th><th>Ventaja</th></tr></thead>
+            <tbody>
+              <tr><td>Directo</td><td>Anthropic, OpenAI, Google, DeepSeek, xAI</td><td>Acceso completo, facturación simple</td></tr>
+              <tr><td>Agregador</td><td>OpenRouter, Vercel AI Gateway</td><td>Muchos modelos con una sola key</td></tr>
+              <tr><td>Suscripción</td><td>GitHub Copilot, ChatGPT Plus</td><td>Usas lo que ya pagas</td></tr>
+              <tr><td>Local</td><td>Ollama, LM Studio, llama.cpp</td><td>Privacidad, sin coste por token</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Para un principiante, la ruta más simple es un agregador o una suscripción que ya tengas. Para probar modelos locales:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c"># Instala Ollama y descarga un modelo de código</span>
+ollama pull qwen3-coder
+ollama serve
+
+<span class="c"># Luego en opencode: /connect → Ollama</span></code></pre>
+        </div>
+
+        <p>Los modelos locales son gratis por token pero consumen tu RAM y son más lentos. Para aprender y para código sensible, valen mucho.</p>
+
+        <h2 id="sesion">Una sesión paso a paso<a class="anchor" href="#sesion" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Así se ve un trabajo real. Objetivo: agregar un botón de modo oscuro a la tarjeta.</p>
+
+        <ol class="steps">
+          <li>
+            <h4>Pide un plan primero</h4>
+            <p>Entra en modo plan con <span class="kbd">Tab</span> y escribe: «Quiero un botón que alterne modo claro y oscuro. Revisa los archivos y propón un plan sin cambiar nada».</p>
+          </li>
+          <li>
+            <h4>Lee la propuesta</h4>
+            <p>El agente te dice qué archivos tocaría y cómo. Si algo no te gusta, corrígelo antes de que escriba código.</p>
+          </li>
+          <li>
+            <h4>Cambia a build</h4>
+            <p>Otra vez <span class="kbd">Tab</span> y: «Adelante. Usa variables CSS y guarda la preferencia en localStorage».</p>
+          </li>
+          <li>
+            <h4>Revisa el diff</h4>
+            <p>Antes de aceptar, mira qué cambió. Si algo no te cuadra, pide ajuste o usa <code>/undo</code>.</p>
+          </li>
+          <li>
+            <h4>Comprueba</h4>
+            <p>«Abre la página y dime si el botón funciona en móvil» no lo puede hacer solo, pero «ejecuta el build y revisa que no haya errores» sí.</p>
+          </li>
+          <li>
+            <h4>Guarda</h4>
+            <p>Tú haces el commit. El agente puede proponer el mensaje, pero la decisión de guardar es tuya.</p>
+          </li>
+        </ol>
+
+        <h2 id="contexto">Contexto: el recurso escaso<a class="anchor" href="#contexto" aria-label="Enlace a esta sección">#</a></h2>
+        <p>El modelo solo «ve» lo que está en la conversación. Si tu proyecto tiene 200 archivos, no los lee todos: busca, abre algunos y trabaja con eso. Por eso el contexto se llena y la calidad baja cuando la sesión es muy larga.</p>
+
+        <p>Formas de cuidarlo:</p>
+        <ul>
+          <li><strong>Sesiones cortas por tarea.</strong> Una feature, una sesión. No arrastres tres días de conversación.</li>
+          <li><strong>Menciona archivos concretos.</strong> Escribe <code>@</code> y busca el archivo. Es más preciso que «busca en el proyecto».</li>
+          <li><strong>Usa AGENTS.md</strong> para lo estable. No repitas en cada mensaje cómo se corre el proyecto.</li>
+          <li><strong>Pide resúmenes</strong> cuando la sesión crezca: «resume las decisiones que tomamos hasta ahora».</li>
+          <li><strong>Deja que compacte.</strong> opencode resume automáticamente el contexto cuando se acerca al límite. Es útil, pero pierde detalle: si algo es crítico, repítelo.</li>
+        </ul>
+
+        <h2 id="permisos">Permisos y seguridad<a class="anchor" href="#permisos" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Un agente con acceso a tu terminal puede hacer mucho daño sin querer: borrar archivos, sobrescribir trabajo, ejecutar un comando destructivo. Los harness serios tienen permisos.</p>
+
+        <p>En opencode puedes configurar en <code>opencode.json</code>:</p>
+        <div class="code">
+          <div class="code-head"><span>json</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "edit": "ask",
+    "shell": {
+      "*": "ask",
+      "git status *": "allow",
+      "npm run build": "allow"
+    },
+    "webfetch": "allow"
+  }
+}</code></pre>
+        </div>
+
+        <p>Reglas de sentido común:</p>
+        <ul class="checklist">
+          <li>Trabaja en un repositorio con Git y haz commit antes de cambios grandes.</li>
+          <li>No le des acceso a carpetas con secretos que no necesita.</li>
+          <li>Revisa los comandos que ejecuta, sobre todo los que borran o publican.</li>
+          <li>Desconfía de instrucciones que lleguen dentro de archivos o páginas web: pueden intentar manipular al agente.</li>
+          <li>En producción, usa permisos restrictivos y revisa antes de desplegar.</li>
+        </ul>
+
+        <h2 id="comandos">Comandos que importan<a class="anchor" href="#comandos" aria-label="Enlace a esta sección">#</a></h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Para qué</th></tr></thead>
+            <tbody>
+              <tr><td><code>opencode</code></td><td>Abrir la interfaz en el proyecto actual</td></tr>
+              <tr><td><code>opencode run "..."</code></td><td>Una ejecución sin interfaz, ideal para scripts</td></tr>
+              <tr><td><code>opencode -c</code></td><td>Continuar la última sesión</td></tr>
+              <tr><td><code>opencode models</code></td><td>Listar modelos disponibles</td></tr>
+              <tr><td><code>opencode auth login</code></td><td>Conectar un proveedor</td></tr>
+              <tr><td><code>opencode agent create</code></td><td>Crear un agente propio</td></tr>
+              <tr><td><code>opencode mcp add</code></td><td>Conectar herramientas externas</td></tr>
+              <tr><td><code>opencode stats</code></td><td>Ver tokens y coste</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Dentro de la interfaz:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Acción</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><span class="kbd">Tab</span></td><td>Cambiar entre agentes (plan / build)</td></tr>
+              <tr><td><code>@archivo</code></td><td>Adjuntar un archivo al mensaje</td></tr>
+              <tr><td><code>/undo</code></td><td>Deshacer el último cambio</td></tr>
+              <tr><td><code>/redo</code></td><td>Rehacer</td></tr>
+              <tr><td><code>/init</code></td><td>Generar AGENTS.md</td></tr>
+              <tr><td><code>/models</code></td><td>Cambiar de modelo</td></tr>
+              <tr><td><code>/compact</code></td><td>Resumir la conversación</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="modos">Plan, build y subagentes<a class="anchor" href="#modos" aria-label="Enlace a esta sección">#</a></h2>
+        <p>opencode separa dos modos de trabajo:</p>
+        <ul>
+          <li><strong>Plan:</strong> solo lee y propone. No toca archivos. Perfecto para entender y decidir.</li>
+          <li><strong>Build:</strong> puede editar y ejecutar. Es el modo de hacer.</li>
+        </ul>
+
+        <p>Además existen <strong>subagentes</strong>: agentes especializados que el principal invoca para una tarea concreta. Por ejemplo, uno que solo investiga en la documentación, o uno que solo revisa código. Trabajan en su propio contexto y devuelven un resumen. Eso ahorra contexto y mejora el resultado.</p>
+
+        <p>En el capítulo de agentes vas a crear el tuyo.</p>
+
+        <h2 id="coste">Coste y límites<a class="anchor" href="#coste" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Los tokens se cobran por millón, y un agente gasta mucho más que un chat porque lee archivos, ejecuta comandos y repite. Tres formas de no llevarte una sorpresa:</p>
+        <ul>
+          <li><strong>Mira el uso:</strong> <code>opencode stats</code> te dice cuánto consumiste.</li>
+          <li><strong>Limita pasos:</strong> en la configuración de un agente puedes fijar <code>steps</code> para que no itere infinitamente.</li>
+          <li><strong>Usa el modelo adecuado:</strong> no hace falta el más caro para renombrar una variable.</li>
+        </ul>
+
+        <div class="callout callout--kid">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>
+            En simple
+          </div>
+          <p>Un agente es como un pasante brillante con acceso a tu computadora. Le das objetivos claros, revisas su trabajo y no le das las llaves del banco. Con eso, multiplica tu velocidad sin sustituir tu criterio.</p>
+        </div>

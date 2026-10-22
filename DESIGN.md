@@ -4,88 +4,69 @@
 
 ## World
 
-A printed course catalogue from a technical school: newsprint paper, dense black ink, one signal red, hairline rules, and a strict column grid. Nothing floats, nothing glows, nothing is rounded. The page behaves like a well-set catalogue spread — masthead, record card, syllabus, colophon — rather than a landing page.
+Un cuaderno de ingeniería de noche: canvas casi negro con un tinte cálido, superficies en escalera, hairlines de un píxel y un único bermellón que marca lo accionable. Los titulares son editoriales (Instrument Serif) y la interfaz es precisa (Geist). Los datos —cifras, cuotas, duraciones— van en monoespaciada con numeración tabular.
 
-Anti-reference: the previous version (cream gradient hero, illustrated phone mockup, acid-yellow highlighter, pill buttons, soft-shadow cards). It read as a template.
+Anti-referencia: la versión anterior del sitio (papel prensa, rojo óxido, todo en serif condensada) y la anterior a esa (tarjetas redondeadas con sombra y amarillo ácido). Ninguna de las dos tenía jerarquía real.
 
 ## Palette
 
-Sampled from the built CSS.
+Muestreada del CSS construido.
 
-| Role | Light | Dark |
+| Rol | Oscuro | Claro |
 |---|---|---|
-| Paper (ground) | `#f3f0e9` | `#0f0f0c` |
-| Band (section fill) | `#e8e4d9` | `#17160f` |
-| Card (code, insets) | `#fbf9f4` | `#14130e` |
-| Ink (text, rules) | `#12120f` | `#f2efe6` |
-| Ink 2 (body copy) | `#2b2b24` | `#d9d5c8` |
-| Muted (labels) | `#6b685c` | `#9c978a` |
-| Line | `#d2cdbe` | `#2a2921` |
-| Line 2 (stronger) | `#a8a394` | `#46443a` |
-| Signal red (accent) | `#cf3510` | `#ff6a3d` |
-| Red ink (links) | `#a52a0b` | `#ff8a63` |
-| Red soft (extra row) | `#f7e3db` | `#2a150e` |
-| Green (completed) | `#2f6b3a` | `#7fd39a` |
+| Canvas `--bg` | `#0b0b0c` | `#faf9f6` |
+| Canvas 2 `--bg-2` | `#101012` | `#f4f3ef` |
+| Panel `--panel` | `#141416` | `#ffffff` |
+| Panel 2 `--panel-2` | `#1a1a1d` | `#f7f6f2` |
+| Hairline `--line` | `#26262a` | `#e3e1da` |
+| Hairline 2 `--line-2` | `#34343a` | `#cfccc2` |
+| Tinta `--ink` | `#f4f3ef` | `#121211` |
+| Tinta 2 `--ink-2` | `#c9c8c1` | `#33322e` |
+| Apagado `--muted` | `#8e8d86` | `#6d6b63` |
+| Acento `--accent` | `#ff5a1f` | `#d8410b` |
+| Acento tinta `--accent-ink` | `#ff7a45` | `#b33507` |
+| Éxito `--ok` | `#58d68d` | `#1f8a4c` |
+| Peligro `--danger` | `#f2544b` | — |
 
-One accent only. Red marks: chapter numbers, section kickers, active navigation, links in prose, exercise rules, completion. It never fills a large area except the single extra-syllabus row.
+El acento nunca rellena superficies grandes: aparece en el botón principal, el número de capítulo activo, la barra de progreso y los estados activos.
 
 ## Type
 
-- **Archivo** variable, axes `wdth` 62–125 and `wght` 400–800.
-  - Display (`h1`, `h2`, `.entry-n`, `.brand`, lesson titles): `wdth` 78–92, weight 700, tracking −0.035 to −0.045em, line-height 0.87–0.98.
-  - Body: `wdth` 100, 17px (17.5px from 780px), line-height 1.68, measure 66–68ch.
-  - UI labels: `wdth` 100, 600 weight, 13px.
-- **JetBrains Mono** 400/500 for metadata, kickers, tags, code, durations, keys, colophon. 9–12.2px, tracking 0.05–0.14em, uppercase for labels.
+- **Geist Sans** (`--font-sans`): interfaz y cuerpo. 15.5 px base, 16 px desde 820 px, line-height 1.65, tracking −0.006em.
+- **Instrument Serif** (`--font-serif`): solo el `h1` de portada, el `h2` del CTA y el 404. Peso 400, tracking −0.03em.
+- **Geist Mono** (`--font-mono`): metadatos, etiquetas, cifras, código. 9–12.3 px, tracking 0.02–0.13em, `tabular-nums` siempre que alinee.
 
-Numerals are tabular wherever they align (progress, durations, section numbers).
+Escala: hero `clamp(2.6rem, 9.6vw, 4.6rem)`, h1 de capítulo `clamp(1.9rem, 7vw, 2.9rem)`, h2 `clamp(1.55rem, 5.2vw, 2.15rem)`, cuerpo 15.5–16 px.
 
 ## Grid and spacing
 
-- Container: `min(100% - 2×pad, 1240px)`; pad 18 → 24 → 32px.
-- Base unit 4px. Section padding 44px → 54px. Rules separate, not cards.
-- Article layout: single column below 1040px; from 1040px a 214px sticky rail plus a 66–68ch measure, 56px gutter.
-- Syllabus rows: `44px 1fr` on mobile, `54px 1fr 92px` from 780px.
-- Every horizontal divider is 1px `--line`; structural dividers (section starts, table heads, callouts, syllabus top) are 1px or 2px `--ink`.
+- Contenedor `min(100% - 2×pad, 1280px)`; pad 18 → 24 → 32 px.
+- Shell de tres columnas desde 1100 px: rail 264 px, contenido, TOC 216 px.
+- Escala de espaciado: 4, 8, 12, 16, 24, 32, 48, 64, 96.
+- Separación por espacio y hairlines, nunca por cajas anidadas.
 
 ## Components
 
-- **Buttons**: square, 1px ink border, ink fill with paper text; hover flips to signal red. Secondary is a transparent outline. Height 46px, 36px for small.
-- **Tags**: 9.5px mono, uppercase, 1px `--line-2`, no fill.
-- **Code blocks**: paper card, 1px `--line-2`, mono header bar with language label and a `Copiar` button; 12.2px code at 1.7 line-height. Syntax colors: comment muted italic, keyword red-ink, string green, number blue, function purple.
-- **Callouts**: no boxes. A 2px top rule plus a mono uppercase label. `--warn` and `--kid` use red; `--info` uses `--line-2` and muted.
-- **Steps**: ordered list with `01`–`0n` mono numerals in red in the left gutter, hairline separators.
-- **Tables**: 2px ink top rule, 1px bottom, mono uppercase headers, no zebra, no outer border.
-- **Checklist**: hairline rows with a red `□` in the gutter.
-- **Bad/good comparison**: two stacked (or side-by-side) blocks separated by a red rule and a green rule with mono labels.
-- **Exercise**: 2px red top rule, tag, heading, muted description.
-- **Glossary**: `dt` bold sans, `dd` muted with hairline separator.
-- **Lesson row**: red mono number, title, a `CONSTRUYES` line, mono metadata, and a right-aligned duration column from 780px.
-- **Stamp button** (completion): mono uppercase 11px, outline, turns green when pressed.
-- **Pager**: two hairline rows, mono small caps label above a bold title; right-aligned for "next".
+- **Botones**: 36 px de alto (44 en `--lg`), radio 8 px. Principal en tinta sólida que pasa a bermellón; secundario con borde; terciario sin fondo.
+- **Chips**: píldora de 10.5 px mono con borde de 1 px; `--accent` y `--ok` para estados.
+- **Código**: bloque con cabecera mono y botón de copiar; resaltado propio (comentario apagado, palabra clave bermellón, cadena verde, número azul, función violeta).
+- **Callouts**: caja con borde de 1 px y etiqueta mono; `--kid` usa tinte de acento, `--warn` borde de peligro.
+- **Pasos**: tarjetas con numeral circular y separación de 8 px.
+- **Tablas**: contenedor con borde, cabecera mono en mayúsculas sobre `--panel-2`.
+- **Ejemplos**: cada demo trae su propio lenguaje visual bajo `.dv`, aislado del sitio. La cabecera de apuestas usa oro sobre negro cálido; el dashboard SaaS, papel claro; el trading, negro azulado; el admin, blanco con tinta.
+- **Estados**: vacío con acción, esqueleto con la forma del contenido, error con causa y reintento.
 
 ## Motion
 
-Two authored moments, nothing else:
-
-1. `wipe` — the page `h1` enters by revealing from the baseline with `clip-path: inset(0 0 105% 0)` over 0.85s `cubic-bezier(0.16, 1, 0.3, 1)`.
-2. `fade` — deck and metadata follow at 0.12s and 0.2s delay.
-3. `.rise` — sections fade up 8px once, on intersection, 0.65s.
-
-All of it is disabled under `prefers-reduced-motion: reduce`. No hover transforms, no parallax, no scroll-jacking.
+- Entrada del hero: 800 ms, `translateY(14px)` + blur de 5 px a 0, escalonado en 60 ms.
+- Revelado de bloques: 600 ms con retardo de 55 ms por índice, una sola vez.
+- Transiciones de hover: 150–250 ms. Sin parallax, sin scroll-jacking.
+- Todo se apaga con `prefers-reduced-motion: reduce`.
 
 ## Browser surfaces
 
-Selection is signal red on white. Focus is a 2px red outline at 2px offset. Scrollbars stay native. `::marker` on prose lists is red mono. Links are underlined with a 40%-opacity red and go full red on hover.
-
-## States
-
-- Lesson rows: hover fills with `--card`, title turns red.
-- Completed lessons: number turns green with a check.
-- Navigation: current page carries an inset 2px red underline (desktop) or red title (mobile menu).
-- Progress: ten 7×8px segments that fill red left to right.
-- Copy button: `Copiado` for 1.8s in red.
-- Toast: ink block, mono uppercase, bottom center.
+Selección en bermellón sobre blanco. Foco con anillo de 2 px y offset 2 px. Scrollbar fina tematizada. `caret-color` en acento. `::marker` en acento dentro de la prosa. Enlaces con subrayado de 1 px que se intensifica al pasar.
 
 ## Responsive
 
-360 px is the design width. At 360 the record card stacks label/value, the syllabus drops its duration column, the article is single column with a `<details>` table of contents, and the header collapses to brand plus two icon buttons. Enhancements start at 520 (two-column paths, four-column deliverables, footer columns), 780 (inline nav, progress segments, three-column syllabus, four-column deliverables, hero split), 1040 (sticky rail), 1180 (measure tightened).
+360 px es el ancho de diseño. A 560 px aparecen las rejillas de dos columnas. A 820 px entra la navegación superior, la búsqueda y el rail lateral. A 1100 px aparece el TOC de la derecha. El drawer móvil se cierra con Escape y al navegar.

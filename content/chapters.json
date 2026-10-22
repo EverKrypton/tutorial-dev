@@ -1,0 +1,678 @@
+[
+  {
+    "slug": "fundamentos",
+    "number": "01",
+    "group": "Empezar",
+    "title": "Cómo piensa un programa",
+    "lede": "Antes de escribir una página necesitas entender qué es una instrucción, cómo se guarda un dato y por qué un programa se rompe. Aquí no hay magia: hay piezas pequeñas que encajan.",
+    "summary": "Variables, condiciones, bucles y funciones. La base para que todo lo demás tenga sentido.",
+    "duration": "25 min",
+    "level": "Cero",
+    "requires": "Ninguno",
+    "outcome": "Pensar en pasos",
+    "stack": "JavaScript",
+    "tags": [
+      "nivel cero",
+      "JavaScript"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Qué es programar"
+      ],
+      [
+        "anatomia",
+        "La anatomía de un programa"
+      ],
+      [
+        "variables",
+        "Variables y tipos"
+      ],
+      [
+        "decisiones",
+        "Tomar decisiones"
+      ],
+      [
+        "repeticion",
+        "Repetir sin morir"
+      ],
+      [
+        "funciones",
+        "Funciones"
+      ],
+      [
+        "datos",
+        "Listas y objetos"
+      ],
+      [
+        "errores",
+        "Errores y debugging"
+      ],
+      [
+        "pensar",
+        "Pensar como programador"
+      ],
+      [
+        "ejercicios",
+        "Ejercicios"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "primera-web",
+    "number": "02",
+    "group": "Empezar",
+    "title": "Tu primera página web",
+    "lede": "Una web son tres capas: HTML pone el esqueleto, CSS pone la ropa y JavaScript pone los músculos. Vas a construir una página real, entender cada línea y abrirla en tu teléfono.",
+    "summary": "HTML, CSS y JavaScript hasta tener una tarjeta publicable, con accesibilidad y mobile first.",
+    "duration": "45 min",
+    "level": "Cero",
+    "requires": "Ninguno",
+    "outcome": "Una página propia",
+    "stack": "HTML · CSS · JS",
+    "tags": [
+      "proyecto incluido",
+      "mobile first"
+    ],
+    "sections": [
+      [
+        "como-funciona",
+        "Qué pasa cuando abres una web"
+      ],
+      [
+        "html",
+        "HTML: el esqueleto"
+      ],
+      [
+        "css",
+        "CSS: la ropa"
+      ],
+      [
+        "layout",
+        "Cajas, flex y grid"
+      ],
+      [
+        "mobile",
+        "Mobile first de verdad"
+      ],
+      [
+        "js",
+        "JavaScript: los músculos"
+      ],
+      [
+        "a11y",
+        "Accesibilidad mínima"
+      ],
+      [
+        "proyecto",
+        "Proyecto: tu tarjeta"
+      ],
+      [
+        "devtools",
+        "DevTools"
+      ],
+      [
+        "siguiente",
+        "Qué sigue"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "git-github",
+    "number": "03",
+    "group": "Empezar",
+    "title": "Git y GitHub sin miedo",
+    "lede": "Git guarda fotos de tu proyecto para que puedas volver atrás. GitHub guarda esas fotos en internet para compartirlas. Juntos son el seguro más barato contra «se me rompió todo».",
+    "summary": "Guardar versiones, deshacer errores y subir el código. Git sin pánico.",
+    "duration": "30 min",
+    "level": "Cero",
+    "requires": "Un editor",
+    "outcome": "Código versionado",
+    "stack": "Git",
+    "tags": [
+      "terminal",
+      "esencial"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Git no es GitHub"
+      ],
+      [
+        "instalar",
+        "Instalar y configurar"
+      ],
+      [
+        "primer-repo",
+        "Tu primer repositorio"
+      ],
+      [
+        "commits",
+        "Commits que sirven"
+      ],
+      [
+        "ramas",
+        "Ramas"
+      ],
+      [
+        "remoto",
+        "Subir a GitHub"
+      ],
+      [
+        "pr",
+        "Pull requests"
+      ],
+      [
+        "deshacer",
+        "Deshacer sin pánico"
+      ],
+      [
+        "buenas",
+        "Buenas costumbres"
+      ],
+      [
+        "chuleta",
+        "Chuleta"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "vercel",
+    "number": "04",
+    "group": "Publicar",
+    "title": "Publicar en Vercel",
+    "lede": "Tener la página en tu computadora no sirve de mucho. Vercel la pone en internet, le da HTTPS y una URL que puedes mandar por WhatsApp. Y lo mejor: se actualiza cada vez que subes un cambio.",
+    "summary": "Del archivo local a una URL pública con HTTPS, previews, dominio y rollback.",
+    "duration": "35 min",
+    "level": "Inicial",
+    "requires": "Cuenta de GitHub",
+    "outcome": "Una URL pública",
+    "stack": "CLI + panel",
+    "tags": [
+      "tu URL real",
+      "deploy"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Qué es Vercel"
+      ],
+      [
+        "cuenta",
+        "Cuenta y primer deploy"
+      ],
+      [
+        "cli",
+        "La CLI"
+      ],
+      [
+        "deploy",
+        "Deploy y producción"
+      ],
+      [
+        "git",
+        "Git + Vercel"
+      ],
+      [
+        "dominio",
+        "Tu dominio"
+      ],
+      [
+        "env",
+        "Variables de entorno"
+      ],
+      [
+        "funciones",
+        "Funciones y API"
+      ],
+      [
+        "trucos",
+        "Logs, rollback y analytics"
+      ],
+      [
+        "errores",
+        "Errores típicos"
+      ],
+      [
+        "checklist",
+        "Checklist"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "v0",
+    "number": "05",
+    "group": "Construir con IA",
+    "title": "v0: tu copiloto de interfaces",
+    "lede": "v0 es un agente de Vercel que convierte una descripción en una interfaz real, con código que puedes abrir, editar y publicar. No es magia: es un compañero que necesita buenas instrucciones y criterio.",
+    "summary": "Pedirle una interfaz a v0, iterarla y convertirla en código propio.",
+    "duration": "30 min",
+    "level": "Inicial",
+    "requires": "Cuenta de Vercel",
+    "outcome": "Una interfaz real",
+    "stack": "Next.js",
+    "tags": [
+      "IA visual",
+      "Next.js"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Qué es v0 (y qué no)"
+      ],
+      [
+        "empezar",
+        "Tu primera pantalla"
+      ],
+      [
+        "prompt",
+        "Cómo pedir bien"
+      ],
+      [
+        "iterar",
+        "Iterar sin perder el rumbo"
+      ],
+      [
+        "codigo",
+        "El código es tuyo"
+      ],
+      [
+        "deploy",
+        "De v0 a producción"
+      ],
+      [
+        "usos",
+        "Usos que valen la pena"
+      ],
+      [
+        "limites",
+        "Límites y trampas"
+      ],
+      [
+        "ejercicio",
+        "Ejercicio"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "ia-cli",
+    "number": "06",
+    "group": "Construir con IA",
+    "title": "La IA en tu terminal",
+    "lede": "Un chat te da texto. Un harness le da manos: puede leer tu proyecto, escribir archivos, correr comandos y comprobar si lo que hizo funciona. Es la diferencia entre un consejero y un compañero de trabajo.",
+    "summary": "Harness, modelos, contexto y permisos: la IA que lee tus archivos y ejecuta comandos.",
+    "duration": "40 min",
+    "level": "Inicial",
+    "requires": "Terminal",
+    "outcome": "Un agente en marcha",
+    "stack": "opencode",
+    "tags": [
+      "opencode",
+      "modelos"
+    ],
+    "sections": [
+      [
+        "harness",
+        "Qué es un harness"
+      ],
+      [
+        "instalar",
+        "Instalar opencode"
+      ],
+      [
+        "modelos",
+        "Modelos: cuál y cuándo"
+      ],
+      [
+        "proveedores",
+        "Proveedores y API keys"
+      ],
+      [
+        "sesion",
+        "Una sesión paso a paso"
+      ],
+      [
+        "contexto",
+        "Contexto: el recurso escaso"
+      ],
+      [
+        "permisos",
+        "Permisos y seguridad"
+      ],
+      [
+        "comandos",
+        "Comandos que importan"
+      ],
+      [
+        "modos",
+        "Plan, build y subagentes"
+      ],
+      [
+        "coste",
+        "Coste y límites"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "skills",
+    "number": "07",
+    "group": "Construir con IA",
+    "title": "Skills: enséñale trucos a tu IA",
+    "lede": "Una skill es una carpeta con un archivo de texto que le enseña a tu agente cómo hacer una tarea de tu manera. Se carga solo cuando hace falta, así que no ocupa contexto todo el tiempo.",
+    "summary": "Instrucciones reutilizables que el agente carga solo cuando hace falta.",
+    "duration": "25 min",
+    "level": "Medio",
+    "requires": "opencode instalado",
+    "outcome": "Instrucciones propias",
+    "stack": "SKILL.md",
+    "tags": [
+      "reutilizable",
+      "SKILL.md"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Qué es una skill"
+      ],
+      [
+        "estructura",
+        "Anatomía de un SKILL.md"
+      ],
+      [
+        "donde",
+        "Dónde se guardan"
+      ],
+      [
+        "descubrir",
+        "Cómo se activan"
+      ],
+      [
+        "primera",
+        "Tu primera skill"
+      ],
+      [
+        "buenas",
+        "Qué hace buena a una skill"
+      ],
+      [
+        "permisos",
+        "Permisos"
+      ],
+      [
+        "ideas",
+        "Ideas para tu proyecto"
+      ],
+      [
+        "errores",
+        "Errores comunes"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "agentes",
+    "number": "08",
+    "group": "Construir con IA",
+    "title": "Tu propio agente",
+    "lede": "Un agente es un asistente con nombre, instrucciones y límites. No necesitas programar una IA: necesitas escribir un archivo de texto que le diga cómo comportarse, qué puede tocar y cuándo pedirte permiso.",
+    "summary": "Un asistente con nombre, reglas, permisos y herramientas, definido en un archivo.",
+    "duration": "30 min",
+    "level": "Medio",
+    "requires": "opencode instalado",
+    "outcome": "Un agente propio",
+    "stack": "Permisos",
+    "tags": [
+      "manos a la obra",
+      "opencode"
+    ],
+    "sections": [
+      [
+        "que-es",
+        "Qué es un agente"
+      ],
+      [
+        "tipos",
+        "Primarios y subagentes"
+      ],
+      [
+        "crear",
+        "Crear el tuyo"
+      ],
+      [
+        "archivo",
+        "El archivo completo"
+      ],
+      [
+        "opciones",
+        "Las opciones que importan"
+      ],
+      [
+        "permisos",
+        "Permisos por herramienta"
+      ],
+      [
+        "subagentes",
+        "Subagentes y orquestación"
+      ],
+      [
+        "ejemplos",
+        "Tres agentes útiles"
+      ],
+      [
+        "probar",
+        "Probar y mejorar"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "prompting",
+    "number": "09",
+    "group": "Profundizar",
+    "title": "Curso de prompting, a fondo",
+    "lede": "Pedir bien no es escribir bonito: es reducir la incertidumbre. Dieciséis módulos para entender cómo razonan los modelos, cómo estructurar una petición y cómo comprobar que el resultado sirve.",
+    "summary": "Dieciséis módulos: contexto, estructura, razonamiento, JSON, agentes y evaluación.",
+    "duration": "90 min",
+    "level": "Medio",
+    "requires": "Ninguno",
+    "outcome": "Un método",
+    "stack": "16 módulos",
+    "tags": [
+      "nivel profundo",
+      "16 módulos"
+    ],
+    "sections": [
+      [
+        "m0",
+        "0. Cómo leer el curso"
+      ],
+      [
+        "m1",
+        "1. Qué hace un modelo"
+      ],
+      [
+        "m2",
+        "2. La anatomía del prompt"
+      ],
+      [
+        "m3",
+        "3. Contexto"
+      ],
+      [
+        "m4",
+        "4. Especificidad"
+      ],
+      [
+        "m5",
+        "5. Estructura y delimitadores"
+      ],
+      [
+        "m6",
+        "6. Ejemplos"
+      ],
+      [
+        "m7",
+        "7. Rol y tono"
+      ],
+      [
+        "m8",
+        "8. Razonamiento"
+      ],
+      [
+        "m9",
+        "9. Salidas estructuradas"
+      ],
+      [
+        "m10",
+        "10. Herramientas y agentes"
+      ],
+      [
+        "m11",
+        "11. Iteración y conversación"
+      ],
+      [
+        "m12",
+        "12. Evaluación"
+      ],
+      [
+        "m13",
+        "13. Seguridad"
+      ],
+      [
+        "m14",
+        "14. Anti-patrones"
+      ],
+      [
+        "m15",
+        "15. Plantillas"
+      ],
+      [
+        "m16",
+        "16. Plan de práctica"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "glosario",
+    "number": "10",
+    "group": "Profundizar",
+    "title": "Glosario y chuleta",
+    "lede": "Las palabras que vas a escuchar mil veces, en una línea cada una. Y los comandos que de verdad se usan, listos para copiar.",
+    "summary": "El vocabulario del oficio y las chuletas de comandos, para tener abiertas.",
+    "duration": "10 min",
+    "level": "Consulta",
+    "requires": "Ninguno",
+    "outcome": "Vocabulario",
+    "stack": "Referencia",
+    "tags": [
+      "consulta",
+      "referencia"
+    ],
+    "sections": [
+      [
+        "web",
+        "Web"
+      ],
+      [
+        "git",
+        "Git y GitHub"
+      ],
+      [
+        "vercel",
+        "Vercel"
+      ],
+      [
+        "ia",
+        "IA y modelos"
+      ],
+      [
+        "agentes",
+        "Agentes"
+      ],
+      [
+        "chuleta",
+        "Chuletas de comandos"
+      ]
+    ],
+    "extra": false
+  },
+  {
+    "slug": "arsenal",
+    "number": "★",
+    "group": "Extra",
+    "title": "El arsenal: genjutsu e impeccable",
+    "lede": "Dos skills que convierten «hazlo bonito» en un proceso con reglas, fases y criterios de salida. Una pinta mundos visuales; la otra los audita y los pule hasta que aguantan una captura de pantalla.",
+    "summary": "Genjutsu e impeccable por dentro: dos skills de diseño reales, con sus reglas y su pipeline.",
+    "duration": "extra",
+    "level": "Medio",
+    "requires": "Skills leídas",
+    "outcome": "Criterio de diseño",
+    "stack": "Diseño",
+    "tags": [
+      "diseño",
+      "skills reales"
+    ],
+    "sections": [
+      [
+        "filosofia",
+        "Dos filosofías"
+      ],
+      [
+        "genjutsu",
+        "Genjutsu"
+      ],
+      [
+        "cast",
+        "Cast: la ilusión"
+      ],
+      [
+        "paint",
+        "Paint: el mundo visual"
+      ],
+      [
+        "subskills",
+        "Las sub-skills"
+      ],
+      [
+        "impeccable",
+        "Impeccable"
+      ],
+      [
+        "modos",
+        "Los cuatro modos"
+      ],
+      [
+        "comandos",
+        "Comandos"
+      ],
+      [
+        "craft",
+        "El piso de calidad"
+      ],
+      [
+        "elegir",
+        "Cuál usar y cuándo"
+      ],
+      [
+        "instalar",
+        "Instalarlas"
+      ],
+      [
+        "anatomia",
+        "Qué las hace profesionales"
+      ],
+      [
+        "ejercicio",
+        "Ejercicio"
+      ]
+    ],
+    "extra": true
+  }
+]

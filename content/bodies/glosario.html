@@ -1,0 +1,297 @@
+<h2 id="web">Web<a class="anchor" href="#web" aria-label="Enlace a esta sección">#</a></h2>
+        <dl class="glossary">
+          <dt>HTML</dt>
+          <dd>El lenguaje que describe la estructura y el significado del contenido: títulos, párrafos, enlaces, imágenes.</dd>
+
+          <dt>CSS</dt>
+          <dd>El lenguaje que controla la apariencia: colores, tipografía, espaciado, disposición.</dd>
+
+          <dt>JavaScript</dt>
+          <dd>El lenguaje que da comportamiento: reaccionar a clics, validar formularios, pedir datos.</dd>
+
+          <dt>DOM</dt>
+          <dd>El árbol de elementos que el navegador construye a partir del HTML. JavaScript lo lee y lo modifica.</dd>
+
+          <dt>Responsive</dt>
+          <dd>Que la página se adapta al ancho de la pantalla. Se hace con unidades relativas, flex, grid y media queries.</dd>
+
+          <dt>Mobile first</dt>
+          <dd>Diseñar primero para la pantalla pequeña y ampliar después. No es lo mismo que «hacerlo responsive».</dd>
+
+          <dt>Breakpoint</dt>
+          <dd>El ancho a partir del cual cambia el diseño, definido con <code>@media (min-width: ...)</code>.</dd>
+
+          <dt>Viewport</dt>
+          <dd>El área visible del navegador. La etiqueta <code>meta viewport</code> es la que hace que el móvil no finja tener 980px.</dd>
+
+          <dt>Accesibilidad (a11y)</dt>
+          <dd>Que la página funcione con teclado, lectores de pantalla y contraste suficiente. Beneficia a todos.</dd>
+
+          <dt>Semántica</dt>
+          <dd>Usar la etiqueta que describe el contenido (<code>button</code>, <code>nav</code>, <code>main</code>) en lugar de un <code>div</code> genérico.</dd>
+
+          <dt>DevTools</dt>
+          <dd>Las herramientas del navegador para inspeccionar HTML, CSS, red y errores. Se abren con F12.</dd>
+
+          <dt>HTTPS</dt>
+          <dd>HTTP cifrado. Vercel lo configura automáticamente con un certificado.</dd>
+
+          <dt>DNS</dt>
+          <dd>El sistema que traduce un dominio a una dirección IP. Los registros A y CNAME son los que conectan tu dominio.</dd>
+
+          <dt>CDN</dt>
+          <dd>Una red de servidores distribuidos que entrega tus archivos desde el lugar más cercano al visitante.</dd>
+
+          <dt>API</dt>
+          <dd>Una forma de que dos programas se hablen. Casi siempre: mandas una petición y recibes datos, normalmente en JSON.</dd>
+
+          <dt>JSON</dt>
+          <dd>Un formato de texto para datos con estructura de listas y pares clave-valor. El idioma común de las APIs.</dd>
+
+          <dt>Frontend</dt>
+          <dd>Lo que corre en el navegador: HTML, CSS, JavaScript, interfaces.</dd>
+
+          <dt>Backend</dt>
+          <dd>Lo que corre en el servidor: base de datos, autenticación, lógica privada.</dd>
+
+          <dt>Framework</dt>
+          <dd>Un conjunto de herramientas y convenciones para construir. Next.js, Astro, Vite o SvelteKit son ejemplos.</dd>
+        </dl>
+
+        <h2 id="git">Git y GitHub<a class="anchor" href="#git" aria-label="Enlace a esta sección">#</a></h2>
+        <dl class="glossary">
+          <dt>Repositorio</dt>
+          <dd>Una carpeta vigilada por Git, con todo su historial dentro de <code>.git</code>.</dd>
+
+          <dt>Commit</dt>
+          <dd>Una foto del proyecto en un momento, con un mensaje que explica el cambio.</dd>
+
+          <dt>Staging</dt>
+          <dd>El área donde preparas qué cambios entran en el próximo commit.</dd>
+
+          <dt>Rama (branch)</dt>
+          <dd>Una línea de trabajo paralela. <code>main</code> suele ser la principal.</dd>
+
+          <dt>Merge</dt>
+          <dd>Unir los cambios de una rama con otra.</dd>
+
+          <dt>Conflicto</dt>
+          <dd>Cuando dos ramas cambiaron la misma línea. Git te pide que decidas.</dd>
+
+          <dt>Remoto</dt>
+          <dd>Una copia del repositorio en otro lugar, normalmente GitHub. Se llama <code>origin</code> por convención.</dd>
+
+          <dt>Clone</dt>
+          <dd>Copiar un repositorio remoto a tu computadora.</dd>
+
+          <dt>Push / Pull</dt>
+          <dd>Subir tus commits al remoto / traer los del remoto a tu copia.</dd>
+
+          <dt>Pull request</dt>
+          <dd>Una propuesta de cambios para revisar antes de mezclarlos.</dd>
+
+          <dt>Fork</dt>
+          <dd>Una copia de un repositorio ajeno en tu cuenta, para modificarlo sin afectar el original.</dd>
+
+          <dt>.gitignore</dt>
+          <dd>Lista de archivos que Git debe ignorar: dependencias, entornos, archivos generados.</dd>
+
+          <dt>README</dt>
+          <dd>El archivo que explica qué es el proyecto y cómo usarlo. Es la portada del repositorio.</dd>
+        </dl>
+
+        <h2 id="vercel">Vercel<a class="anchor" href="#vercel" aria-label="Enlace a esta sección">#</a></h2>
+        <dl class="glossary">
+          <dt>Deploy</dt>
+          <dd>El proceso de construir tu proyecto y publicarlo. Cada deploy tiene su propia URL.</dd>
+
+          <dt>Preview</dt>
+          <dd>Un deploy de prueba con URL única. Se genera por cada push a una rama o pull request.</dd>
+
+          <dt>Producción</dt>
+          <dd>El deploy que ve el mundo, servido en tu dominio.</dd>
+
+          <dt>Build</dt>
+          <dd>La fase en la que se instalan dependencias y se generan los archivos finales.</dd>
+
+          <dt>Root Directory</dt>
+          <dd>La carpeta del repositorio donde Vercel debe buscar el proyecto.</dd>
+
+          <dt>Output Directory</dt>
+          <dd>La carpeta que el build genera y Vercel sirve: <code>dist</code>, <code>build</code>, <code>out</code>…</dd>
+
+          <dt>Variable de entorno</dt>
+          <dd>Un valor de configuración que no está en el código: claves, URLs, credenciales.</dd>
+
+          <dt>Función serverless</dt>
+          <dd>Código que se ejecuta en el servidor solo cuando alguien lo llama.</dd>
+
+          <dt>Edge</dt>
+          <dd>Ejecución en servidores cercanos al usuario, con baja latencia y capacidades limitadas.</dd>
+
+          <dt>Rollback</dt>
+          <dd>Volver a un deploy anterior cuando el nuevo sale mal.</dd>
+
+          <dt>Rewrite / Redirect</dt>
+          <dd>Servir otra ruta sin cambiar la URL / mandar al navegador a otra URL.</dd>
+
+          <dt>Web Vitals</dt>
+          <dd>Métricas de experiencia real: LCP (carga), INP (respuesta), CLS (estabilidad visual).</dd>
+        </dl>
+
+        <h2 id="ia">IA y modelos<a class="anchor" href="#ia" aria-label="Enlace a esta sección">#</a></h2>
+        <dl class="glossary">
+          <dt>LLM</dt>
+          <dd>Modelo grande de lenguaje. Predice texto y, con entrenamiento, aprende a seguir instrucciones y usar herramientas.</dd>
+
+          <dt>Token</dt>
+          <dd>Un fragmento de texto (parte de una palabra). Los modelos cuentan y cobran por tokens.</dd>
+
+          <dt>Contexto</dt>
+          <dd>Todo el texto que el modelo tiene delante en una interacción: instrucciones, historial, archivos.</dd>
+
+          <dt>Ventana de contexto</dt>
+          <dd>El máximo de tokens que cabe. Al superarlo, se recorta o se resume.</dd>
+
+          <dt>Prompt</dt>
+          <dd>La entrada que le das al modelo: instrucción, contexto, datos y formato.</dd>
+
+          <dt>Prompt de sistema</dt>
+          <dd>Las instrucciones base que definen el comportamiento del modelo en toda la conversación.</dd>
+
+          <dt>Temperatura</dt>
+          <dd>Control de aleatoriedad. Baja: respuestas predecibles. Alta: más variadas y creativas.</dd>
+
+          <dt>Alucinación</dt>
+          <dd>Cuando el modelo inventa algo con seguridad. No es mentira: es un patrón plausible sin base.</dd>
+
+          <dt>Few-shot</dt>
+          <dd>Dar ejemplos dentro del prompt para que el modelo imite el patrón.</dd>
+
+          <dt>Chain of thought</dt>
+          <dd>Pedir al modelo que razone por pasos antes de responder. Mejora tareas complejas.</dd>
+
+          <dt>RAG</dt>
+          <dd>Recuperar documentos relevantes y ponerlos en el contexto para que el modelo responda con esa información.</dd>
+
+          <dt>Embedding</dt>
+          <dd>Una representación numérica del significado de un texto. Sirve para buscar por similitud.</dd>
+
+          <dt>Fine-tuning</dt>
+          <dd>Reentrenar un modelo con ejemplos propios para especializarlo. Distinto de dar contexto en el prompt.</dd>
+
+          <dt>Inferencia</dt>
+          <dd>El acto de que el modelo genere una respuesta. Cada llamada es una inferencia.</dd>
+
+          <dt>Multimodal</dt>
+          <dd>Modelo que entiende más de un tipo de entrada: texto, imágenes, audio.</dd>
+        </dl>
+
+        <h2 id="agentes">Agentes<a class="anchor" href="#agentes" aria-label="Enlace a esta sección">#</a></h2>
+        <dl class="glossary">
+          <dt>Harness</dt>
+          <dd>La aplicación que rodea al modelo y le da herramientas, permisos y un bucle de trabajo. opencode es uno.</dd>
+
+          <dt>Agente</dt>
+          <dd>Un modelo con un objetivo, herramientas y la capacidad de actuar en varios pasos.</dd>
+
+          <dt>Tool calling</dt>
+          <dd>La capacidad del modelo de pedir que se ejecute una función: leer un archivo, buscar, llamar una API.</dd>
+
+          <dt>Skill</dt>
+          <dd>Un paquete de instrucciones reutilizables que el agente carga solo cuando la tarea lo requiere.</dd>
+
+          <dt>Subagente</dt>
+          <dd>Un agente especializado que el principal invoca para una tarea, con su propio contexto.</dd>
+
+          <dt>MCP</dt>
+          <dd>Model Context Protocol: un estándar para conectar herramientas y datos externos a un agente.</dd>
+
+          <dt>Inyección de prompt</dt>
+          <dd>Cuando un texto externo intenta convertirse en instrucción y manipular al agente.</dd>
+
+          <dt>Permisos</dt>
+          <dd>Reglas que deciden qué puede hacer el agente solo, qué requiere confirmación y qué está prohibido.</dd>
+
+          <dt>AGENTS.md</dt>
+          <dd>El archivo donde describes el proyecto y sus convenciones para que el agente lo lea siempre.</dd>
+
+          <dt>Orquestación</dt>
+          <dd>Coordinar varios agentes o pasos para resolver una tarea compleja.</dd>
+        </dl>
+
+        <h2 id="chuleta">Chuletas de comandos<a class="anchor" href="#chuleta" aria-label="Enlace a esta sección">#</a></h2>
+
+        <h3>Git</h3>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>git init                        <span class="c"># iniciar repositorio</span>
+git status                      <span class="c"># ver qué cambió</span>
+git add .                       <span class="c"># preparar todo</span>
+git commit -m "mensaje"         <span class="c"># guardar foto</span>
+git log --oneline               <span class="c"># historial corto</span>
+git switch -c rama              <span class="c"># crear y cambiar de rama</span>
+git switch main                 <span class="c"># volver a main</span>
+git merge rama                  <span class="c"># traer cambios</span>
+git pull                        <span class="c"># bajar del remoto</span>
+git push                        <span class="c"># subir al remoto</span>
+git restore archivo             <span class="c"># descartar cambios</span>
+git stash                       <span class="c"># apartar cambios</span>
+git stash pop                   <span class="c"># recuperarlos</span>
+git clone URL                   <span class="c"># copiar un repo</span></code></pre>
+        </div>
+
+        <h3>Vercel</h3>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>npm i -g vercel                 <span class="c"># instalar CLI</span>
+vercel login                    <span class="c"># iniciar sesión</span>
+vercel                          <span class="c"># deploy de preview</span>
+vercel --prod                   <span class="c"># deploy de producción</span>
+vercel dev                      <span class="c"># entorno local</span>
+vercel ls                       <span class="c"># listar deploys</span>
+vercel logs URL                 <span class="c"># logs</span>
+vercel env ls                   <span class="c"># variables</span>
+vercel env pull .env.local      <span class="c"># bajarlas</span>
+vercel domains ls               <span class="c"># dominios</span>
+vercel inspect URL              <span class="c"># detalles</span></code></pre>
+        </div>
+
+        <h3>opencode</h3>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>opencode                        <span class="c"># abrir la interfaz</span>
+opencode run "..."              <span class="c"># ejecutar sin interfaz</span>
+opencode -c                     <span class="c"># continuar sesión</span>
+opencode models                 <span class="c"># ver modelos</span>
+opencode auth login             <span class="c"># conectar proveedor</span>
+opencode agent create           <span class="c"># crear agente</span>
+opencode mcp add                <span class="c"># añadir MCP</span>
+opencode stats                  <span class="c"># uso y coste</span>
+opencode upgrade                <span class="c"># actualizar</span></code></pre>
+        </div>
+
+        <h3>Dentro de opencode</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Escribe</th><th>Pasa</th></tr></thead>
+            <tbody>
+              <tr><td><span class="kbd">Tab</span></td><td>Cambiar de agente (Plan / Build)</td></tr>
+              <tr><td><code>@archivo</code></td><td>Adjuntar archivo</td></tr>
+              <tr><td><code>/init</code></td><td>Crear AGENTS.md</td></tr>
+              <tr><td><code>/undo</code></td><td>Deshacer</td></tr>
+              <tr><td><code>/redo</code></td><td>Rehacer</td></tr>
+              <tr><td><code>/models</code></td><td>Elegir modelo</td></tr>
+              <tr><td><code>/compact</code></td><td>Resumir contexto</td></tr>
+              <tr><td><code>/connect</code></td><td>Conectar proveedor</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--info">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+            Se actualiza
+          </div>
+          <p>Los comandos y las herramientas cambian. Si algo no funciona, revisa <code>--help</code> o la documentación oficial. Esta chuleta es un punto de partida, no una escritura.</p>
+        </div>

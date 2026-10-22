@@ -1,0 +1,285 @@
+<h2 id="que-es">Qué es un agente<a class="anchor" href="#que-es" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Ya usaste agentes sin darte cuenta: el modo Plan y el modo Build son dos agentes distintos con instrucciones y permisos distintos. Crear el tuyo es escribir un archivo que define cuatro cosas:</p>
+        <ol>
+          <li><strong>Quién es:</strong> un nombre y una descripción.</li>
+          <li><strong>Cómo piensa:</strong> un prompt de sistema con su rol y sus reglas.</li>
+          <li><strong>Qué puede hacer:</strong> qué herramientas tiene y cuáles requieren permiso.</li>
+          <li><strong>Con qué modelo:</strong> opcionalmente, uno distinto al global.</li>
+        </ol>
+
+        <div class="callout callout--kid">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>
+            En simple
+          </div>
+          <p>Un agente es un empleado con un puesto de trabajo escrito. Su archivo dice: «te llamas Revisor, tu trabajo es leer código y señalar problemas, no puedes editar archivos, y si algo no está claro preguntas». Eso es todo.</p>
+        </div>
+
+        <h2 id="tipos">Primarios y subagentes<a class="anchor" href="#tipos" aria-label="Enlace a esta sección">#</a></h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tipo</th><th>Cómo se usa</th><th>Ejemplo</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Primario</strong></td><td>Hablas con él directamente; cambias con <span class="kbd">Tab</span></td><td>Build, Plan, un agente «profesor»</td></tr>
+              <tr><td><strong>Subagente</strong></td><td>Lo invoca otro agente o lo mencionas con <code>@</code></td><td>Un revisor, un investigador, un tester</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Los subagentes son la pieza más subestimada. Trabajan en su propio contexto, hacen una tarea acotada y devuelven un resumen. Eso evita que la conversación principal se llene de detalles irrelevantes.</p>
+
+        <h2 id="crear">Crear el tuyo<a class="anchor" href="#crear" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Tienes dos caminos. El asistente interactivo:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>opencode agent create</code></pre>
+        </div>
+        <p>Te pregunta dónde guardarlo, qué debe hacer, qué permisos tiene y con qué modelo. Al final escribe el archivo.</p>
+
+        <p>O el camino directo: creas el archivo a mano. Para un agente de proyecto:</p>
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>mkdir -p .opencode/agents
+touch .opencode/agents/profesor.md</code></pre>
+        </div>
+        <p>Para uno global, en <code>~/.config/opencode/agents/</code>. El nombre del archivo es el nombre del agente.</p>
+
+        <h2 id="archivo">El archivo completo<a class="anchor" href="#archivo" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Este es un agente que explica código como si tuvieras doce años, sin editar nada:</p>
+
+        <div class="code">
+          <div class="code-head"><span>markdown</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>---
+description: Explica código y conceptos de programación en español, con analogías simples, sin modificar archivos. Úsalo cuando el usuario pida entender algo o aprender.
+mode: subagent
+model: anthropic/claude-sonnet-4-5
+temperature: 0.4
+permission:
+  edit: deny
+  shell: deny
+  webfetch: allow
+  read: allow
+---
+
+Eres un profesor de programación para principiantes absolutos.
+
+## Cómo explicas
+
+- Empieza con una analogía de la vida cotidiana.
+- Después explica el concepto técnico con precisión.
+- Termina con un ejemplo mínimo que se pueda ejecutar.
+- Usa frases cortas. Una idea por párrafo.
+- Nunca uses una palabra técnica sin definirla la primera vez.
+
+## Reglas
+
+- Responde siempre en español.
+- No edites archivos ni ejecutes comandos.
+- Si el código tiene un error, explícalo antes de proponer el arreglo.
+- Si no sabes algo, dilo. No inventes APIs ni funciones.
+- Máximo 400 palabras salvo que se pida más detalle.
+
+## Formato
+
+1. La idea en una frase.
+2. La analogía.
+3. El ejemplo.
+4. Un ejercicio de una línea.</code></pre>
+        </div>
+
+        <p>Así se usa:</p>
+        <div class="code">
+          <div class="code-head"><span>texto</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>@profesor ¿por qué mi función devuelve undefined?</code></pre>
+        </div>
+
+        <h2 id="opciones">Las opciones que importan<a class="anchor" href="#opciones" aria-label="Enlace a esta sección">#</a></h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Opción</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>description</code></td><td>Obligatoria. El agente principal la lee para decidir cuándo invocarlo.</td></tr>
+              <tr><td><code>mode</code></td><td><code>primary</code>, <code>subagent</code> o <code>all</code>.</td></tr>
+              <tr><td><code>model</code></td><td>Modelo en formato <code>proveedor/modelo</code>.</td></tr>
+              <tr><td><code>temperature</code></td><td>0.0–0.2 para precisión; 0.6–1.0 para creatividad.</td></tr>
+              <tr><td><code>steps</code></td><td>Máximo de iteraciones antes de responder. Controla el coste.</td></tr>
+              <tr><td><code>permission</code></td><td>Qué puede hacer y qué requiere confirmación.</td></tr>
+              <tr><td><code>hidden</code></td><td>Oculta el subagente del menú <code>@</code>.</td></tr>
+              <tr><td><code>color</code></td><td>Color en la interfaz.</td></tr>
+              <tr><td><code>disable</code></td><td>Lo apaga sin borrarlo.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Sobre la temperatura, en corto:</p>
+        <ul>
+          <li><strong>0.0–0.2:</strong> revisar código, responder con hechos, generar JSON.</li>
+          <li><strong>0.3–0.5:</strong> implementar, explicar, escribir documentación.</li>
+          <li><strong>0.6–1.0:</strong> nombres, copies, ideas de diseño, brainstorming.</li>
+        </ul>
+
+        <h2 id="permisos">Permisos por herramienta<a class="anchor" href="#permisos" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Cada permiso puede ser <code>allow</code>, <code>ask</code> o <code>deny</code>. Y para shell puedes usar patrones:</p>
+
+        <div class="code">
+          <div class="code-head"><span>markdown</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>---
+description: Revisa código sin modificarlo
+mode: subagent
+permission:
+  edit: deny
+  read: allow
+  glob: allow
+  grep: allow
+  webfetch: deny
+  shell:
+    "*": ask
+    "git diff*": allow
+    "git log*": allow
+    "npm test": allow
+    "rm *": deny
+---</code></pre>
+        </div>
+
+        <p>Las reglas se evalúan en orden y gana la última que coincida. Por eso el <code>"*"</code> va primero y las excepciones después.</p>
+
+        <div class="callout callout--warn">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            Menos es más
+          </div>
+          <p>Un agente que puede hacer todo no es más útil: es más peligroso y más impredecible. Si su tarea es revisar, no necesita escribir. Si su tarea es documentar, no necesita desplegar.</p>
+        </div>
+
+        <h2 id="subagentes">Subagentes y orquestación<a class="anchor" href="#subagentes" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Un agente principal puede invocar subagentes. Incluso puedes limitar cuáles:</p>
+
+        <div class="code">
+          <div class="code-head"><span>json</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>{
+  "agent": {
+    "orquestador": {
+      "mode": "primary",
+      "description": "Coordina el trabajo entre agentes especializados",
+      "permission": {
+        "task": {
+          "*": "deny",
+          "profesor": "allow",
+          "revisor": "allow",
+          "investigador": "ask"
+        }
+      }
+    }
+  }
+}</code></pre>
+        </div>
+
+        <p>La idea: el agente principal no lo hace todo. Divide el trabajo y delega. Igual que un equipo real.</p>
+
+        <div class="callout callout--info">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+            Contexto limpio
+          </div>
+          <p>Un subagente empieza con contexto nuevo. Si le pides «investiga cómo funciona X», no arrastra tus 50 mensajes anteriores. Vuelve con un resumen limpio. Eso es lo que lo hace útil.</p>
+        </div>
+
+        <h2 id="ejemplos">Tres agentes útiles<a class="anchor" href="#ejemplos" aria-label="Enlace a esta sección">#</a></h2>
+
+        <h3>1. Revisor de código</h3>
+        <div class="code">
+          <div class="code-head"><span>markdown</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>---
+description: Revisa código en busca de bugs, problemas de accesibilidad y malas prácticas. No modifica archivos. Úsalo antes de un commit importante.
+mode: subagent
+temperature: 0.1
+permission:
+  edit: deny
+  shell:
+    "*": deny
+    "git diff*": allow
+---
+
+Eres un revisor de código senior.
+
+Revisa en este orden:
+1. ¿El código hace lo que dice hacer?
+2. ¿Hay casos límite sin cubrir (vacío, error, carga)?
+3. ¿Hay problemas de accesibilidad?
+4. ¿Hay secretos, claves o datos personales?
+5. ¿Se puede simplificar?
+
+Devuelve una lista priorizada: crítico, importante, menor.
+Cada punto con archivo, línea y arreglo concreto.
+Si no hay problemas, dilo. No inventes hallazgos.</code></pre>
+        </div>
+
+        <h3>2. Investigador de documentación</h3>
+        <div class="code">
+          <div class="code-head"><span>markdown</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>---
+description: Investiga documentación oficial y responde con fuentes. Úsalo cuando haga falta confirmar cómo funciona una API o una herramienta.
+mode: subagent
+permission:
+  edit: deny
+  shell: deny
+  webfetch: allow
+---
+
+Responde solo con información verificable.
+
+- Consulta la documentación oficial.
+- Cita la URL exacta de cada afirmación.
+- Distingue entre «está documentado» y «lo deduzco».
+- Si la documentación es contradictoria, muestra ambas versiones.
+- No inventes endpoints, parámetros ni versiones.</code></pre>
+        </div>
+
+        <h3>3. Redactor de textos de interfaz</h3>
+        <div class="code">
+          <div class="code-head"><span>markdown</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>---
+description: Escribe y corrige textos de interfaz en español claro: botones, errores, estados vacíos y mensajes de éxito.
+mode: all
+temperature: 0.7
+permission:
+  edit: ask
+  shell: deny
+---
+
+Escribes microcopy para interfaces.
+
+Reglas:
+- Los botones nombran la acción: «Guardar cambios», no «Aceptar».
+- Los errores dicen qué pasó y cómo se arregla.
+- Los estados vacíos proponen el siguiente paso.
+- Sin signos de exclamación. Sin «¡Ups!».
+- Tuteo, frases de máximo 12 palabras.
+- Español neutro.
+
+Entrega siempre tres opciones y explica en una línea cuál recomiendas.</code></pre>
+        </div>
+
+        <h2 id="probar">Probar y mejorar<a class="anchor" href="#probar" aria-label="Enlace a esta sección">#</a></h2>
+        <p>Un agente no sale perfecto a la primera. Trátalo como código: pruébalo, observa, ajusta.</p>
+        <ul>
+          <li><strong>Dale una tarea real</strong> y mira si la resuelve sin que le expliques de más.</li>
+          <li><strong>Revisa si respeta los límites.</strong> Pídele algo que debería rechazar.</li>
+          <li><strong>Acorta.</strong> Si el prompt tiene párrafos que nunca se usan, bórralos. Los modelos siguen mejor diez reglas claras que cincuenta difusas.</li>
+          <li><strong>Versiona.</strong> Los agentes viven en tu repo. Un commit cuando mejoran.</li>
+          <li><strong>Mide.</strong> ¿Cuántas veces tiene que pedirte permiso? ¿Cuántas se equivoca? Si no mejora, el problema suele ser la descripción o la falta de ejemplos.</li>
+        </ul>
+
+        <div class="exercise">
+          <span class="tag">Ejercicio</span>
+          <h4>Tu primer equipo</h4>
+          <p>Crea tres agentes: uno que explique, uno que revise y uno que escriba textos. Úsalos en el proyecto de la tarjeta. Al final, pregúntate cuál te ahorró más tiempo y por qué. Ese es el que vale la pena refinar.</p>
+        </div>
+
+        <div class="callout callout--kid">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>
+            En simple
+          </div>
+          <p>No estás entrenando una IA. Estás escribiendo un puesto de trabajo. Cuanto mejor definas la tarea y los límites, mejor será el empleado. Y si algo sale mal, editas el archivo.</p>
+        </div>

@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-static HTML/CSS/JS, no build step, deployed on Vercel from GitHub (`EverKrypton/tutorial-dev`). Existing codebase.
+Next.js 16 (App Router) + TypeScript, CSS written by hand, content in JSON and HTML files under `content/`, deployed on Vercel from GitHub (`EverKrypton/tutorial-dev`). Migrated from a static HTML site; the URLs `/curso/<slug>`, `/ejemplos`, `/diseno` and the PDF path are part of the product.
 
 ## Users
 
@@ -34,4 +34,4 @@ It teaches the mechanism, not just the recipe. Every chapter pairs the concept w
 
 ## Evidence
 
-The repository itself is the proof: `index.html` plus one file per chapter, one CSS file, one JS file, and a `skills/` folder with real design skills as reading material.
+The repository itself is the proof: the app, the content files, the print pipeline that generates the PDF from the same content, and a `skills/` folder with real design skills as reading material. The examples gallery is built with the same CSS as the site, so the patterns taught are the patterns used.

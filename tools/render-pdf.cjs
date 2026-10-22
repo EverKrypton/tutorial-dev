@@ -1,17 +1,21 @@
 const { chromium } = require("playwright-core");
 
+const EXECUTABLE =
+  process.env.CHROME_PATH ||
+  "/root/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome";
+
 (async () => {
-  const b = await chromium.launch({ executablePath: "/root/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome", args: ["--no-sandbox"] });
+  const b = await chromium.launch({ executablePath: EXECUTABLE, args: ["--no-sandbox"] });
 
   const c = await b.newPage();
-  await c.goto(`${process.env.SITE_URL}/descargas/_portada.html`, { waitUntil: "networkidle" });
+  await c.goto(`${process.env.SITE_URL}/.build/_portada.html`, { waitUntil: "networkidle" });
   await c.emulateMedia({ media: "print" });
   await c.waitForTimeout(400);
   await c.pdf({ path: process.env.PDF_COVER, format: "A4", printBackground: true, margin: { top: 0, bottom: 0, left: 0, right: 0 } });
   await c.close();
 
   const p = await b.newPage();
-  await p.goto(`${process.env.SITE_URL}/descargas/_libro.html`, { waitUntil: "networkidle" });
+  await p.goto(`${process.env.SITE_URL}/.build/_libro.html`, { waitUntil: "networkidle" });
   await p.emulateMedia({ media: "print" });
   await p.waitForTimeout(700);
   await p.pdf({

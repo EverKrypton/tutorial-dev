@@ -4,50 +4,45 @@ Guía para agentes de IA que trabajen en este repositorio.
 
 ## Qué es este proyecto
 
-`tutorial-dev` es un curso abierto en español para aprender a programar desde cero y publicar una web. El sitio es estático: HTML, CSS y JavaScript sin build step.
+`tutorial-dev` es un curso abierto en español para aprender a programar desde cero y publicar una web. El sitio está hecho con **Next.js 16 (App Router)** y CSS escrito a mano. El contenido vive en archivos, no en una base de datos.
 
 ## Estructura
 
-- `index.html` — portada y ruta de capítulos
-- `*.html` — un archivo por capítulo
-- `assets/styles.css` — sistema visual completo (variables CSS, componentes, responsive)
-- `assets/app.js` — tema claro/oscuro, progreso, copiar código, TOC, menú móvil
-- `assets/favicon.svg`
-- `ejemplos/` — proyectos completos que acompañan los capítulos
-- `.opencode/skills/` — skills del proyecto
-- `.opencode/agents/` — agentes de ejemplo
+- `app/` — rutas: portada, `curso/[slug]`, `ejemplos`, `ejemplos/[slug]`, `diseno`.
+- `app/globals.css` — sistema visual completo (tokens, componentes, responsive).
+- `app/demos.css` — estilos de las demos, todos bajo el prefijo `.dv`.
+- `components/site/` — topbar, navegación, búsqueda ⌘K, TOC, progreso, tema.
+- `components/examples/` — las diez demos interactivas y su registro.
+- `content/chapters.json` — metadatos de cada entrada (título, resumen, duración, nivel, secciones).
+- `content/bodies/*.html` — cuerpo de cada capítulo, en HTML semántico.
+- `lib/content.ts` — lectura del contenido.
+- `public/` — PDF, favicon, proyecto de ejemplo y copias de las skills.
+- `tools/` — `build-print.mjs`, `render-pdf.cjs`, `make-pdf.py`, `check.mjs`.
+- `todo.sh` — build + comprobación + commit + push.
 
 ## Convenciones
 
 - Todo el contenido y la interfaz están en español.
-- Mobile first: los estilos base son para teléfono; los `@media` añaden complejidad.
-- Usa las variables CSS de `:root` (`--paper`, `--band`, `--card`, `--ink`, `--ink-2`, `--muted`, `--line`, `--line-2`, `--red`, `--red-ink`, `--red-soft`, `--green`). No introduzcas colores nuevos.
-- El mundo visual es un catálogo impreso de escuela técnica: papel prensa, tinta, un solo rojo de señal, reglas de 1px, cero sombras, cero gradientes, cero esquinas redondeadas. Ver `DESIGN.md`.
-- Los capítulos comparten cabecera, rail lateral, ficha de entrada (`entry-meta`), pie, sello de completado y paginador. Mantén esa estructura.
-- Tipografías: Archivo variable (títulos con `wdth` 78-92, cuerpo a `wdth` 100) y JetBrains Mono para metadatos y código.
-- No agregues dependencias ni frameworks sin preguntar.
-- Cada bloque de código usa `.code` con `.code-head` y `data-copy`.
-- Los callouts usan `.callout` con la variante `--kid`, `--warn` o `--info`; se distinguen por una regla superior y una etiqueta mono, nunca por cajas de color.
-- Los títulos `h2` del cuerpo llevan `data-n` con su número de sección, generado al construir.
+- Mobile first: los estilos base son para 360 px; los `@media` solo añaden.
+- Usa los tokens de `:root` (`--bg`, `--panel`, `--line`, `--ink`, `--muted`, `--accent`, `--ok`, `--danger`). No introduzcas colores nuevos.
+- Un solo acento. Si aparece tres veces en la misma vista, deja de significar algo.
+- Reglas de 1 px y escala de superficies; nada de sombras decorativas ni degradados de texto.
+- Tipografías: `--font-sans` (Geist), `--font-serif` (Instrument Serif, solo en titulares editoriales) y `--font-mono` (Geist Mono).
+- El contenido debe leerse sin JavaScript. Las mejoras van en `components/site/Enhance.tsx`.
+- Todo control interactivo es `button` o `Link`, con `aria-pressed`, `role="switch"` o `aria-current` cuando corresponde.
+- Las demos usan datos ficticios; no inventes métricas, testimonios ni precios reales.
 
 ## Cómo comprobar
 
-No hay tests. Abre el sitio con cualquier servidor estático:
-
 ```bash
-npx serve .
-# o
-python3 -m http.server 8000
+npm run build     # debe compilar sin errores ni avisos de hidratación
+npm run check     # enlaces, anclas y PDF
 ```
 
-Revisa a 360px, 768px y 1280px de ancho. Comprueba:
-- Sin scroll horizontal.
-- El menú móvil abre y cierra con Escape.
-- El botón de tema funciona y persiste.
-- Los enlaces internos apuntan a archivos existentes.
+Antes de dar algo por terminado, revisa a 360 px, 768 px y 1440 px: sin scroll horizontal, foco visible y sin errores de consola.
 
 ## Reglas
 
 - No cambies el contenido pedagógico sin que se pida.
 - No agregues claves, tokens ni datos personales.
-- Si agregas un capítulo, actualiza `index.html` (lista y progreso: `TOTAL` en `app.js`).
+- Si agregas una entrada: actualiza `content/chapters.json`, añade `content/bodies/<slug>.html` y regenera el PDF con `./todo.sh --pdf`.
