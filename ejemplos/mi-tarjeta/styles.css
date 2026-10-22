@@ -1,0 +1,98 @@
+:root {
+  --fondo: #eef0f4;
+  --tinta: #0b0f1a;
+  --suave: #565e72;
+  --azul: #2337ff;
+  --borde: #c8cfdd;
+  --tarjeta: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+.tarjeta {
+  width: 100%;
+  max-width: 420px;
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  padding: 28px 24px;
+}
+
+.saludo {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--azul);
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 10vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.bio {
+  color: var(--suave);
+  margin: 0 0 20px;
+}
+
+.enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.enlaces a {
+  display: inline-block;
+  padding: 10px 14px;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  color: var(--tinta);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.enlaces a:hover {
+  border-color: var(--azul);
+  color: var(--azul);
+}
+
+.tema {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--azul);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tema:hover { filter: brightness(0.92); }
+
+body.oscuro {
+  --fondo: #0b0f1a;
+  --tinta: #f0f3fa;
+  --suave: #9aa4bd;
+  --borde: #2a3350;
+  --tarjeta: #121a2c;
+}
