@@ -10,19 +10,18 @@
 
   /* ---------- tema ---------- */
   const saved = safe(() => localStorage.getItem(KEY_THEME), null);
-  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  if (saved === "dark" || (!saved && prefersDark)) root.setAttribute("data-theme", "dark");
+  if (saved === "light") root.setAttribute("data-theme", "light");
 
   const paintTheme = () => {
-    const dark = root.getAttribute("data-theme") === "dark";
+    const light = root.getAttribute("data-theme") === "light";
     document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
-      btn.setAttribute("aria-label", dark ? "Cambiar a modo claro" : "Cambiar a modo oscuro");
-      btn.setAttribute("aria-pressed", String(dark));
+      btn.setAttribute("aria-label", light ? "Cambiar a modo oscuro" : "Cambiar a modo claro");
+      btn.setAttribute("aria-pressed", String(light));
       const sun = btn.querySelector("[data-icon-sun]");
       const moon = btn.querySelector("[data-icon-moon]");
       if (sun && moon) {
-        sun.style.display = dark ? "none" : "block";
-        moon.style.display = dark ? "block" : "none";
+        sun.style.display = light ? "none" : "block";
+        moon.style.display = light ? "block" : "none";
       }
     });
   };
@@ -30,41 +29,67 @@
 
   document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      if (next === "dark") root.setAttribute("data-theme", "dark");
+      const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+      if (next === "light") root.setAttribute("data-theme", "light");
       else root.removeAttribute("data-theme");
       safe(() => localStorage.setItem(KEY_THEME, next), null);
       paintTheme();
     });
   });
 
-  /* ---------- menú ---------- */
-  const menu = document.querySelector("[data-menu]");
-  const menuBtn = document.querySelector("[data-menu-toggle]");
-  if (menu && menuBtn) {
+  /* ---------- navbar al hacer scroll ---------- */
+  const nav = document.querySelector("[data-nav]");
+  if (nav) {
+    const onScroll = () => nav.classList.toggle("is-stuck", window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* ---------- foco del hero ---------- */
+  const hero = document.querySelector(".hero");
+  if (hero && window.matchMedia("(hover: hover)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let raf = 0;
+    hero.addEventListener("pointermove", (e) => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const r = hero.getBoundingClientRect();
+        hero.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        hero.style.setProperty("--my", `${e.clientY - r.top}px`);
+        hero.classList.add("is-lit");
+        raf = 0;
+      });
+    });
+    hero.addEventListener("pointerleave", () => hero.classList.remove("is-lit"));
+  }
+
+  /* ---------- drawer ---------- */
+  const drawer = document.querySelector("[data-drawer]");
+  const drawerBtn = document.querySelector("[data-drawer-toggle]");
+  if (drawer && drawerBtn) {
     const setOpen = (open) => {
-      menu.hidden = !open;
-      menuBtn.setAttribute("aria-expanded", String(open));
+      drawer.hidden = !open;
+      drawerBtn.setAttribute("aria-expanded", String(open));
+      drawerBtn.setAttribute("aria-label", open ? "Cerrar temario" : "Abrir temario");
       document.body.style.overflow = open ? "hidden" : "";
       if (open) {
-        const first = menu.querySelector("a");
+        const first = drawer.querySelector("a");
         if (first) first.focus({ preventScroll: true });
       } else {
-        menuBtn.focus({ preventScroll: true });
+        drawerBtn.focus({ preventScroll: true });
       }
     };
-    menuBtn.addEventListener("click", () => setOpen(menu.hidden));
-    menu.addEventListener("click", (e) => {
+    drawerBtn.addEventListener("click", () => setOpen(drawer.hidden));
+    drawer.addEventListener("click", (e) => {
       if (e.target.closest("a")) setOpen(false);
     });
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !menu.hidden) setOpen(false);
+      if (e.key === "Escape" && !drawer.hidden) setOpen(false);
     });
     window.addEventListener("resize", () => {
-      if (window.innerWidth >= 780 && !menu.hidden) {
-        menu.hidden = true;
+      if (window.innerWidth >= 720 && !drawer.hidden) {
+        drawer.hidden = true;
         document.body.style.overflow = "";
-        menuBtn.setAttribute("aria-expanded", "false");
+        drawerBtn.setAttribute("aria-expanded", "false");
       }
     });
   }
@@ -83,10 +108,10 @@
     document.querySelectorAll("[data-progress-text]").forEach((el) => {
       el.textContent = `${done.length}/${TOTAL}`;
     });
-    document.querySelectorAll(".progress-track i").forEach((seg, i) => {
-      seg.classList.toggle("is-on", i < done.length);
+    document.querySelectorAll("[data-progress-ring]").forEach((el) => {
+      el.style.setProperty("--p", String((done.length / TOTAL) * 100));
     });
-    document.querySelectorAll(".lesson[data-slug]").forEach((el) => {
+    document.querySelectorAll(".lesson[data-slug], .rail-list a[data-slug]").forEach((el) => {
       el.classList.toggle("is-done", done.includes(el.dataset.slug));
     });
     document.querySelectorAll("[data-complete]").forEach((btn) => {
@@ -104,7 +129,7 @@
       else done.push(slug);
       writeProgress(done);
       paintProgress();
-      toast(i >= 0 ? "Capítulo desmarcado" : "Capítulo completado");
+      toast(i >= 0 ? "Capítulo desmarcado" : "Capítulo completado", i < 0);
     });
   });
 
@@ -146,7 +171,7 @@
       if (ok) {
         btn.textContent = "Copiado";
         btn.classList.add("is-copied");
-        toast("Copiado al portapapeles");
+        toast("Copiado al portapapeles", true);
         setTimeout(() => {
           btn.textContent = "Copiar";
           btn.classList.remove("is-copied");
@@ -158,7 +183,7 @@
   /* ---------- toast ---------- */
   let toastEl = null;
   let toastTimer = null;
-  function toast(msg) {
+  function toast(msg, ok) {
     if (!toastEl) {
       toastEl = document.createElement("div");
       toastEl.className = "toast";
@@ -166,30 +191,35 @@
       toastEl.setAttribute("aria-live", "polite");
       document.body.appendChild(toastEl);
     }
-    toastEl.textContent = msg;
+    toastEl.innerHTML =
+      (ok === false ? "" : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>') +
+      `<span>${msg}</span>`;
     toastEl.classList.add("is-on");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toastEl.classList.remove("is-on"), 1900);
+    toastTimer = setTimeout(() => toastEl.classList.remove("is-on"), 2000);
   }
 
-  /* ---------- aparición ---------- */
-  const rises = document.querySelectorAll(".rise");
-  if (rises.length) {
+  /* ---------- revelado con escalonado ---------- */
+  const reveals = document.querySelectorAll(".reveal");
+  if (reveals.length) {
     if (!("IntersectionObserver" in window)) {
-      rises.forEach((el) => el.classList.add("is-in"));
+      reveals.forEach((el) => el.classList.add("is-in"));
     } else {
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("is-in");
-              io.unobserve(entry.target);
-            }
+            if (!entry.isIntersecting) return;
+            const group = entry.target.parentElement;
+            const sibs = group ? Array.from(group.querySelectorAll(":scope > .reveal")) : [];
+            const i = Math.max(0, sibs.indexOf(entry.target));
+            entry.target.style.setProperty("--d", `${Math.min(i, 5) * 55}ms`);
+            entry.target.classList.add("is-in");
+            io.unobserve(entry.target);
           });
         },
-        { rootMargin: "0px 0px -6% 0px", threshold: 0.04 }
+        { rootMargin: "0px 0px -6% 0px", threshold: 0.06 }
       );
-      rises.forEach((el) => io.observe(el));
+      reveals.forEach((el) => io.observe(el));
     }
   }
 
@@ -211,12 +241,12 @@
           if (link) link.classList.add("is-active");
         });
       },
-      { rootMargin: "-15% 0px -72% 0px", threshold: 0 }
+      { rootMargin: "-12% 0px -70% 0px", threshold: 0 }
     );
     map.forEach((_, target) => io.observe(target));
   }
 
-  /* ---------- atajos de capítulo ---------- */
+  /* ---------- atajos ---------- */
   const pager = document.querySelector(".pager");
   if (pager) {
     const prev = pager.querySelector("a:not(.next)");

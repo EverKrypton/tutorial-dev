@@ -1,0 +1,421 @@
+        <h2 id="como-funciona">Qué pasa cuando abres una web</h2>
+        <p>Escribes una dirección, pulsas Enter y aparece una página. En medio pasan cuatro cosas:</p>
+        <ol class="steps">
+          <li>
+            <h4>Tu computadora pregunta dónde vive ese nombre</h4>
+            <p>Un servidor DNS traduce <code>tutorial.dev</code> a una dirección IP, que es como el número de casa de un servidor. Es la guía telefónica de internet.</p>
+          </li>
+          <li>
+            <h4>Pide el archivo</h4>
+            <p>Tu navegador manda una petición HTTP: «dame la página principal». El servidor responde con el HTML, el CSS, las imágenes y el JavaScript.</p>
+          </li>
+          <li>
+            <h4>El navegador lo arma</h4>
+            <p>Lee el HTML, construye un árbol de elementos (el DOM), aplica el CSS y ejecuta el JavaScript. Todo eso pasa en milisegundos.</p>
+          </li>
+          <li>
+            <h4>Pinta la pantalla</h4>
+            <p>Calcula posiciones, tamaños y colores, y dibuja. Si algo cambia después, vuelve a calcular solo la parte necesaria.</p>
+          </li>
+        </ol>
+
+        <div class="callout callout--kid">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>
+            En simple
+          </div>
+          <p>Una web es como pedir comida: tú llamas al restaurante (DNS), pides un plato (HTTP), la cocina lo prepara (servidor) y el repartidor te lo lleva (el navegador). Tú solo ves la comida servida.</p>
+        </div>
+
+        <p>Lo importante: <strong>tu página no «vive» en internet por arte de magia</strong>. Es un conjunto de archivos que alguien tiene que subir a un servidor. Eso es lo que harás en el capítulo de Vercel.</p>
+
+        <h2 id="html">HTML: el esqueleto</h2>
+        <p>HTML son etiquetas que dicen qué es cada cosa: esto es un título, esto es un párrafo, esto es un enlace, esto es una imagen. No dice cómo se ve; dice qué significa.</p>
+
+        <div class="code">
+          <div class="code-head"><span>html</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">&lt;!-- La receta mínima de cualquier página --&gt;</span>
+&lt;!doctype html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Mi primera página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hola, mundo&lt;/h1&gt;
+  &lt;p&gt;Esta página existe y es mía.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <p>Qué hace cada línea:</p>
+        <ul>
+          <li><code>&lt;!doctype html&gt;</code>: le dice al navegador «esto es HTML moderno».</li>
+          <li><code>&lt;html lang="es"&gt;</code>: el idioma. Ayuda a lectores de pantalla y traductores.</li>
+          <li><code>&lt;head&gt;</code>: información que no se ve. Título de la pestaña, codificación, enlaces a CSS.</li>
+          <li><code>&lt;meta name="viewport"&gt;</code>: sin esta línea, el móvil finge tener 980px de ancho y todo se ve diminuto. Es la base del mobile first.</li>
+          <li><code>&lt;body&gt;</code>: todo lo que sí se ve.</li>
+        </ul>
+
+        <h3>Las etiquetas que vas a usar siempre</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Etiqueta</th><th>Significado</th><th>Úsala para</th></tr></thead>
+            <tbody>
+              <tr><td><code>&lt;h1&gt;</code>…<code>&lt;h6&gt;</code></td><td>Encabezados por nivel</td><td>Un solo <code>h1</code> por página</td></tr>
+              <tr><td><code>&lt;p&gt;</code></td><td>Párrafo</td><td>Texto normal</td></tr>
+              <tr><td><code>&lt;a href="..."&gt;</code></td><td>Enlace</td><td>Ir a otra página o sección</td></tr>
+              <tr><td><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code></td><td>Lista</td><td>Elementos sin / con orden</td></tr>
+              <tr><td><code>&lt;button&gt;</code></td><td>Botón</td><td>Una acción (abrir menú, enviar)</td></tr>
+              <tr><td><code>&lt;img src alt&gt;</code></td><td>Imagen</td><td>Con texto alternativo siempre</td></tr>
+              <tr><td><code>&lt;header&gt;</code> <code>&lt;main&gt;</code> <code>&lt;footer&gt;</code></td><td>Regiones</td><td>Estructura semántica</td></tr>
+              <tr><td><code>&lt;section&gt;</code></td><td>Sección</td><td>Bloque con un tema propio</td></tr>
+              <tr><td><code>&lt;form&gt;</code> <code>&lt;input&gt;</code> <code>&lt;label&gt;</code></td><td>Formulario</td><td>Pedir datos</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--warn">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            No uses etiquetas por su aspecto
+          </div>
+          <p>No elijas <code>&lt;h3&gt;</code> porque «se ve más pequeño». Los niveles son jerarquía, no tamaño. Si quieres otro tamaño, cámbialo con CSS. Y no uses <code>&lt;div&gt;</code> para un botón: usa <code>&lt;button&gt;</code>, que ya funciona con teclado.</p>
+        </div>
+
+        <h2 id="css">CSS: la ropa</h2>
+        <p>CSS son reglas. Cada regla elige elementos y les asigna propiedades:</p>
+
+        <div class="code">
+          <div class="code-head"><span>css</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">/* selector { propiedad: valor; } */</span>
+body {
+  background: #eef0f4;
+  color: #0b0f1a;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+}</code></pre>
+        </div>
+
+        <p>Hay tres formas de seleccionar:</p>
+        <ul>
+          <li><code>h1</code> elige todas las etiquetas <code>h1</code>.</li>
+          <li><code>.tarjeta</code> elige todos los elementos con <code>class="tarjeta"</code>.</li>
+          <li><code>#inicio</code> elige el elemento con <code>id="inicio"</code>. Úsalo poco; las clases se reutilizan mejor.</li>
+        </ul>
+
+        <h3>El modelo de caja</h3>
+        <p>Todo elemento es una caja con cuatro capas: contenido, padding (relleno interior), border (borde) y margin (espacio exterior). Si no entiendes por qué algo se ve enorme, casi siempre es el padding o el margin.</p>
+
+        <div class="code">
+          <div class="code-head"><span>css</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>*, *::before, *::after {
+  box-sizing: border-box; <span class="c">/* el ancho incluye padding y borde */</span>
+}
+
+.tarjeta {
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  border: 1px solid #c8cfdd;
+  border-radius: 14px;
+  margin: 24px auto;
+}</code></pre>
+        </div>
+
+        <p><code>box-sizing: border-box</code> es la primera línea de CSS que deberías escribir en cualquier proyecto. Evita que un <code>width: 100%</code> con padding se desborde.</p>
+
+        <h2 id="layout">Cajas, flex y grid</h2>
+        <p>Para colocar cosas, hoy bastan dos herramientas:</p>
+        <ul>
+          <li><strong>Flexbox:</strong> para una fila o una columna. Ideal para barras, botones, listas horizontales.</li>
+          <li><strong>Grid:</strong> para dos dimensiones. Ideal para una galería o el layout de una página.</li>
+        </ul>
+
+        <div class="code">
+          <div class="code-head"><span>css</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">/* Una fila que se adapta */</span>
+.fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+<span class="c">/* Una rejilla que cambia de 1 a 3 columnas sola */</span>
+.rejilla {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}</code></pre>
+        </div>
+
+        <p>Esa última línea es oro: «repite columnas de mínimo 220px y reparte el espacio». En un teléfono cabe una; en una laptop, tres. Sin media queries.</p>
+
+        <h2 id="mobile">Mobile first de verdad</h2>
+        <p>Mobile first no es «hacer la versión de escritorio y apretarla». Es diseñar primero para la pantalla más pequeña y añadir complejidad cuando hay espacio.</p>
+
+        <div class="code">
+          <div class="code-head"><span>css</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">/* Estilos base: teléfono */</span>
+.hero {
+  padding: 32px 20px;
+  font-size: 1rem;
+}
+
+<span class="c">/* A partir de 720px, añadimos */</span>
+@media (min-width: 720px) {
+  .hero {
+    padding: 72px 40px;
+    font-size: 1.15rem;
+  }
+}</code></pre>
+        </div>
+
+        <p>Las reglas de oro del móvil:</p>
+        <ul class="checklist">
+          <li>Área táctil mínima de 44×44 px en botones y enlaces importantes.</li>
+          <li>Texto base de al menos 16 px. Menos, y el navegador hace zoom al enfocar un campo.</li>
+          <li>Nada de scroll horizontal. Si aparece, busca un <code>width</code> fijo o una imagen sin <code>max-width: 100%</code>.</li>
+          <li>Líneas de texto de 45–75 caracteres. En móvil, párrafos cortos.</li>
+          <li>Contraste real: texto normal mínimo 4.5:1 contra el fondo.</li>
+          <li>No escondas acciones importantes solo en <code>:hover</code>: en un teléfono no existe el hover.</li>
+        </ul>
+
+        <h2 id="js">JavaScript: los músculos</h2>
+        <p>HTML y CSS son estáticos. JavaScript permite reaccionar: un clic, un formulario, un dato que llega. No necesitas saberlo todo para empezar; necesitas tres ideas: seleccionar, escuchar y cambiar.</p>
+
+        <div class="code">
+          <div class="code-head"><span>javascript</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="c">// 1. Seleccionar un elemento del HTML</span>
+<span class="k">const</span> boton = document.querySelector(<span class="s">"[data-tema]"</span>);
+
+<span class="c">// 2. Escuchar un evento</span>
+boton.addEventListener(<span class="s">"click"</span>, () =&gt; {
+  <span class="c">// 3. Cambiar algo</span>
+  document.body.classList.toggle(<span class="s">"oscuro"</span>);
+});</code></pre>
+        </div>
+
+        <p>Para que funcione, el HTML necesita un botón con ese atributo y el CSS una clase <code>.oscuro</code>:</p>
+
+        <div class="code">
+          <div class="code-head"><span>html</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>&lt;button type="button" data-tema&gt;Cambiar tema&lt;/button&gt;</code></pre>
+        </div>
+
+        <div class="code">
+          <div class="code-head"><span>css</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>body.oscuro {
+  background: #0b0f1a;
+  color: #f0f3fa;
+}</code></pre>
+        </div>
+
+        <p><code>data-tema</code> es un atributo personalizado. No significa nada para el navegador, pero te sirve como gancho en JavaScript y en CSS. Es una convención muy útil: úsala en lugar de inventar ids por todas partes.</p>
+
+        <div class="callout callout--info">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+            El orden importa
+          </div>
+          <p>Si tu JavaScript está en el <code>&lt;head&gt;</code>, agrega <code>defer</code> o pon el script al final del <code>body</code>. Si no, intentará seleccionar un botón que todavía no existe y fallará con <code>null</code>.</p>
+        </div>
+
+        <h2 id="a11y">Accesibilidad mínima</h2>
+        <p>Accesibilidad no es un extra para «usuarios especiales». Es que tu página funcione con teclado, con lector de pantalla, con poca luz y con mala conexión. Estas seis cosas cubren el 80%:</p>
+        <ul class="checklist">
+          <li>Un <code>h1</code> por página y niveles de encabezado en orden.</li>
+          <li>Texto alternativo en imágenes: <code>alt="Descripción"</code>. Si es decorativa, <code>alt=""</code>.</li>
+          <li>Todo lo que se pueda pulsar debe ser <code>&lt;button&gt;</code> o <code>&lt;a&gt;</code>, no un <code>div</code> con <code>onclick</code>.</li>
+          <li><code>&lt;label for="..."&gt;</code> en cada campo de formulario.</li>
+          <li>Foco visible: no borres el <code>outline</code> sin reemplazarlo por algo claro.</li>
+          <li>Contraste suficiente y nada de texto dentro de una imagen.</li>
+        </ul>
+
+        <h2 id="proyecto">Proyecto: tu tarjeta</h2>
+        <p>Vas a construir una página de presentación de una sola pantalla. Crea una carpeta llamada <code>mi-tarjeta</code> con dos archivos: <code>index.html</code> y <code>styles.css</code>.</p>
+
+        <h3>index.html</h3>
+        <div class="code">
+          <div class="code-head"><span>html</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>&lt;!doctype html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Mara López — Diseño web&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main class="tarjeta"&gt;
+    &lt;p class="saludo"&gt;Hola, soy&lt;/p&gt;
+    &lt;h1&gt;Mara López&lt;/h1&gt;
+    &lt;p class="bio"&gt;
+      Hago páginas simples para negocios pequeños.
+      Estoy aprendiendo en público y este es mi primer proyecto.
+    &lt;/p&gt;
+    &lt;ul class="enlaces"&gt;
+      &lt;li&gt;&lt;a href="mailto:hola@ejemplo.com"&gt;Escríbeme&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="https://github.com/"&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button type="button" class="tema" data-tema&gt;Modo oscuro&lt;/button&gt;
+  &lt;/main&gt;
+  &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <h3>styles.css</h3>
+        <div class="code">
+          <div class="code-head"><span>css</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>:root {
+  --fondo: #eef0f4;
+  --tinta: #0b0f1a;
+  --suave: #565e72;
+  --azul: #2337ff;
+  --borde: #c8cfdd;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+}
+
+.tarjeta {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 18px;
+  padding: 28px 24px;
+}
+
+.saludo {
+  margin: 0 0 4px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--azul);
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2rem, 10vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.bio {
+  color: var(--suave);
+  margin: 0 0 20px;
+}
+
+.enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.enlaces a {
+  display: inline-block;
+  padding: 10px 14px;
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  color: var(--tinta);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.enlaces a:hover {
+  border-color: var(--azul);
+  color: var(--azul);
+}
+
+.tema {
+  width: 100%;
+  min-height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--azul);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+body.oscuro {
+  --fondo: #0b0f1a;
+  --tinta: #f0f3fa;
+  --suave: #9aa4bd;
+  --borde: #2a3350;
+}
+
+body.oscuro .tarjeta { background: #121a2c; }</code></pre>
+        </div>
+
+        <h3>app.js</h3>
+        <div class="code">
+          <div class="code-head"><span>javascript</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code><span class="k">const</span> boton = document.querySelector(<span class="s">"[data-tema]"</span>);
+
+boton.addEventListener(<span class="s">"click"</span>, () =&gt; {
+  document.body.classList.toggle(<span class="s">"oscuro"</span>);
+  boton.textContent = document.body.classList.contains(<span class="s">"oscuro"</span>)
+    ? <span class="s">"Modo claro"</span>
+    : <span class="s">"Modo oscuro"</span>;
+});</code></pre>
+        </div>
+
+        <p>Abre <code>index.html</code> con doble clic. Ya tienes una página. Cambia el nombre, los colores y el texto. Ese es el ejercicio real: hazla tuya.</p>
+
+        <h2 id="devtools">DevTools</h2>
+        <p>Las herramientas del navegador son tu taller. Se abren con <code>F12</code> o clic derecho → «Inspeccionar». Lo que más vas a usar:</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Pestaña</th><th>Para qué</th></tr></thead>
+            <tbody>
+              <tr><td>Elements</td><td>Ver y editar el HTML y el CSS en vivo. Nada se guarda; es un laboratorio.</td></tr>
+              <tr><td>Console</td><td>Ver errores y ejecutar JavaScript. Tu <code>console.log</code> aparece aquí.</td></tr>
+              <tr><td>Network</td><td>Ver qué archivos carga la página y cuánto pesan.</td></tr>
+              <tr><td>Device toolbar</td><td>Simular un teléfono. Icono de móvil arriba a la izquierda.</td></tr>
+              <tr><td>Lighthouse</td><td>Un informe de rendimiento, accesibilidad y SEO. Útil, pero no es una nota final.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--kid">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>
+            En simple
+          </div>
+          <p>DevTools es como abrir el capó del auto mientras el motor está andando. Puedes tocar y ver qué pasa sin romper nada. Es la forma más rápida de aprender CSS: cambia un valor y mira.</p>
+        </div>
+
+        <h2 id="siguiente">Qué sigue</h2>
+        <p>Ya tienes archivos. Ahora necesitas dos cosas: guardar versiones para no perderlas y subirlas a algún lugar para que el mundo las vea. Eso son Git y Vercel.</p>
+        <p>Antes de seguir, comprueba:</p>
+        <ul class="checklist">
+          <li>La página se ve bien a 360 px de ancho.</li>
+          <li>No hay scroll horizontal.</li>
+          <li>El botón de tema funciona y se puede pulsar con Tab + Enter.</li>
+          <li>El texto se lee sin hacer zoom.</li>
+        </ul>

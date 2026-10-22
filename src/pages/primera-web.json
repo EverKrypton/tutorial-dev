@@ -1,0 +1,25 @@
+{
+  "file": "primera-web.html",
+  "page": "primera-web",
+  "chapter": "02",
+  "title": "Tu primera página web — tutorial.dev",
+  "desc": "HTML, CSS y JavaScript desde cero: cómo funciona el navegador, maquetación mobile first, accesibilidad y un proyecto completo para copiar y entender.",
+  "h1": "Tu primera página web.",
+  "lede": "Una web son tres capas: HTML pone el esqueleto, CSS pone la ropa y JavaScript pone los músculos. Vas a construir una página real, entender cada línea y abrirla en tu teléfono.",
+  "tags": ["45 min", "proyecto incluido", "mobile first"],
+  "toc": [
+    ["#como-funciona", "Qué pasa cuando abres una web"],
+    ["#html", "HTML: el esqueleto"],
+    ["#css", "CSS: la ropa"],
+    ["#layout", "Cajas, flex y grid"],
+    ["#mobile", "Mobile first de verdad"],
+    ["#js", "JavaScript: los músculos"],
+    ["#a11y", "Accesibilidad mínima"],
+    ["#proyecto", "Proyecto: tu tarjeta"],
+    ["#devtools", "DevTools"],
+    ["#siguiente", "Qué sigue"]
+  ],
+  "prev": ["fundamentos.html", "Cómo piensa un programa"],
+  "next": ["git-github.html", "Git y GitHub sin miedo"],
+  "body": "primera-web.body.html"
+}

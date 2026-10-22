@@ -1,0 +1,337 @@
+        <h2 id="filosofia">Dos filosofías</h2>
+        <p>La mayoría de las «skills de diseño» son listas de gustos: «usa mucho espacio en blanco», «añade sombras suaves», «que sea moderno». Funcionan una vez y luego producen el mismo resultado genérico en todas partes.</p>
+
+        <p>Las dos que vas a ver aquí hacen algo distinto: convierten el diseño en un <strong>proceso con puertas</strong>. No puedes saltarte la investigación, no puedes codificar sin una tesis aprobada y no puedes entregar sin auditar. Eso es lo que separa una skill de un truco.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>Genjutsu</th><th>Impeccable</th></tr></thead>
+            <tbody>
+              <tr><td>Pregunta que responde</td><td>«¿Cómo hago que esto se sienta vivo?»</td><td>«¿Cómo hago que esto sea excelente?»</td></tr>
+              <tr><td>Fuerte en</td><td>Movimiento, micro-interacciones, dirección de arte</td><td>Jerarquía, tipografía, color, auditoría, pulido</td></tr>
+              <tr><td>Entrada típica</td><td>Una sección, un hero, un efecto</td><td>Una página, un flujo, un sistema</td></tr>
+              <tr><td>Salida</td><td>Interacción implementada y verificada</td><td>Interfaz revisada, corregida y documentada</td></tr>
+              <tr><td>Riesgo si se ignora</td><td>Animación decorativa y lenta</td><td>Diseño correcto pero sin alma</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Se complementan. Genjutsu pone el pulso; impeccable pone el criterio. Y las dos comparten una obsesión: <strong>nada se aprueba por descripción</strong>. Si es movimiento o color, se ve; si es calidad, se mide.</p>
+
+        <h2 id="genjutsu">Genjutsu</h2>
+        <p>Genjutsu es una familia de skills de <em>creative coding</em>. Tiene dos puertas de entrada y una biblioteca de sub-skills que carga según el stack que detecta: web, Android con Compose, o Apple con SwiftUI.</p>
+
+        <p>La idea central: una interfaz no se anima «porque se puede». Se anima porque hay una <strong>tesis de interacción</strong> — una frase que explica qué debe sentir la persona y por qué. Todo lo que venga después (duración, easing, qué se mueve y qué no) se deriva de esa frase.</p>
+
+        <div class="callout callout--kid">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>
+            En simple
+          </div>
+          <p>Antes de tocar una animación, la skill te obliga a responder: «¿qué debería sentir alguien al usar esto?». Si la respuesta es «que es rápido y preciso», el movimiento será corto y seco. Si es «que es cinematográfico», será lento y con peso. Sin esa frase, cualquier efecto es ruido.</p>
+        </div>
+
+        <h2 id="cast">Cast: la ilusión</h2>
+        <p><strong>Cast</strong> es la puerta rápida. Entra a un proyecto existente, escanea el stack y propone una tesis de interacción para una pieza concreta: un hero, una lista, un botón, una transición de página.</p>
+
+        <p>Su pipeline tiene siete fases:</p>
+
+        <ol class="steps">
+          <li>
+            <h4>SCAN — detectar el stack</h4>
+            <p>Lee <code>package.json</code>, <code>build.gradle.kts</code>, <code>Package.swift</code>. Sabe si hay GSAP, Framer Motion, Three.js, Compose o SwiftUI, y si el proyecto es mobile first. No propone una librería que ya existe ni instala otra sin preguntar.</p>
+          </li>
+          <li>
+            <h4>DISCOVER — entender la intención</h4>
+            <p>Solo cuando la petición es vaga. Una pregunta a la vez, nunca un cuestionario. «¿Qué debería sentir?», «¿qué referencias tienes?», «¿qué sentiría mal?».</p>
+          </li>
+          <li>
+            <h4>SCOPE — medir el tamaño</h4>
+            <p>Un hover no justifica un pipeline de GSAP con ScrollTrigger. La complejidad se ajusta al alcance, no al entusiasmo.</p>
+          </li>
+          <li>
+            <h4>THESIS — una frase antes de codificar</h4>
+            <p>La regla más dura: no se escribe código sin una tesis validada. Esa frase gobierna el timing, el easing y lo que se prohíbe.</p>
+          </li>
+          <li>
+            <h4>LOAD — cargar las sub-skills</h4>
+            <p>Según el stack y la tesis, carga solo lo necesario: principios de movimiento, CSS nativo, GSAP, Framer Motion, Three.js, Compose, SwiftUI.</p>
+          </li>
+          <li>
+            <h4>IMPLEMENT — construir respetando los principios</h4>
+            <p>Nada de efectos sueltos. Un momento coreografiado, con su fallback para <code>prefers-reduced-motion</code>.</p>
+          </li>
+          <li>
+            <h4>AUDIT — verificar antes de entregar</h4>
+            <p>¿Va a 60 fps? ¿El contenido es visible sin animación? ¿Funciona con teclado? ¿Se degrada bien en móvil?</p>
+          </li>
+        </ol>
+
+        <h3>La puerta de la vista previa</h3>
+        <p>Hay decisiones que no se aprueban leyendo. Una curva de easing descrita con palabras no es una curva. Por eso, antes de la primera aprobación visual, la skill pregunta cómo quieres verlo:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Opción</th><th>Qué recibes</th></tr></thead>
+            <tbody>
+              <tr><td><strong>A. Artifact</strong></td><td>Una página viva: la curva real, las duraciones reales, un elemento ejecutando el movimiento.</td></tr>
+              <tr><td><strong>B. Preview local</strong></td><td>Una ruta desechable en tu proyecto, con tu stack y tus tokens.</td></tr>
+              <tr><td><strong>C. En línea</strong></td><td>Escrito aquí, en la conversación. Para alcances pequeños.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>La elección se mantiene toda la sesión. Y la vista previa es <strong>desechable</strong>: nunca se convierte en la implementación. Sirve para aprobar, no para copiar.</p>
+
+        <h2 id="paint">Paint: el mundo visual</h2>
+        <p><strong>Paint</strong> es la puerta profunda. No arregla una sección: construye o reemplaza una identidad visual completa. Tiene cinco fases y una regla incómoda: el brainstorm es obligatorio, incluso si le dices «solo hazlo bonito». Especialmente entonces.</p>
+
+        <ol class="steps">
+          <li>
+            <h4>BRAINSTORM</h4>
+            <p>Una pregunta a la vez hasta entender el producto, la audiencia, el escenario de uso y lo que haría que un resultado se sintiera equivocado.</p>
+          </li>
+          <li>
+            <h4>THESIS</h4>
+            <p>Dos tesis que se aprueban juntas: la visual (qué mundo) y la de interacción (cómo se siente). Sin ambas, no hay fase 3.</p>
+          </li>
+          <li>
+            <h4>DESIGN SYSTEM</h4>
+            <p>Genera un <code>MASTER.md</code> con tokens: color, tipografía, espaciado, radios, sombras. Todo lo que venga después sale de ahí. Cero hex mágicos.</p>
+          </li>
+          <li>
+            <h4>IMPLEMENT</h4>
+            <p>Página por página, validando cada una. Nunca todo de golpe.</p>
+          </li>
+          <li>
+            <h4>AUDIT</h4>
+            <p>La auditoría no es opcional, aunque parezca que ya está. Contraste, foco, responsive, rendimiento, estados.</p>
+          </li>
+        </ol>
+
+        <h3>La diferencia en una tabla</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th><code>/cast</code></th><th><code>/paint</code></th></tr></thead>
+            <tbody>
+              <tr><td>Filosofía</td><td>«Haz que esto se sienta increíble»</td><td>«Construye un universo visual»</td></tr>
+              <tr><td>Punto de entrada</td><td>Se adapta al código existente</td><td>Brainstorm obligatorio; reemplaza el diseño si hace falta</td></tr>
+              <tr><td>Sistema de diseño</td><td>Opcional, implícito</td><td>Obligatorio, genera <code>MASTER.md</code></td></tr>
+              <tr><td>Alcance</td><td>Un componente, una página, un efecto</td><td>Toda la identidad visual</td></tr>
+              <tr><td>Auditoría</td><td>Revisión rápida</td><td>Auditoría completa al final</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="subskills">Las sub-skills</h2>
+        <p>Genjutsu no lo sabe todo: carga módulos según el stack y la tesis. Esta es su biblioteca:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sub-skill</th><th>Qué aporta</th></tr></thead>
+            <tbody>
+              <tr><td><code>motion-principles</code></td><td>Timing, easing, entradas y salidas, accesibilidad, rendimiento</td></tr>
+              <tr><td><code>css-native</code></td><td>Animaciones sin dependencias: scroll-driven, View Transitions, <code>@starting-style</code></td></tr>
+              <tr><td><code>gsap</code></td><td>Timelines, ScrollTrigger, plugins</td></tr>
+              <tr><td><code>framer-motion</code></td><td>AnimatePresence, layout animations, gestos</td></tr>
+              <tr><td><code>threejs-r3f</code></td><td>Escenas 3D, shaders, postprocesado</td></tr>
+              <tr><td><code>canvas-generative</code></td><td>Partículas, flow fields, ruido, fractales</td></tr>
+              <tr><td><code>compose-motion</code> / <code>compose-graphics</code></td><td>Animación y gráficos en Jetpack Compose, shaders AGSL</td></tr>
+              <tr><td><code>swiftui-motion</code> / <code>swiftui-graphics</code></td><td>SwiftUI, Metal shaders, Liquid Glass</td></tr>
+              <tr><td><code>mobile-principles</code> / <code>desktop-principles</code></td><td>Zonas del pulgar, áreas táctiles, hover, teclado</td></tr>
+              <tr><td><code>design-audit</code></td><td>Checklist de accesibilidad, color, responsive, rendimiento</td></tr>
+              <tr><td><code>ui-ux-pro-max</code></td><td>84 estilos, 192 paletas, 74 combinaciones tipográficas, 99 guías</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="impeccable">Impeccable</h2>
+        <p>Impeccable es la otra mitad. No empieza por el efecto: empieza por el <strong>modo</strong> de la superficie. Según lo que la persona debe lograr, cambia todo el criterio.</p>
+
+        <h2 id="modos">Los cuatro modos</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Modo</th><th>El visitante…</th><th>Dónde se usa</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Persuade</strong></td><td>decide y actúa</td><td>Landings, campañas, precios</td></tr>
+              <tr><td><strong>Operate</strong></td><td>completa una tarea</td><td>Apps, paneles, editores, ajustes</td></tr>
+              <tr><td><strong>Read</strong></td><td>entiende algo</td><td>Documentación, artículos, guías</td></tr>
+              <tr><td><strong>Experience</strong></td><td>está dentro de la obra</td><td>Portafolios, galerías, showcases</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>La misma página puede ser de un modo y el producto de otro. La landing de una herramienta es Persuade; su documentación es Read. Elegir mal el modo produce interfaces que se ven bien y no sirven.</p>
+
+        <h2 id="comandos">Comandos</h2>
+        <p>Impeccable se maneja con subcomandos. Cada uno tiene su propio procedimiento:</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Comando</th><th>Qué hace</th></tr></thead>
+            <tbody>
+              <tr><td><code>init</code></td><td>Captura el contexto del producto en un <code>PRODUCT.md</code></td></tr>
+              <tr><td><code>shape</code></td><td>Planea UX y UI antes de escribir código</td></tr>
+              <tr><td><code>document</code></td><td>Genera un <code>DESIGN.md</code> a partir del código existente</td></tr>
+              <tr><td><code>extract</code></td><td>Extrae tokens y componentes reutilizables</td></tr>
+              <tr><td><code>critique</code></td><td>Revisión de UX con puntuación por heurísticas</td></tr>
+              <tr><td><code>audit</code></td><td>Accesibilidad, rendimiento y responsive</td></tr>
+              <tr><td><code>polish</code></td><td>Pasada final antes de publicar</td></tr>
+              <tr><td><code>bolder</code> / <code>quieter</code></td><td>Subir o bajar la intensidad del diseño</td></tr>
+              <tr><td><code>distill</code></td><td>Quitar todo lo que no sostiene la idea</td></tr>
+              <tr><td><code>harden</code></td><td>Errores, i18n, casos límite, producción</td></tr>
+              <tr><td><code>onboard</code></td><td>Primer uso, estados vacíos, activación</td></tr>
+              <tr><td><code>animate</code></td><td>Movimiento con intención</td></tr>
+              <tr><td><code>colorize</code> / <code>typeset</code> / <code>layout</code></td><td>Color estratégico, tipografía, ritmo y jerarquía</td></tr>
+              <tr><td><code>clarify</code></td><td>Textos de interfaz, etiquetas y errores</td></tr>
+              <tr><td><code>adapt</code></td><td>Adaptar a dispositivos y tamaños</td></tr>
+              <tr><td><code>optimize</code></td><td>Diagnosticar y arreglar rendimiento de UI</td></tr>
+              <tr><td><code>delight</code> / <code>overdrive</code></td><td>Personalidad y límites creativos</td></tr>
+              <tr><td><code>live</code></td><td>Iterar visualmente sobre elementos en el navegador</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="craft">El piso de calidad</h2>
+        <p>Impeccable no solo dice qué hacer: dice qué <strong>verificar</strong> antes de entregar. Un resumen de su piso de calidad:</p>
+
+        <ul class="checklist">
+          <li>Contraste: cuerpo y placeholders ≥ 4.5:1; texto grande ≥ 3:1.</li>
+          <li>Profundidad: las sombras tienen desplazamiento y desenfoque. Un halo de color sin desplazamiento es decoración.</li>
+          <li>Espaciado: grupos apretados, separación generosa, más aire arriba de un título que abajo.</li>
+          <li>Tipografía: medida de lectura de 65–75 caracteres, escala y pesos con pasos evidentes.</li>
+          <li>Movimiento: un solo momento coreografiado, con ease-out exponencial desde un estado ya visible.</li>
+          <li>Estados: hover, disabled, carga, error y vacío. Controles que funcionan de verdad.</li>
+          <li>Superficies del navegador: selección de texto, cursor, scrollbar, foco y subrayados, tematizados.</li>
+          <li>Textos: los controles nombran su acción; los errores dicen qué pasó y cómo se arregla.</li>
+          <li>Cobertura: todo lo que pedía el brief está presente y se encuentra en segundos.</li>
+        </ul>
+
+        <p>Y una lista de <strong>refusals</strong>: cosas que solo se aceptan si el brief las pide explícitamente.</p>
+
+        <div class="badgood">
+          <div class="bad"><b>Se rechaza por defecto</b><p>Texto con gradiente, tarjetas idénticas de icono + título + texto como estructura de página, cifras gigantes como hero, bordes de color a la izquierda, sombras duras sin desplazamiento, emojis como iconos, glassmorphism decorativo.</p></div>
+          <div class="good"><b>Se acepta con motivo</b><p>Cualquiera de esas cosas, si el mundo visual elegido las justifica. La diferencia entre estilo y defecto es si hubo una decisión.</p></div>
+        </div>
+
+        <h2 id="elegir">Cuál usar y cuándo</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Tu situación</th><th>Empieza con</th></tr></thead>
+            <tbody>
+              <tr><td>«La página funciona pero se siente muerta»</td><td>genjutsu cast</td></tr>
+              <tr><td>«No tengo identidad visual, solo un logo»</td><td>genjutsu paint</td></tr>
+              <tr><td>«Se ve bien pero nadie entiende qué hacer»</td><td>impeccable critique</td></tr>
+              <tr><td>«Está listo para publicar y quiero revisarlo»</td><td>impeccable audit</td></tr>
+              <tr><td>«El formulario falla y los errores son crípticos»</td><td>impeccable clarify + harden</td></tr>
+              <tr><td>«Quiero un hero que impresione»</td><td>genjutsu cast</td></tr>
+              <tr><td>«Quiero un sistema de diseño completo»</td><td>genjutsu paint + impeccable extract</td></tr>
+              <tr><td>«Es un desastre y no sé por dónde empezar»</td><td>impeccable critique, luego shape</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--info">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+            No las uses juntas a la vez
+          </div>
+          <p>Primero una, luego la otra. Si pides «pinta un universo y además audítalo y además anímalo» en un solo mensaje, el agente elegirá el camino más corto. Una puerta a la vez.</p>
+        </div>
+
+        <h2 id="instalar">Instalarlas</h2>
+        <p>Las dos viven en la carpeta de skills de opencode. Para que estén disponibles en todos tus proyectos:</p>
+
+        <div class="code">
+          <div class="code-head"><span>bash</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>mkdir -p ~/.config/opencode/skills
+cp -R skills/genjutsu-cast ~/.config/opencode/skills/
+cp -R skills/genjutsu-paint ~/.config/opencode/skills/
+cp -R skills/impeccable ~/.config/opencode/skills/</code></pre>
+        </div>
+
+        <p>O en un proyecto concreto, dentro de <code>.opencode/skills/</code>. En este repositorio tienes una copia de lectura de las tres en <a href="https://github.com/EverKrypton/tutorial-dev/tree/main/skills" target="_blank" rel="noopener">skills/</a>.</p>
+
+        <p>Para invocarlas, pide explícitamente por nombre si no se activan solas:</p>
+        <div class="code">
+          <div class="code-head"><span>texto</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>Usa la skill genjutsu-cast en el hero de esta página.
+La tesis: "debe sentirse como abrir una libreta nueva".</code></pre>
+        </div>
+
+        <div class="code">
+          <div class="code-head"><span>texto</span><button class="copy" type="button" data-copy>Copiar</button></div>
+          <pre><code>Usa impeccable para auditar esta página antes de publicar.
+Modo: Read. Revisa contraste, foco, responsive y estados.</code></pre>
+        </div>
+
+        <div class="callout callout--warn">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            Leen tu proyecto
+          </div>
+          <p>Estas skills abren archivos y, en algunos comandos, ejecutan scripts. Revisa qué permiso les das. Si tu proyecto tiene secretos, asegúrate de que estén fuera del alcance y de que <code>.env</code> esté ignorado.</p>
+        </div>
+
+        <h2 id="anatomia">Qué las hace profesionales</h2>
+        <p>Si quieres escribir tu propia skill de calidad, copia estos cinco patrones. Son la diferencia entre un prompt largo y un procedimiento real.</p>
+
+        <div class="rules">
+          <div class="rule">
+            <span class="rule-n">1</span>
+            <div>
+              <h3>Una descripción que decide</h3>
+              <p>La <code>description</code> no describe el tema: dice qué hace y cuándo usarla. Es lo que el agente lee para elegir. Si es vaga, la skill nunca se activa o se activa siempre.</p>
+            </div>
+          </div>
+          <div class="rule">
+            <span class="rule-n">2</span>
+            <div>
+              <h3>Reglas de hierro numeradas</h3>
+              <p>«Nunca codifiques sin una tesis validada». «Nunca instales una dependencia sin preguntar». Reglas cortas, absolutas y comprobables. No aspiraciones.</p>
+            </div>
+          </div>
+          <div class="rule">
+            <span class="rule-n">3</span>
+            <div>
+              <h3>Fases con puertas</h3>
+              <p>El trabajo avanza por etapas y cada una tiene un criterio de salida. Sin aprobación, no se pasa a la siguiente. Eso evita que el agente improvise veinte pasos y te entregue una sorpresa.</p>
+            </div>
+          </div>
+          <div class="rule">
+            <span class="rule-n">4</span>
+            <div>
+              <h3>Una auditoría obligatoria</h3>
+              <p>La última fase no es opcional, aunque el resultado parezca bueno. Sin verificación, la calidad depende del optimismo del modelo.</p>
+            </div>
+          </div>
+          <div class="rule">
+            <span class="rule-n">5</span>
+            <div>
+              <h3>Un formato de salida</h3>
+              <p>Qué debe devolver: una tabla, un diff, un archivo, un resumen con archivos tocados. Si no lo defines, cada ejecución termina distinto.</p>
+            </div>
+          </div>
+          <div class="rule">
+            <span class="rule-n">6</span>
+            <div>
+              <h3>Lista de señales de alarma</h3>
+              <p>Las mejores skills incluyen sus propios anti-patrones: «si estás a punto de hacer X, estás violando la skill». Eso corrige al agente en el momento, no después.</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 id="ejercicio">Ejercicio</h2>
+        <div class="exercise">
+          <span class="tag">Práctica</span>
+          <h4>Tu propia skill de diseño</h4>
+          <p>Escribe una skill llamada <code>mi-criterio-visual</code> con cinco reglas de hierro que sean tuyas: qué nunca aceptas, qué siempre verificas y cómo decides entre dos opciones. Incluye una fase de auditoría con tres comprobaciones concretas. Úsala en tu próxima página y anota qué regla te faltó. Esa es la que agregas después.</p>
+        </div>
+
+        <div class="callout callout--kid">
+          <div class="callout-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>
+            Lo importante
+          </div>
+          <p>Una skill buena no te da mejores respuestas: te obliga a hacer mejores preguntas. La diferencia entre «hazlo bonito» y «¿qué debería sentir alguien al abrir esto?» es toda la diferencia.</p>
+        </div>

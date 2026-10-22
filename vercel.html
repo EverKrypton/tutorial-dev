@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Publicar en Vercel — tutorial.dev</title>
 <meta name="description" content="Guía práctica de Vercel: deploy desde la CLI y desde GitHub, previews, dominios, variables de entorno, funciones serverless, logs y rollback.">
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f3f0e9">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#08090b">
 <meta property="og:title" content="Publicar en Vercel — tutorial.dev">
 <meta property="og:description" content="Guía práctica de Vercel: deploy desde la CLI y desde GitHub, previews, dominios, variables de entorno, funciones serverless, logs y rollback.">
 <meta property="og:type" content="article">
@@ -14,7 +14,7 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,300..800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -23,70 +23,78 @@
 <a class="skip" href="#main">Saltar al contenido</a>
 <div class="reading-bar" data-reading-bar></div>
 
-<header class="head">
-  <div class="wrap head-in">
-    <a class="brand" href="index.html">tutorial<em>.</em>dev<b>Catálogo de cursos</b></a>
-    <nav class="nav" aria-label="Principal">
+<header class="nav-wrap" data-nav>
+  <div class="wrap nav">
+    <a class="logo" href="index.html"><span class="logo-mark">t</span>tutorial<span>.dev</span></a>
+    <nav class="nav-links" aria-label="Principal">
       <a href="index.html#temario">Temario</a>
       <a href="fundamentos.html">Empezar</a>
       <a href="prompting.html">Prompting</a>
       <a href="arsenal.html">Arsenal</a>
+      <a href="descargas/tutorial-dev.pdf">PDF</a>
       <a href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener">GitHub</a>
     </nav>
-    <div class="tools">
-      <a class="progress" href="index.html#temario" data-progress-pill aria-label="Progreso del curso">
-        <span class="progress-num" data-progress-text>0/10</span>
-        <span class="progress-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    <div class="nav-actions">
+      <a class="progress-mini" href="index.html#temario" data-progress-pill aria-label="Progreso del curso">
+        <span class="progress-ring" data-progress-ring></span>
+        <b data-progress-text>0/10</b>
       </a>
       <button class="icon-btn" type="button" data-theme-toggle aria-label="Cambiar tema" aria-pressed="false">
-        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.4v2M12 19.6v2M4.5 4.5 6 6M18 18l1.5 1.5M2.4 12h2M19.6 12h2M4.5 19.5 6 18M18 6l1.5-1.5"/></svg>
-        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20.4 14.4A8.5 8.5 0 0 1 9.6 3.6a8.5 8.5 0 1 0 10.8 10.8Z"/></svg>
+        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
+        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20.4 14.4A8.5 8.5 0 0 1 9.6 3.6a8.5 8.5 0 1 0 10.8 10.8Z"/></svg>
       </button>
-      <button class="menu-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        Temario
+      <a class="btn btn--sm" href="fundamentos.html">Empezar</a>
+      <button class="burger" type="button" data-drawer-toggle aria-expanded="false" aria-controls="drawer" aria-label="Abrir temario">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
   </div>
 </header>
 
-<div class="menu" id="menu" data-menu hidden>
+<div class="drawer" id="drawer" data-drawer hidden>
   <div class="wrap">
-    <p class="menu-group">Curso · 10 capítulos</p>
-    <a class="mi" href="fundamentos.html"><span>01</span><b>Cómo piensa un programa</b><i>25 min</i></a>
-    <a class="mi" href="primera-web.html"><span>02</span><b>Tu primera página web</b><i>45 min</i></a>
-    <a class="mi" href="git-github.html"><span>03</span><b>Git y GitHub sin miedo</b><i>30 min</i></a>
-    <a class="mi" href="vercel.html" aria-current="page"><span>04</span><b>Publicar en Vercel</b><i>35 min</i></a>
-    <a class="mi" href="v0.html"><span>05</span><b>v0: tu copiloto de interfaces</b><i>30 min</i></a>
-    <a class="mi" href="ia-cli.html"><span>06</span><b>La IA en tu terminal</b><i>40 min</i></a>
-    <a class="mi" href="skills.html"><span>07</span><b>Skills: enséñale trucos a tu IA</b><i>25 min</i></a>
-    <a class="mi" href="agentes.html"><span>08</span><b>Tu propio agente</b><i>30 min</i></a>
-    <a class="mi" href="prompting.html"><span>09</span><b>Curso de prompting, a fondo</b><i>90 min</i></a>
-    <a class="mi" href="glosario.html"><span>10</span><b>Glosario y chuleta</b><i>10 min</i></a>
-    <p class="menu-group">Extra</p>
-    <a class="mi" href="arsenal.html"><span>★</span><b>El arsenal: genjutsu e impeccable</b><i>extra</i></a>
-    <p class="menu-group">Repositorio</p>
-    <a class="mi" href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener"><span>↗</span><b>GitHub</b><i>MIT</i></a>
+    <p class="drawer-label">Curso · 10 capítulos</p>
+    <a class="dl" href="fundamentos.html"><i>01</i>Cómo piensa un programa</a>
+    <a class="dl" href="primera-web.html"><i>02</i>Tu primera página web</a>
+    <a class="dl" href="git-github.html"><i>03</i>Git y GitHub sin miedo</a>
+    <a class="dl" href="vercel.html" aria-current="page"><i>04</i>Publicar en Vercel</a>
+    <a class="dl" href="v0.html"><i>05</i>v0: tu copiloto de interfaces</a>
+    <a class="dl" href="ia-cli.html"><i>06</i>La IA en tu terminal</a>
+    <a class="dl" href="skills.html"><i>07</i>Skills: enséñale trucos a tu IA</a>
+    <a class="dl" href="agentes.html"><i>08</i>Tu propio agente</a>
+    <a class="dl" href="prompting.html"><i>09</i>Curso de prompting, a fondo</a>
+    <a class="dl" href="glosario.html"><i>10</i>Glosario y chuleta</a>
+    <p class="drawer-label">Extra</p>
+    <a class="dl" href="arsenal.html"><i>★</i>El arsenal: genjutsu e impeccable</a>
+    <p class="drawer-label">Recursos</p>
+    <a class="dl" href="descargas/tutorial-dev.pdf"><i>↓</i>Curso completo en PDF</a>
+    <a class="dl" href="https://github.com/EverKrypton/tutorial-dev"><i>↗</i>Repositorio en GitHub</a>
   </div>
 </div>
 
 <main id="main">
-  <div class="entry-head">
+  <div class="entry">
     <div class="wrap">
-      <nav class="entry-crumbs" aria-label="Migas de pan">
-        <a href="index.html">Catálogo</a> <span>/</span> <span>Capítulo 04</span>
+      <nav class="crumbs" aria-label="Migas de pan">
+        <a href="index.html">Curso</a> <span>/</span> <span>Capítulo 04</span>
       </nav>
-      <div class="entry-title">
-        <span class="entry-n" aria-hidden="true">04</span>
+      <div class="entry-head">
+        <div class="entry-meta-top">
+          <span class="chip chip--accent">Capítulo 04</span>
+          <span class="chip">35 min</span>
+          <span class="chip">tu URL real</span>
+        <span class="chip">deploy</span>
+        </div>
         <h1>Publicar en Vercel.</h1>
+        <p class="entry-deck">Tener la página en tu computadora no sirve de mucho. Vercel la pone en internet, le da HTTPS y una URL que puedes mandar por WhatsApp. Y lo mejor: se actualiza cada vez que subes un cambio.</p>
+        <dl class="entry-facts">
+          <div><dt>Duración</dt><dd>35 min</dd></div>
+          <div><dt>Nivel</dt><dd>Inicial</dd></div>
+          <div><dt>Requisitos</dt><dd>Cuenta de GitHub</dd></div>
+          <div><dt>Al terminar</dt><dd>Una URL pública</dd></div>
+        </dl>
       </div>
-      <p class="entry-deck">Tener la página en tu computadora no sirve de mucho. Vercel la pone en internet, le da HTTPS y una URL que puedes mandar por WhatsApp. Y lo mejor: se actualiza cada vez que subes un cambio.</p>
-      <dl class="entry-meta">
-        <div><dt>Duración</dt><dd>35 min</dd></div>
-        <div><dt>Nivel</dt><dd>Inicial</dd></div>
-        <div><dt>Requisitos</dt><dd>Cuenta de GitHub</dd></div>
-        <div><dt>Al terminar</dt><dd>Una URL pública</dd></div>
-      </dl>
+      <div class="entry-foot-space"></div>
     </div>
   </div>
 
@@ -94,24 +102,24 @@
     <div class="article-grid">
       <aside class="rail" aria-label="Navegación del curso">
         <div class="rail-in">
-          <p class="rail-k">Curso</p>
+          <p class="rail-label">Curso</p>
           <ol class="rail-list">
-            <li><a href="fundamentos.html"><span>01</span>Cómo piensa un programa</a></li>
-            <li><a href="primera-web.html"><span>02</span>Tu primera página web</a></li>
-            <li><a href="git-github.html"><span>03</span>Git y GitHub sin miedo</a></li>
-            <li><a href="vercel.html" aria-current="page"><span>04</span>Publicar en Vercel</a></li>
-            <li><a href="v0.html"><span>05</span>v0: tu copiloto de interfaces</a></li>
-            <li><a href="ia-cli.html"><span>06</span>La IA en tu terminal</a></li>
-            <li><a href="skills.html"><span>07</span>Skills: enséñale trucos a tu IA</a></li>
-            <li><a href="agentes.html"><span>08</span>Tu propio agente</a></li>
-            <li><a href="prompting.html"><span>09</span>Curso de prompting, a fondo</a></li>
-            <li><a href="glosario.html"><span>10</span>Glosario y chuleta</a></li>
+            <li><a href="fundamentos.html" data-slug="fundamentos"><span>01</span>Cómo piensa un programa</a></li>
+            <li><a href="primera-web.html" data-slug="primera-web"><span>02</span>Tu primera página web</a></li>
+            <li><a href="git-github.html" data-slug="git-github"><span>03</span>Git y GitHub sin miedo</a></li>
+            <li><a href="vercel.html" data-slug="vercel" aria-current="page"><span>04</span>Publicar en Vercel</a></li>
+            <li><a href="v0.html" data-slug="v0"><span>05</span>v0: tu copiloto de interfaces</a></li>
+            <li><a href="ia-cli.html" data-slug="ia-cli"><span>06</span>La IA en tu terminal</a></li>
+            <li><a href="skills.html" data-slug="skills"><span>07</span>Skills: enséñale trucos a tu IA</a></li>
+            <li><a href="agentes.html" data-slug="agentes"><span>08</span>Tu propio agente</a></li>
+            <li><a href="prompting.html" data-slug="prompting"><span>09</span>Curso de prompting, a fondo</a></li>
+            <li><a href="glosario.html" data-slug="glosario"><span>10</span>Glosario y chuleta</a></li>
           </ol>
-          <p class="rail-k">Extra</p>
+          <p class="rail-label">Extra</p>
           <ol class="rail-list">
-            <li><a href="arsenal.html"><span>★</span>El arsenal: genjutsu e impeccable</a></li>
+            <li><a href="arsenal.html" data-slug="arsenal"><span>★</span>El arsenal: genjutsu e impeccable</a></li>
           </ol>
-          <p class="rail-k">En esta entrada</p>
+          <p class="rail-label">En esta entrada</p>
           <ol class="rail-toc">
             <li><a href="#que-es">Qué es Vercel</a></li>
             <li><a href="#cuenta">Cuenta y primer deploy</a></li>
@@ -129,7 +137,7 @@
       </aside>
       <div>
         <details class="toc-m">
-          <summary>En esta entrada</summary>
+          <summary>En esta entrada · 11 secciones</summary>
           <ol>
             <li><a href="#que-es">Qué es Vercel</a></li>
             <li><a href="#cuenta">Cuenta y primer deploy</a></li>
@@ -145,7 +153,7 @@
           </ol>
         </details>
         <article class="prose">
-        <h2 id="que-es" data-n="§ 01">Qué es Vercel</h2>
+        <h2 id="que-es">Qué es Vercel<a class="anchor" href="#que-es" aria-label="Enlace a esta sección">#</a></h2>
         <p>Vercel es una plataforma que toma tu proyecto, lo construye y lo sirve en internet. Tú subes archivos; Vercel se encarga del servidor, del certificado HTTPS, de la caché global y de que la web cargue rápido desde cualquier país.</p>
 
         <p>Piensa en tres capas:</p>
@@ -165,7 +173,7 @@
 
         <p>El plan gratuito (Hobby) es más que suficiente para aprender: proyectos ilimitados, HTTPS, deploys automáticos y dominios propios. Sus límites están pensados para uso personal, no comercial a gran escala.</p>
 
-        <h2 id="cuenta" data-n="§ 02">Cuenta y primer deploy</h2>
+        <h2 id="cuenta">Cuenta y primer deploy<a class="anchor" href="#cuenta" aria-label="Enlace a esta sección">#</a></h2>
         <ol class="steps">
           <li>
             <h4>Crea la cuenta</h4>
@@ -187,7 +195,7 @@
 
         <p>Si tu proyecto es HTML, CSS y JS sin framework, no necesitas configuración: Vercel sirve la carpeta raíz. Si tienes los archivos dentro de una subcarpeta, como <code>public/</code>, indícalo en <strong>Root Directory</strong>.</p>
 
-        <h2 id="cli" data-n="§ 03">La CLI</h2>
+        <h2 id="cli">La CLI<a class="anchor" href="#cli" aria-label="Enlace a esta sección">#</a></h2>
         <p>La interfaz web está bien para empezar, pero la terminal es más rápida y se puede automatizar. Instala la CLI:</p>
 
         <div class="code">
@@ -218,7 +226,7 @@ vercel whoami</code></pre>
           <p>Un token de Vercel da acceso a tu cuenta. No lo pegues en el código, no lo subas a GitHub y no lo compartas en capturas. Si se filtra, revócalo y crea otro.</p>
         </div>
 
-        <h2 id="deploy" data-n="§ 04">Deploy y producción</h2>
+        <h2 id="deploy">Deploy y producción<a class="anchor" href="#deploy" aria-label="Enlace a esta sección">#</a></h2>
         <p>Desde la carpeta del proyecto:</p>
 
         <div class="code">
@@ -251,7 +259,7 @@ vercel env ls        <span class="c"># variables de entorno</span>
 vercel domains ls    <span class="c"># dominios</span></code></pre>
         </div>
 
-        <h2 id="git" data-n="§ 05">Git + Vercel</h2>
+        <h2 id="git">Git + Vercel<a class="anchor" href="#git" aria-label="Enlace a esta sección">#</a></h2>
         <p>Cuando importas un repositorio, Vercel queda conectado. A partir de ahí:</p>
         <ul>
           <li>Cada <code>git push</code> a <code>main</code> genera un deploy de <strong>producción</strong>.</li>
@@ -267,7 +275,7 @@ vercel domains ls    <span class="c"># dominios</span></code></pre>
           <p>Nadie toca producción directamente. Se abre una rama, se sube, Vercel da una URL de preview, el equipo la revisa y solo entonces se mezcla a <code>main</code>. Es el flujo más sano y ya lo tienes gratis.</p>
         </div>
 
-        <h2 id="dominio" data-n="§ 06">Tu dominio</h2>
+        <h2 id="dominio">Tu dominio<a class="anchor" href="#dominio" aria-label="Enlace a esta sección">#</a></h2>
         <p>Una URL <code>algo.vercel.app</code> funciona, pero un dominio propio se ve más serio y es más fácil de recordar. Cuesta entre 10 y 15 dólares al año, aproximadamente.</p>
 
         <ol class="steps">
@@ -291,7 +299,7 @@ vercel domains ls    <span class="c"># dominios</span></code></pre>
 
         <p>Elige uno de los dos como principal (con o sin <code>www</code>) y redirige el otro. Tener las dos versiones sirve contenido duplicado y confunde a los buscadores.</p>
 
-        <h2 id="env" data-n="§ 07">Variables de entorno</h2>
+        <h2 id="env">Variables de entorno<a class="anchor" href="#env" aria-label="Enlace a esta sección">#</a></h2>
         <p>Una variable de entorno es un valor que tu app lee al ejecutarse, pero que no está escrito en el código. Sirve para claves de API, URLs de bases de datos y configuración por ambiente.</p>
 
         <p>En Vercel: <strong>Settings → Environment Variables</strong>. Cada variable se asigna a uno o más entornos: Production, Preview, Development.</p>
@@ -321,7 +329,7 @@ vercel domains ls    <span class="c"># dominios</span></code></pre>
         </div>
         <p>Ese archivo va en <code>.gitignore</code>. Siempre.</p>
 
-        <h2 id="funciones" data-n="§ 08">Funciones y API</h2>
+        <h2 id="funciones">Funciones y API<a class="anchor" href="#funciones" aria-label="Enlace a esta sección">#</a></h2>
         <p>Vercel no solo sirve archivos estáticos. También ejecuta código en el servidor cuando alguien llama a una ruta. Eso te permite esconder claves, hablar con una base de datos o procesar un formulario.</p>
 
         <p>Con Next.js (App Router) creas un archivo de ruta:</p>
@@ -344,7 +352,7 @@ vercel domains ls    <span class="c"># dominios</span></code></pre>
 
         <p>Estas funciones se ejecutan bajo demanda. Si nadie las llama, no consumen recursos. Es el modelo «serverless»: pagas por uso, no por un servidor encendido todo el día.</p>
 
-        <h2 id="trucos" data-n="§ 09">Logs, rollback y analytics</h2>
+        <h2 id="trucos">Logs, rollback y analytics<a class="anchor" href="#trucos" aria-label="Enlace a esta sección">#</a></h2>
         <ul>
           <li><strong>Logs:</strong> en el panel del deploy o con <code>vercel logs</code>. Ahí aparecen los <code>console.log</code> del servidor y los errores de ejecución.</li>
           <li><strong>Rollback:</strong> si un deploy de producción sale mal, puedes promover un deploy anterior con un clic. Vercel guarda el historial completo.</li>
@@ -353,7 +361,7 @@ vercel domains ls    <span class="c"># dominios</span></code></pre>
           <li><strong>Preview comments:</strong> deja comentarios sobre un deploy de preview para revisar con otras personas.</li>
         </ul>
 
-        <h2 id="errores" data-n="§ 10">Errores típicos</h2>
+        <h2 id="errores">Errores típicos<a class="anchor" href="#errores" aria-label="Enlace a esta sección">#</a></h2>
 
         <details>
           <summary>«Build failed» pero en local funciona</summary>
@@ -380,7 +388,7 @@ vercel domains ls    <span class="c"># dominios</span></code></pre>
           <div class="faq-body"><p>Revisa que la variable de entorno exista en el entorno Production, no solo en Preview. Es el error más común y el más frustrante.</p></div>
         </details>
 
-        <h2 id="checklist" data-n="§ 11">Checklist</h2>
+        <h2 id="checklist">Checklist<a class="anchor" href="#checklist" aria-label="Enlace a esta sección">#</a></h2>
         <ul class="checklist">
           <li>El proyecto está en GitHub y Vercel está conectado.</li>
           <li>Un push a <code>main</code> genera deploy de producción.</li>
@@ -397,7 +405,7 @@ vercel domains ls    <span class="c"># dominios</span></code></pre>
           <div class="stamp-row">
             <button class="stamp" type="button" data-complete="vercel" aria-pressed="false">
               <span class="bx" aria-hidden="true">✓</span>
-              Marcar entrada como completada
+              Marcar como completado
             </button>
             <span class="stamp-note">Se guarda en este navegador</span>
           </div>
@@ -414,7 +422,7 @@ vercel domains ls    <span class="c"># dominios</span></code></pre>
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <a class="foot-brand" href="index.html">tutorial<em>.</em>dev</a>
+        <a class="foot-brand" href="index.html"><span class="logo-mark">t</span>tutorial<span style="color:var(--ink-subtle)">.dev</span></a>
         <p class="foot-note">Curso abierto para aprender a construir y publicar para la web. Escrito para quien empieza de cero, sin saltarse los porqués.</p>
       </div>
       <div class="foot-cols">
@@ -437,13 +445,13 @@ vercel domains ls    <span class="c"># dominios</span></code></pre>
           <a href="prompting.html">Curso de prompting</a>
           <a href="glosario.html">Glosario</a>
           <a href="arsenal.html">El arsenal</a>
-          <a href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener">GitHub</a>
+          <a href="descargas/tutorial-dev.pdf">PDF completo</a>
         </div>
       </div>
     </div>
     <div class="colophon">
       <span>© <span data-year>2026</span> tutorial.dev · Licencia MIT</span>
-      <span>HTML y CSS a mano · Deploy automático en Vercel</span>
+      <span><a href="https://github.com/EverKrypton/tutorial-dev">Código abierto</a> · Deploy automático en Vercel</span>
     </div>
   </div>
 </footer>

@@ -1,0 +1,24 @@
+{
+  "file": "v0.html",
+  "page": "v0",
+  "chapter": "05",
+  "title": "v0 de Vercel: tu copiloto de interfaces — tutorial.dev",
+  "desc": "Cómo usar v0 para crear interfaces y aplicaciones reales: prompting visual, iteración, código editable, integración con GitHub y deploy en Vercel.",
+  "h1": "v0: tu copiloto de interfaces.",
+  "lede": "v0 es un agente de Vercel que convierte una descripción en una interfaz real, con código que puedes abrir, editar y publicar. No es magia: es un compañero que necesita buenas instrucciones y criterio.",
+  "tags": ["30 min", "IA visual", "Next.js"],
+  "toc": [
+    ["#que-es", "Qué es v0 (y qué no)"],
+    ["#empezar", "Tu primera pantalla"],
+    ["#prompt", "Cómo pedir bien"],
+    ["#iterar", "Iterar sin perder el rumbo"],
+    ["#codigo", "El código es tuyo"],
+    ["#deploy", "De v0 a producción"],
+    ["#usos", "Usos que valen la pena"],
+    ["#limites", "Límites y trampas"],
+    ["#ejercicio", "Ejercicio"]
+  ],
+  "prev": ["vercel.html", "Publicar en Vercel"],
+  "next": ["ia-cli.html", "La IA en tu terminal"],
+  "body": "v0.body.html"
+}
