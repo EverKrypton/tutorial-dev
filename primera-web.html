@@ -5,14 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tu primera página web — tutorial.dev</title>
 <meta name="description" content="HTML, CSS y JavaScript desde cero: cómo funciona el navegador, maquetación mobile first, accesibilidad y un proyecto completo para copiar y entender.">
-<meta name="theme-color" content="#eef0f4">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f1f2f5">
 <meta property="og:title" content="Tu primera página web — tutorial.dev">
 <meta property="og:description" content="HTML, CSS y JavaScript desde cero: cómo funciona el navegador, maquetación mobile first, accesibilidad y un proyecto completo para copiar y entender.">
 <meta property="og:type" content="article">
+<meta property="og:locale" content="es_ES">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -21,95 +23,122 @@
 <a class="skip" href="#main">Saltar al contenido</a>
 <div class="reading-bar" data-reading-bar></div>
 
-<header class="site-head">
-  <div class="wrap head-in">
-    <a class="brand" href="index.html" aria-label="tutorial.dev, inicio">
-      <span class="brand-mark" aria-hidden="true">t.</span>
-      tutorial<span>.dev</span>
-    </a>
-    <nav class="nav-desk" aria-label="Principal">
-      <a href="fundamentos.html" data-nav="fundamentos">Fundamentos</a>
-      <a href="primera-web.html" data-nav="primera-web">Primera web</a>
-      <a href="vercel.html" data-nav="vercel">Vercel</a>
-      <a href="v0.html" data-nav="v0">v0</a>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="index.html">tutorial<span>.</span>dev</a>
+    <nav class="nav" aria-label="Principal">
+      <a href="index.html#indice">Índice</a>
+      <a href="fundamentos.html" data-nav="fundamentos">Empezar</a>
       <a href="prompting.html" data-nav="prompting">Prompting</a>
-      <a href="glosario.html" data-nav="glosario">Glosario</a>
       <a href="arsenal.html" data-nav="arsenal">Arsenal</a>
+      <a href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener">GitHub</a>
     </nav>
-    <div class="head-tools">
-      <a class="progress-pill" href="index.html#ruta" data-progress-pill>
-        <span class="dot" aria-hidden="true"></span>
-        <b data-progress-text>0/10</b> hecho
+    <div class="tools">
+      <a class="progress" href="index.html#indice" data-progress-pill aria-label="Progreso del curso">
+        <span class="progress-num" data-progress-text>0/10</span>
+        <span class="progress-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </a>
-      <button class="icon-btn" data-theme-toggle aria-label="Cambiar tema" aria-pressed="false">
-        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></svg>
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Cambiar tema" aria-pressed="false">
+        <svg data-icon-sun viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg>
+        <svg data-icon-moon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z"/></svg>
       </button>
-      <button class="menu-btn" data-menu-toggle aria-expanded="false" aria-controls="menu-movil">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        Menú
+      <button class="menu-btn" type="button" data-menu-toggle aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Índice
       </button>
     </div>
   </div>
 </header>
 
-<div class="mobile-menu" id="menu-movil" data-menu hidden>
+<div class="menu" id="menu" data-menu hidden>
   <div class="wrap">
-    <p class="mm-label">Empezar</p>
-    <a class="mm-link" href="fundamentos.html">Fundamentos <small>01</small></a>
-    <a class="mm-link" href="primera-web.html">Tu primera web <small>02</small></a>
-    <a class="mm-link" href="git-github.html">Git y GitHub <small>03</small></a>
-    <a class="mm-link" href="vercel.html">Publicar en Vercel <small>04</small></a>
-    <p class="mm-label">Construir con IA</p>
-    <a class="mm-link" href="v0.html">v0 de Vercel <small>05</small></a>
-    <a class="mm-link" href="ia-cli.html">IA en tu terminal <small>06</small></a>
-    <a class="mm-link" href="skills.html">Skills <small>07</small></a>
-    <a class="mm-link" href="agentes.html">Tu propio agente <small>08</small></a>
-    <p class="mm-label">Profundizar</p>
-    <a class="mm-link" href="prompting.html">Curso de prompting <small>09</small></a>
-    <a class="mm-link" href="glosario.html">Glosario y chuleta <small>10</small></a>
-    <p class="mm-label">Extra</p>
-    <a class="mm-link" href="arsenal.html">El arsenal: genjutsu e impeccable <small>★</small></a>
+    <p class="menu-group">Curso</p>
+    <a class="mi" href="fundamentos.html"><span>01</span><b>Cómo piensa un programa</b><i>25 min</i></a>
+    <a class="mi" href="primera-web.html" aria-current="page"><span>02</span><b>Tu primera página web</b><i>45 min</i></a>
+    <a class="mi" href="git-github.html"><span>03</span><b>Git y GitHub sin miedo</b><i>30 min</i></a>
+    <a class="mi" href="vercel.html"><span>04</span><b>Publicar en Vercel</b><i>35 min</i></a>
+    <a class="mi" href="v0.html"><span>05</span><b>v0: tu copiloto de interfaces</b><i>30 min</i></a>
+    <a class="mi" href="ia-cli.html"><span>06</span><b>La IA en tu terminal</b><i>40 min</i></a>
+    <a class="mi" href="skills.html"><span>07</span><b>Skills: enséñale trucos a tu IA</b><i>25 min</i></a>
+    <a class="mi" href="agentes.html"><span>08</span><b>Tu propio agente</b><i>30 min</i></a>
+    <a class="mi" href="prompting.html"><span>09</span><b>Curso de prompting, a fondo</b><i>90 min</i></a>
+    <a class="mi" href="glosario.html"><span>10</span><b>Glosario y chuleta</b><i>10 min</i></a>
+    <p class="menu-group">Extra</p>
+    <a class="mi" href="arsenal.html"><span>★</span><b>El arsenal: genjutsu e impeccable</b><i></i></a>
+    <p class="menu-group">Repositorio</p>
+    <a class="mi" href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener"><span>↗</span><b>GitHub</b><i></i></a>
   </div>
 </div>
 
 <main id="main">
-  <header class="page-head">
+  <div class="page-head">
     <div class="wrap">
       <nav class="crumbs" aria-label="Migas de pan">
         <a href="index.html">Inicio</a> <span>/</span> <span>Capítulo 02</span>
       </nav>
-      <div class="page-title-row">
-        <div class="chapter-stamp" aria-hidden="true">02</div>
-        <h1>Tu primera página web.</h1>
-      </div>
+      <h1>Tu primera página web.</h1>
       <p class="page-lede">Una web son tres capas: HTML pone el esqueleto, CSS pone la ropa y JavaScript pone los músculos. Vas a construir una página real, entender cada línea y abrirla en tu teléfono.</p>
-      <div class="page-meta"><span class="tag">45 min</span>
-        <span class="tag">proyecto incluido</span>
-        <span class="tag">mobile first</span></div>
-    </div>
-  </header>
-
-  <div class="article-wrap">
-    <div class="wrap article-grid">
-      <aside class="toc" aria-label="En esta página">
-      <div class="toc-inner">
-        <h2>En esta página</h2>
-        <ol>
-          <li><a href="#como-funciona">Qué pasa cuando abres una web</a></li>
-          <li><a href="#html">HTML: el esqueleto</a></li>
-          <li><a href="#css">CSS: la ropa</a></li>
-          <li><a href="#layout">Cajas, flex y grid</a></li>
-          <li><a href="#mobile">Mobile first de verdad</a></li>
-          <li><a href="#js">JavaScript: los músculos</a></li>
-          <li><a href="#a11y">Accesibilidad mínima</a></li>
-          <li><a href="#proyecto">Proyecto: tu tarjeta</a></li>
-          <li><a href="#devtools">DevTools</a></li>
-          <li><a href="#siguiente">Qué sigue</a></li>
-        </ol>
+      <div class="page-meta">
+        <span class="tag">45 min</span>
+          <span class="tag">proyecto incluido</span>
+          <span class="tag">mobile first</span>
       </div>
-    </aside>
-      <article class="prose">
+    </div>
+  </div>
+
+  <div class="wrap article">
+    <div class="article-grid">
+      <aside class="rail" aria-label="Navegación del curso">
+        <div class="rail-in">
+          <p class="rail-label">Curso</p>
+          <ol class="rail-list">
+            <li><a href="fundamentos.html"><span>01</span>Cómo piensa un programa</a></li>
+            <li><a href="primera-web.html" aria-current="page"><span>02</span>Tu primera página web</a></li>
+            <li><a href="git-github.html"><span>03</span>Git y GitHub sin miedo</a></li>
+            <li><a href="vercel.html"><span>04</span>Publicar en Vercel</a></li>
+            <li><a href="v0.html"><span>05</span>v0: tu copiloto de interfaces</a></li>
+            <li><a href="ia-cli.html"><span>06</span>La IA en tu terminal</a></li>
+            <li><a href="skills.html"><span>07</span>Skills: enséñale trucos a tu IA</a></li>
+            <li><a href="agentes.html"><span>08</span>Tu propio agente</a></li>
+            <li><a href="prompting.html"><span>09</span>Curso de prompting, a fondo</a></li>
+            <li><a href="glosario.html"><span>10</span>Glosario y chuleta</a></li>
+          </ol>
+          <p class="rail-label">Extra</p>
+          <ol class="rail-list">
+            <li><a href="arsenal.html"><span>★</span>El arsenal: genjutsu e impeccable</a></li>
+          </ol>
+          <p class="rail-label">En esta página</p>
+          <ol class="rail-toc">
+            <li><a href="#como-funciona">Qué pasa cuando abres una web</a></li>
+            <li><a href="#html">HTML: el esqueleto</a></li>
+            <li><a href="#css">CSS: la ropa</a></li>
+            <li><a href="#layout">Cajas, flex y grid</a></li>
+            <li><a href="#mobile">Mobile first de verdad</a></li>
+            <li><a href="#js">JavaScript: los músculos</a></li>
+            <li><a href="#a11y">Accesibilidad mínima</a></li>
+            <li><a href="#proyecto">Proyecto: tu tarjeta</a></li>
+            <li><a href="#devtools">DevTools</a></li>
+            <li><a href="#siguiente">Qué sigue</a></li>
+          </ol>
+        </div>
+      </aside>
+      <div>
+        <details class="toc-mobile">
+          <summary>En esta página</summary>
+          <ol>
+            <li><a href="#como-funciona">Qué pasa cuando abres una web</a></li>
+            <li><a href="#html">HTML: el esqueleto</a></li>
+            <li><a href="#css">CSS: la ropa</a></li>
+            <li><a href="#layout">Cajas, flex y grid</a></li>
+            <li><a href="#mobile">Mobile first de verdad</a></li>
+            <li><a href="#js">JavaScript: los músculos</a></li>
+            <li><a href="#a11y">Accesibilidad mínima</a></li>
+            <li><a href="#proyecto">Proyecto: tu tarjeta</a></li>
+            <li><a href="#devtools">DevTools</a></li>
+            <li><a href="#siguiente">Qué sigue</a></li>
+          </ol>
+        </details>
+        <article class="prose">
         <h2 id="como-funciona">Qué pasa cuando abres una web</h2>
         <p>Escribes una dirección, pulsas Enter y aparece una página. En medio pasan cuatro cosas:</p>
         <ol class="steps">
@@ -532,39 +561,43 @@ boton.addEventListener(<span class="s">"click"</span>, () =&gt; {
           <li>El texto se lee sin hacer zoom.</li>
         </ul>
 
-        <div class="chapter-end">
+        </article>
+
+        <div class="article-foot">
           <button class="complete-btn" type="button" data-complete="primera-web" aria-pressed="false">
             <span class="box" aria-hidden="true">✓</span>
-            Marcar capítulo como completado
+            Marcar como completado
           </button>
           <span class="complete-note">Se guarda en este navegador</span>
         </div>
+
         <nav class="pager" aria-label="Capítulos"><a href="fundamentos.html"><small>← Anterior</small><b>Cómo piensa un programa</b></a><a class="next" href="git-github.html"><small>Siguiente →</small><b>Git y GitHub sin miedo</b></a></nav>
-      </article>
+        <p class="keys">Atajos: <span class="kbd">←</span> <span class="kbd">→</span> para moverte entre capítulos</p>
+      </div>
     </div>
   </div>
 
 </main>
 
-<footer class="site-foot">
+<footer class="foot">
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <a class="foot-brand" href="index.html"><span class="brand-mark" aria-hidden="true">t.</span>tutorial<span>.dev</span></a>
-        <p style="margin-top:14px">Un curso abierto para aprender a construir y publicar en la web. Hecho con HTML, CSS y unas pocas líneas de JavaScript.</p>
+        <a class="foot-brand" href="index.html">tutorial<span>.</span>dev</a>
+        <p class="foot-note">Un curso abierto para aprender a construir y publicar para la web. Escrito para quien empieza de cero, sin saltarse los porqués.</p>
       </div>
       <div class="foot-cols">
         <div>
-          <h3>Aprender</h3>
+          <h3>Curso</h3>
           <a href="fundamentos.html">Fundamentos</a>
           <a href="primera-web.html">Primera web</a>
           <a href="git-github.html">Git y GitHub</a>
           <a href="vercel.html">Vercel</a>
         </div>
         <div>
-          <h3>Construir</h3>
+          <h3>Construir con IA</h3>
           <a href="v0.html">v0</a>
-          <a href="ia-cli.html">IA en CLI</a>
+          <a href="ia-cli.html">IA en la terminal</a>
           <a href="skills.html">Skills</a>
           <a href="agentes.html">Agentes</a>
         </div>
@@ -572,15 +605,14 @@ boton.addEventListener(<span class="s">"click"</span>, () =&gt; {
           <h3>Más</h3>
           <a href="prompting.html">Curso de prompting</a>
           <a href="glosario.html">Glosario</a>
-          <a href="arsenal.html">Arsenal</a>
+          <a href="arsenal.html">El arsenal</a>
           <a href="https://github.com/EverKrypton/tutorial-dev" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a>
         </div>
       </div>
     </div>
-    <div class="foot-bottom">
-      <span>© <span data-year>2026</span> tutorial.dev · Hecho para aprender haciendo</span>
-      <span>Deploy en Vercel · Código abierto en GitHub</span>
+    <div class="colophon">
+      <span>© <span data-year>2026</span> tutorial.dev · Licencia MIT</span>
+      <span>HTML y CSS a mano. Deploy automático en Vercel.</span>
     </div>
   </div>
 </footer>

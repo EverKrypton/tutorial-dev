@@ -38,7 +38,7 @@
     });
   });
 
-  /* ---------- menú móvil ---------- */
+  /* ---------- menú ---------- */
   const menu = document.querySelector("[data-menu]");
   const menuBtn = document.querySelector("[data-menu-toggle]");
   if (menu && menuBtn) {
@@ -61,7 +61,7 @@
       if (e.key === "Escape" && !menu.hidden) setOpen(false);
     });
     window.addEventListener("resize", () => {
-      if (window.innerWidth >= 900 && !menu.hidden) {
+      if (window.innerWidth >= 760 && !menu.hidden) {
         menu.hidden = true;
         document.body.style.overflow = "";
         menuBtn.setAttribute("aria-expanded", "false");
@@ -83,10 +83,10 @@
     document.querySelectorAll("[data-progress-text]").forEach((el) => {
       el.textContent = `${done.length}/${TOTAL}`;
     });
-    document.querySelectorAll("[data-progress-pill]").forEach((el) => {
-      el.dataset.done = String(done.length === TOTAL);
+    document.querySelectorAll(".progress-track i").forEach((seg, i) => {
+      seg.classList.toggle("is-on", i < done.length);
     });
-    document.querySelectorAll(".chapter[data-slug]").forEach((el) => {
+    document.querySelectorAll(".row[data-slug]").forEach((el) => {
       el.classList.toggle("is-done", done.includes(el.dataset.slug));
     });
     document.querySelectorAll("[data-complete]").forEach((btn) => {
@@ -104,7 +104,7 @@
       else done.push(slug);
       writeProgress(done);
       paintProgress();
-      toast(i >= 0 ? "Capítulo desmarcado" : "¡Capítulo completado!");
+      toast(i >= 0 ? "Capítulo desmarcado" : "Capítulo completado");
     });
   });
 
@@ -122,7 +122,7 @@
     window.addEventListener("resize", update);
   }
 
-  /* ---------- copiar código ---------- */
+  /* ---------- copiar ---------- */
   document.querySelectorAll("[data-copy]").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const box = btn.closest(".code");
@@ -172,11 +172,11 @@
     toastTimer = setTimeout(() => toastEl.classList.remove("is-on"), 1900);
   }
 
-  /* ---------- reveal ---------- */
-  const reveals = document.querySelectorAll(".reveal");
-  if (reveals.length) {
+  /* ---------- aparición ---------- */
+  const rises = document.querySelectorAll(".rise");
+  if (rises.length) {
     if (!("IntersectionObserver" in window)) {
-      reveals.forEach((el) => el.classList.add("is-in"));
+      rises.forEach((el) => el.classList.add("is-in"));
     } else {
       const io = new IntersectionObserver(
         (entries) => {
@@ -187,14 +187,14 @@
             }
           });
         },
-        { rootMargin: "0px 0px -8% 0px", threshold: 0.06 }
+        { rootMargin: "0px 0px -6% 0px", threshold: 0.04 }
       );
-      reveals.forEach((el) => io.observe(el));
+      rises.forEach((el) => io.observe(el));
     }
   }
 
-  /* ---------- TOC activo ---------- */
-  const tocLinks = Array.from(document.querySelectorAll(".toc a[href^='#']"));
+  /* ---------- índice activo ---------- */
+  const tocLinks = Array.from(document.querySelectorAll(".rail-toc a[href^='#']"));
   if (tocLinks.length && "IntersectionObserver" in window) {
     const map = new Map();
     tocLinks.forEach((a) => {
@@ -211,19 +211,32 @@
           if (link) link.classList.add("is-active");
         });
       },
-      { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+      { rootMargin: "-15% 0px -72% 0px", threshold: 0 }
     );
     map.forEach((_, target) => io.observe(target));
+  }
+
+  /* ---------- atajos de capítulo ---------- */
+  const pager = document.querySelector(".pager");
+  if (pager) {
+    const prev = pager.querySelector("a:not(.next)");
+    const next = pager.querySelector("a.next");
+    document.addEventListener("keydown", (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+      const el = document.activeElement;
+      if (el && (/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName) || el.isContentEditable)) return;
+      if (e.key === "ArrowLeft" && prev) {
+        e.preventDefault();
+        window.location.href = prev.getAttribute("href");
+      } else if (e.key === "ArrowRight" && next) {
+        e.preventDefault();
+        window.location.href = next.getAttribute("href");
+      }
+    });
   }
 
   /* ---------- año ---------- */
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = String(new Date().getFullYear());
   });
-
-  /* ---------- nav activo ---------- */
-  const page = document.body.dataset.page;
-  if (page) {
-    document.querySelectorAll(`[data-nav="${page}"]`).forEach((a) => a.classList.add("is-here"));
-  }
 })();

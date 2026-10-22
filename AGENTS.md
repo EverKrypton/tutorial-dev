@@ -21,12 +21,13 @@ Guía para agentes de IA que trabajen en este repositorio.
 
 - Todo el contenido y la interfaz están en español.
 - Mobile first: los estilos base son para teléfono; los `@media` añaden complejidad.
-- Usa las variables CSS de `:root` (`--ink`, `--paper`, `--blue`, `--acid`, `--line`, `--muted`). No introduzcas colores nuevos sin motivo.
-- Los capítulos comparten la misma cabecera, pie, botón de completar y paginador. Mantén esa estructura.
-- Tipografías: Bricolage Grotesque (títulos), Archivo (cuerpo), JetBrains Mono (código).
+- Usa las variables CSS de `:root` (`--paper`, `--surface`, `--ink`, `--ink-2`, `--muted`, `--line`, `--line-2`, `--accent`). No introduzcas colores nuevos.
+- El sistema es editorial y sobrio: reglas de 1px, sin sombras, sin gradientes, sin tarjetas con borde redondeado grande. Un solo acento (`--accent`).
+- Los capítulos comparten cabecera, rail lateral, pie, botón de completar y paginador. Mantén esa estructura.
+- Tipografías: Archivo variable (cuerpo y títulos, con `wdth` 110-112 en títulos) y JetBrains Mono (código y metadatos).
 - No agregues dependencias ni frameworks sin preguntar.
 - Cada bloque de código usa `.code` con `.code-head` y `data-copy`.
-- Los callouts usan `.callout` con la variante `--kid`, `--warn` o `--info`.
+- Los callouts usan `.callout` con la variante `--kid`, `--warn` o `--info`; se distinguen por el borde superior y la etiqueta mono, no por cajas de color.
 
 ## Cómo comprobar
 
